@@ -1,0 +1,81 @@
+/* src/app/landing/landing.component.css */
+
+/* Styles généraux de la landing page */
+.landing-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+    background: #f8f9fa;
+  }
+  
+  header h1 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  header p {
+    font-size: 1.2rem;
+    color: #6c757d;
+  }
+  
+  .cta {
+    margin: 2rem 0;
+  }
+  
+  .btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .btn-primary {
+    background-color: #ff6347;
+    color: #fff;
+  }
+  
+  footer p {
+    font-size: 0.9rem;
+    color: #adb5bd;
+  }
+  
+  /* Section du défilement de pizzas */
+  .pizza-scroller {
+    overflow: hidden;
+    width: 100vw; /* Occupe toute la largeur du viewport */
+    background: #fff;
+    border: 2px solid #ddd;
+    padding: 10px;
+    box-sizing: border-box; /* Pour inclure padding et border dans la largeur */
+  }
+  
+  /* Le conteneur contient deux copies de la liste de pizzas */
+  .pizza-container {
+    display: flex;
+    /* On laisse la largeur s'adapter au contenu (les deux listes concaténées) */
+    animation: scroll 30s linear infinite;
+  }
+  
+  /* Animation pour faire défiler la bande de pizzas */
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      /* Si la duplication est parfaite, -50% correspond à la largeur d'une copie */
+      transform: translateX(-50%);
+    }
+  }
+  
+  .pizza {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin: 0 10px;
+    object-fit: cover;
+  }
+  
