@@ -67,14 +67,4 @@ public class Order {
          return id != null ? Objects.hash(id) : getClass().hashCode();
     }
 
-     // --- Méthodes utilitaires pour ajouter/retirer des items (gestion bidirectionnelle) ---
-    public void addOrderItem(OrderItem item) {
-        orderItems.add(item);
-        item.setOrder(this);
-    }
-
-    public void removeOrderItem(OrderItem item) {
-        orderItems.remove(item);
-        item.setOrder(null);
-    }
 }
