@@ -48,7 +48,6 @@ public class Order {
 
     @PrePersist // Méthode appelée juste avant la sauvegarde initiale
     protected void onCreate() {
-        this.orderDate = LocalDateTime.now();
         if (this.status == null) {
             this.status = EOrderStatus.PENDING; // Statut par défaut
         }
