@@ -26,9 +26,6 @@ public class Pizza { // Correction: 'class' en minuscule
     @Column(length = 100, nullable = false, unique = true)
     private String name;
 
-    @Column(length = 255)
-    private String description;
-
     // Prix de base de la pizza AVEC ses ingrédients standards
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal basePrice;

@@ -32,12 +32,6 @@ public class Order {
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal totalAmount;
 
-    @Column(length = 255) // Adresse de livraison
-    private String deliveryAddress;
-
-    @Column(length = 20) // Téléphone de contact
-    private String phoneNumber;
-
     // Relation ManyToOne avec User (Plusieurs commandes peuvent appartenir à un User)
     // fetch=LAZY => Ne charge pas l'utilisateur systématiquement (bonne pratique)
     // nullable=false => Une commande DOIT avoir un utilisateur associé

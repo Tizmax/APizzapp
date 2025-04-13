@@ -24,16 +24,13 @@ public class Ingredient { // Correction: 'class' en minuscule
     @Column(length = 100, nullable = false, unique = true)
     private String name; 
 
-    @Column(length = 255)
-    private String description;
-
     // Indique si cet ingrédient peut être proposé comme supplément payant
     @Column(nullable = false)
     private boolean availableAsSupplement = true; // Par défaut, on peut l'ajouter
 
     // Prix de cet ingrédient S'IL EST AJOUTÉ comme supplément
     // Peut être 0.00 si le supplément est gratuit, ou null/0 si non dispo en supplément
-    @Column(precision = 5, scale = 2) // Ajustez precision/scale
+    @Column(precision = 10, scale = 2) // Ajustez precision/scale
     private BigDecimal supplementPrice;
 
     @Column(length = 255)
