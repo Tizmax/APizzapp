@@ -17,7 +17,7 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Pizza { 
+public class Pizza { // Correction: 'class' en minuscule
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
