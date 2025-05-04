@@ -1,0 +1,24 @@
+services:
+  # Nom du service (vous pouvez choisir ce que vous voulez, 'db' est une convention)
+  db:
+    image: postgres:16 # L'image Docker à utiliser (ex: version 16)
+    container_name: apizzetta-db # Nom du conteneur (optionnel, mais pratique)
+    environment:
+      # Variables d'environnement pour configurer Postgres au démarrage
+      # ATTENTION: Mettre des mots de passe ici est pratique mais pas idéal pour la sécurité
+      # Voir la section sur le fichier .env ci-dessous
+      POSTGRES_USER: Tizmax
+      POSTGRES_PASSWORD: MotDePasseSuperSecret # 
+      POSTGRES_DB: apizzetta-db
+    ports:
+      # Mappe le port 5432 de votre machine au port 5432 du conteneur
+      - "5432:5432"
+    volumes:
+      # Monte un volume nommé pour la persistance des données
+      - apizzetta-db-data:/var/lib/postgresql/data
+    restart: unless-stopped # Politique de redémarrage (optionnel)
+
+volumes:
+  # Déclare le volume nommé utilisé ci-dessus
+  apizzetta-db-data:
+    driver: local # Utilise le driver par défaut pour les volumes locaux

@@ -1,4 +1,4 @@
-package com.apizzapp.model; // Assurez-vous que le package est correct
+package com.apizzapp.model; 
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -7,21 +7,23 @@ import lombok.Setter;
 import lombok.EqualsAndHashCode;
 
 import java.math.BigDecimal;
-import java.util.HashSet; // Importer HashSet
-import java.util.Set;     // Importer Set
-import java.util.Objects;
+import java.util.HashSet; 
+import java.util.Set;
 
 @Entity
-@Table(name = "pizzas")
+@Table(name = "order_items")
 @Getter
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Pizza { // Correction: 'class' en minuscule
+public class OrderItem { 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
+    private Long orderId;
 
     @Column(length = 100, nullable = false, unique = true)
     private String name;
@@ -43,9 +45,8 @@ public class Pizza { // Correction: 'class' en minuscule
     private Set<Ingredient> baseIngredients = new HashSet<>(); // Les ingrédients standards
 
     // Correction: Constructeur correct
-    public Pizza(String name, String description, BigDecimal basePrice, String imageUrl) {
+    public OrderItem(String name, String description, BigDecimal basePrice, String imageUrl) {
         this.name = name;
-        this.description = description;
         this.basePrice = basePrice;
         this.imageUrl = imageUrl;
     }
