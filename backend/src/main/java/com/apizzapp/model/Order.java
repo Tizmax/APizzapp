@@ -43,7 +43,7 @@ public class Order {
     // cascade=ALL => Si on supprime une Order, ses OrderItem sont supprimés
     // orphanRemoval=true => Si on retire un OrderItem de la liste, il est supprimé
     // fetch=LAZY => Charger les items seulement quand nécessaire
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "orderId", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<OrderItem> orderItems = new ArrayList<>(); // Initialiser
 
     @PrePersist // Méthode appelée juste avant la sauvegarde initiale
