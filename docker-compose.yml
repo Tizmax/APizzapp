@@ -31,6 +31,17 @@ services:
     depends_on:
       - db
 
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: DockerFile  # spécifier le chemin du Dockerfile
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules  # Empêche les conflits entre node_modules local et conteneur
+    command: npm run start
+
 volumes:
   # Déclare le volume nommé utilisé ci-dessus
   apizzetta-db-data:
