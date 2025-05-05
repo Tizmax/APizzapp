@@ -18,6 +18,30 @@ services:
       - apizzetta-db-data:/var/lib/postgresql/data
     restart: unless-stopped # Politique de redémarrage (optionnel)
 
+  backend:
+    build:
+      context: .
+      dockerfile: DockerFile  # spécifier le chemin du Dockerfile
+    ports:
+      - "8080:8080"  # expose le port 8080 de votre backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/apizzetta-db
+      SPRING_DATASOURCE_USERNAME: Tizmax
+      SPRING_DATASOURCE_PASSWORD: MotDePasseSuperSecret
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: DockerFile  # spécifier le chemin du Dockerfile
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules  # Empêche les conflits entre node_modules local et conteneur
+    command: npm run start
+
 volumes:
   # Déclare le volume nommé utilisé ci-dessus
   apizzetta-db-data:
