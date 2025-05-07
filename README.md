@@ -20,3 +20,14 @@ La commande suivante permet de lancer l'application sans la rebuild (lancer le s
 
 Enfin pour shutdown l'application il suffit de lancer : 
 `docker compose down`
+
+# Exécuter des commandes dans un container
+
+Pour exécuter une commande à l'interieur d'une container utiliser la commande suivante : 
+`docker compose exec <nom_du_container> <commande>`
+
+Pour exécuter une commande angular : 
+`docker compose exec frontend npx ng ...`
+
+Par exemple : 
+`docker compose exec frontend npx ng generate service services/pizza`
