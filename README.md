@@ -1,71 +1,33 @@
-## 1. Installer Node.js et npm
+# Prérequis
 
-```bash
-sudo apt install nodejs npm
-```
+Téléchargez Docker : 
+`https://www.docker.com/products/docker-desktop/`
 
-➡️ Installe Node.js (moteur JavaScript) et npm (gestionnaire de paquets Node).
+# Build & Run 
 
----
+L'entièreté de l'application est dockerisé, il faudra avoir docker desktop ouvert pour pouvoir exécuter toutes les commandes suivantes.
 
-## 2. Vérifier que Node.js est installé
+Pour lancer l'application (c'est à dire : build le backend, générer les tables de la base de donnée et lancer le serveur de développement angular).
+Placez-vous à la racine du projet et exécutez la commande suivante : 
 
-```bash
-node -v
-```
+`docker compose up --build`
 
-➡️ Affiche la version de Node.js (ex: `v18.18.2`). Cela confirme que Node.js est bien installé.
+Angular prendra en compte les modifications faites au niveau du front automatiquement toutes les 5s sans avoir à rebuild l'application.
+Pour tout changement au niveau du backend ou de la base de données il est nécessaire de rebuild l'application avec la commande ci-dessus.
 
----
+La commande suivante permet de lancer l'application sans la rebuild (lancer le serveur de bdd et le serveur de dev angular avec le dernier build du back donc sans tenir compte des modifs back et bdd) 
+`docker compose up`
 
-## 3. Installer Angular CLI (globalement)
+Enfin pour shutdown l'application il suffit de lancer : 
+`docker compose down`
 
-```bash
-sudo npm install -g @angular/cli
-```
+# Exécuter des commandes dans un container
 
-➡️ Installe Angular CLI globalement. C’est nécessaire pour utiliser la commande `ng`.
+Pour exécuter une commande à l'interieur d'une container utiliser la commande suivante : 
+`docker compose exec <nom_du_container> <commande>`
 
----
+Pour exécuter une commande angular : 
+`docker compose exec frontend npx ng ...`
 
-## 4. Vérifier que Angular CLI fonctionne
-
-```bash
-ng version
-```
-
-➡️ Affiche les versions de Angular CLI, Node.js, etc.
-
----
-
-## 5. Se placer dans le dossier Angular
-
-```bash
-cd frontend
-```
-
----
-
-## 6. Installer les dépendances du projet
-
-```bash
-npm install
-```
-
-➡️ Installe toutes les dépendances listées dans `package.json`.
-
----
-
-## 7. Lancer l'application Angular
-
-```bash
-ng serve --open
-```
-
-➡️ Lance le serveur de développement Angular sur `http://localhost:4200/` et ouvre le navigateur automatiquement.
-
-Commande pour le hot reload (toute les 2 secondes)
-
-ng serve --poll 2000
-
----
+Par exemple : 
+`docker compose exec frontend npx ng generate service services/pizza`

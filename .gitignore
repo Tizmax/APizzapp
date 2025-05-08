@@ -1,0 +1,32 @@
+# Fichiers Maven
+target/
+!.mvn/wrapper/maven-wrapper.jar
+.mvn/timing.properties
+
+# Logs
+*.log
+
+# Config d’environnement
+*.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+frontend/.vscode/
+
+# Tests et couverture
+/test-output/
+/surefire-reports/
+/jacoco.exec
+
+# Fichiers générés par Spring Boot DevTools
+.spring-boot-devtools.properties
+
+# Docker
+*.pid
+
+# Exclure les fichiers de configuration personnalisés
+application-local.properties
+application-dev.properties
+application-prod.properties
