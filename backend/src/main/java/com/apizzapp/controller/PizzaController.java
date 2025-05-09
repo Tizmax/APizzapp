@@ -23,7 +23,5 @@ public class PizzaController {
 
     @GetMapping("/ajoutPizza")
     public void ajoutPizza() {
-        Pizza p = new Pizza("test", "test", new BigDecimal(0), "test.jpg");
-        pr.save(p);
     }
 }

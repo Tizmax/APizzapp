@@ -1,7 +1,7 @@
 <h2>Notre Menu</h2>
-  <div *ngFor="let pizza of pizzas" class="pizza-item">
-    <!-- <img [src]="pizza.imageUrl || 'assets/images/default-pizza.png'" [alt]="pizza.name" class="pizza-image"> -->
-    <h3>{{ pizza.name }}</h3>
-    <!-- <p>{{ pizza.description }}</p>
-    <p>Prix : {{ pizza.basePrice | currency:'EUR' }}</p> -->
-    </div>
+<div *ngFor="let pizza of pizzas" class="pizza-item">
+  <img [src]="pizza.imageUrl || 'assets/images/default-pizza.png'" [alt]="pizza.name" class="pizza-image">
+  <h3>{{ pizza.name }}</h3>
+  <p>{{ pizza.description }}</p>
+  <p>Prix : {{ pizza.basePrice | currency:'EUR' }}</p>
+</div>
