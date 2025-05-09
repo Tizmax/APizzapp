@@ -1,0 +1,26 @@
+<div class="register-container">
+    <h2>Créer un compte</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+      <input formControlName="username" placeholder="Nom d'utilisateur" />
+      <input type="password" formControlName="password" placeholder="Mot de passe" />
+      <button type="submit">S'inscrire</button>
+    </form>
+    <div *ngIf="message" class="message">{{ message }}</div>
+  
+
+<div class="landing-link">
+    <p>Déjà un compte ?</p>
+    <button routerLink="/landing" class="login-btn">Se connecter</button>
+</div>
+
+  <!-- Pizza's Scroller -->
+<div class="pizza-scroller">
+    <div class="pizza-container">
+      <img *ngFor="let pizza of duplicatedPizzas" [src]="pizza.imgUrl" [alt]="pizza.name" class="pizza" />
+    </div>
+
+
+  <footer>
+    <p>&copy; 2025 APIZZAPP. Tous droits réservés.</p>
+  </footer>
+</div>

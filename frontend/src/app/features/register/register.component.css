@@ -1,5 +1,7 @@
-/* Styles généraux */
-.landing-container {
+/* src/app/features/register/register.component.css */
+
+/* Conteneur principal */
+.register-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,40 +12,26 @@
   box-sizing: border-box;
 }
 
-/* En-tête */
-header {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-header h1 {
-  font-size: 2.8rem;
+/* Titre */
+.register-container h2 {
+  font-size: 2.4rem;
   color: #d62828;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
 }
 
-header p {
-  font-size: 1.1rem;
-  color: #6c757d;
-}
-
-/* Formulaire de connexion */
-.login-form {
+/* Formulaire */
+form {
   background-color: #ffffffee;
   padding: 2rem;
   border-radius: 1rem;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 400px;
-  margin-bottom: 3rem;
-}
-
-.login-form form {
   display: flex;
   flex-direction: column;
 }
 
-.login-form input {
+input {
   padding: 0.75rem;
   margin-bottom: 1rem;
   border: 1px solid #ccc;
@@ -51,7 +39,7 @@ header p {
   font-size: 1rem;
 }
 
-.login-form button {
+button[type="submit"] {
   background-color: #d62828;
   color: white;
   padding: 0.75rem;
@@ -62,29 +50,31 @@ header p {
   transition: background-color 0.3s ease;
 }
 
-.login-form button:hover {
+button[type="submit"]:hover {
   background-color: #b71c1c;
 }
 
-.error {
-  color: red;
-  margin-top: 0.5rem;
-  font-size: 0.95rem;
-  text-align: center;
-}
-
-.signup-link {
+/* Message de retour */
+.message {
   margin-top: 1rem;
+  color: #28a745;
+  font-size: 1rem;
   text-align: center;
 }
 
-.signup-link p {
-  margin: 0 0 0.5rem 0;
+/* Lien de retour à la connexion */
+.landing-link {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.landing-link p {
+  margin-bottom: 0.5rem;
   color: #6c757d;
 }
 
-.signup-btn {
-  background-color: #ffa500;
+.login-btn {
+  background-color: #d62828;
   color: white;
   border: none;
   padding: 0.6rem 1.2rem;
@@ -94,37 +84,11 @@ header p {
   transition: background-color 0.3s ease;
 }
 
-.signup-btn:hover {
-  background-color: #e69500;
+.login-btn:hover {
+  background-color: #b71c1c;
 }
 
-.guest-access {
-  margin-top: 1rem;
-  text-align: center;
-}
-
-.guest-access p {
-  margin: 0 0 0.5rem 0;
-  color: #6c757d;
-}
-
-.guest-btn {
-  background-color: #ff6347;
-  color: white;
-  border: none;
-  padding: 0.6rem 1.2rem;
-  font-size: 1rem;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.guest-btn:hover {
-  background-color: #e5533d;
-}
-
-
-/* Défilement de pizzas */
+/* Défilement des pizzas */
 .pizza-scroller {
   overflow-x: hidden;
   width: 100%;
@@ -132,6 +96,7 @@ header p {
   padding: 1rem 0;
   border-top: 2px solid #ddd;
   border-bottom: 2px solid #ddd;
+  margin-top: 3rem;
 }
 
 .pizza-container {
@@ -157,7 +122,7 @@ header p {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
-/* Pied de page */
+/* Footer */
 footer {
   text-align: center;
   font-size: 0.9rem;

@@ -1,22 +1,40 @@
 <!-- src/app/landing/landing.component.html -->
 <div class="landing-container">
-    <header>
-      <h1>Bienvenue sur A PIZZ'APP</h1>
-      <p>I migliori pizzaioli di Corsica. S'elli ùn ci crede, semu pronti à scatenà a vostra casa.</p>
-    </header>
-    <section class="cta">
-      <button routerLink="/menu" class="btn btn-primary">Découvrir le Menu</button>
-    </section>
-  
-    <!-- Section du défilement de pizzas -->
-    <div class="pizza-scroller">
-      <div class="pizza-container">
-        <img *ngFor="let pizza of duplicatedPizzas" [src]="pizza.imgUrl" [alt]="pizza.name" class="pizza">
-      </div>
+  <header>
+    <h1>Bienvenue sur A PIZZ'APP</h1>
+    <p>I migliori pizzaioli di Corsica. S'elli ùn ci crede, semu pronti à scatenà a vostra casa.</p>
+  </header>
+
+  <!-- Formulaire de connexion -->
+  <section class="login-form">
+    <form (ngSubmit)="onLogin()" [formGroup]="loginForm">
+      <input formControlName="username" placeholder="Nom d'utilisateur" />
+      <input type="password" formControlName="password" placeholder="Mot de passe" />
+      <button type="submit">Se connecter</button>
+    </form>
+    <div *ngIf="error" class="error">{{ error }}</div>
+
+    <!-- Lien pour créer un compte -->
+    <div class="signup-link">
+      <p>Pas encore de compte ?</p>
+      <button routerLink="/register" class="signup-btn">Créer un compte</button>
     </div>
-  
-    <footer>
-      <p>&copy; 2025 APIZZAPP. Tous droits réservés.</p>
-    </footer>
+
+    <!-- Bouton pour les invités -->
+    <div class="guest-access">
+      <p> Ou alors tout simplement !</p>
+      <button routerLink="/menu" class="guest-btn">Accéder au menu</button>
+    </div>
+  </section>
+
+  <!-- Pizza's Scroller -->
+  <div class="pizza-scroller">
+    <div class="pizza-container">
+      <img *ngFor="let pizza of duplicatedPizzas" [src]="pizza.imgUrl" [alt]="pizza.name" class="pizza" />
+    </div>
   </div>
-  
+
+  <footer>
+    <p>&copy; 2025 APIZZAPP. Tous droits réservés.</p>
+  </footer>
+</div>
