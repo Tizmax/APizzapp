@@ -5,8 +5,6 @@ import { LandingComponent } from './features/landing/landing.component';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent }, // page d'accueil
-
-  { path: '', component: LandingComponent },
   { path: 'menu', 
     loadChildren: () => 
       import('./features/menu/menu.module').then((m) => m.MenuModule) }, // page d'accueil
@@ -16,7 +14,7 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

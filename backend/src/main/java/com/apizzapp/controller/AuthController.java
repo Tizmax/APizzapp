@@ -1,16 +1,22 @@
+// package com.apizzapp.controller;
+
+// import com.apizzapp.model.User;
+// import com.apizzapp.service.AuthService;
+// import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.web.bind.annotation.*;
+
 // @RestController
 // @RequestMapping("/api/auth")
 // public class AuthController {
 
 //     @Autowired
-//     private UserService userService;
+//     private AuthService authService;
 
-//     @PostMapping("/login")
-//     public ResponseEntity<?> login(@RequestBody AuthRequest request) {
-//         User user = userService.authenticate(request.getUsername(), request.getPassword());
-//         if (user == null) {
-//             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
-//         }
-//         return ResponseEntity.ok(Map.of("role", user.getRole()));
+//     @PostMapping("/register")
+//     public User register(@RequestParam String email,
+//                          @RequestParam String password,
+//                          @RequestParam String firstName,
+//                          @RequestParam String lastName) {
+//         return authService.registerUser(email, password, firstName, lastName);
 //     }
 // }

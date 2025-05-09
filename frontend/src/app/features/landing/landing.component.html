@@ -7,7 +7,7 @@
 
   <!-- Formulaire de connexion -->
   <section class="login-form">
-    <form (ngSubmit)="onLogin()" [formGroup]="loginForm">
+    <form [formGroup]="loginForm">
       <input formControlName="username" placeholder="Nom d'utilisateur" />
       <input type="password" formControlName="password" placeholder="Mot de passe" />
       <button type="submit">Se connecter</button>
@@ -23,7 +23,7 @@
     <!-- Bouton pour les invités -->
     <div class="guest-access">
       <p> Ou alors tout simplement !</p>
-      <button routerLink="/menu" class="guest-btn">Accéder au menu</button>
+      <button (click)="goToMenu()">Voir le menu</button>
     </div>
   </section>
 

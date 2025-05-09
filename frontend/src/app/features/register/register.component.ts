@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+// import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -33,23 +34,19 @@ export class RegisterComponent {
 
   constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
     this.registerForm = this.fb.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required]
     });
+    
   }
 
-  onRegister() {
-    if (this.registerForm.valid) {
-      this.http.post('/api/auth/register', this.registerForm.value).subscribe({
-        next: () => {
-          this.message = 'Compte créé avec succès !';
-          this.router.navigate(['/']); // redirection vers la page de connexion
-        },
-        error: err => {
-          this.message = 'Erreur lors de la création du compte.';
-          console.error(err);
-        }
-      });
-    }
-  }
+  // onRegister() {
+  //     const userData = this.registerForm.value;
+  //     this.authService.register(userData).subscribe({
+  //       next: () => this.message = "Inscription réussie !",
+  //       error: (err: any) => this.message = "Erreur : " + err.error
+  //     });
+  // }
 }

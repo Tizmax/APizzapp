@@ -31,3 +31,10 @@ Pour exécuter une commande angular :
 
 Par exemple : 
 `docker compose exec frontend npx ng generate service services/pizza`
+
+Pour visualiser la base de données :
+`docker compose exec db  psql -U Tizmax -d apizzetta-db`
+Puis : 
+\dt             -- Liste les tables
+\d nom_table    -- Détail d'une table
+SELECT * FROM nom_table;
