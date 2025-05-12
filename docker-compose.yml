@@ -16,7 +16,7 @@ services:
     # volumes:
     #   # Monte un volume nommé pour la persistance des données
     #   - apizzetta-db-data:/var/lib/postgresql/data
-    # restart: unless-stopped # Politique de redémarrage (optionnel)
+    restart: unless-stopped # Politique de redémarrage (optionnel)
 
   backend:
     build:
