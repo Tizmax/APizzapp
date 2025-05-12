@@ -7,7 +7,7 @@ import { Pizza } from '../shared/models/pizza.model';
   providedIn: 'root'
 })
 export class PizzaService {
-  private apiUrl = 'http://localhost:8080/';
+  private apiUrl = 'http://localhost:8080';
 
   constructor(private http: HttpClient) { }
 
@@ -16,6 +16,6 @@ export class PizzaService {
   }
 
   getPizzaById(id: string | null): Observable<Pizza> {
-    return this.http.get<Pizza>(`${this.apiUrl}/${id}`);
+    return this.http.get<Pizza>(`${this.apiUrl}/getPizzaById/${id}`);
   }
 }
