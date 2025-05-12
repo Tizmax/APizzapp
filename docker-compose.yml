@@ -13,10 +13,10 @@ services:
     ports:
       # Mappe le port 5432 de votre machine au port 5432 du conteneur
       - "5432:5432"
-    volumes:
-      # Monte un volume nommé pour la persistance des données
-      - apizzetta-db-data:/var/lib/postgresql/data
-    restart: unless-stopped # Politique de redémarrage (optionnel)
+    # volumes:
+    #   # Monte un volume nommé pour la persistance des données
+    #   - apizzetta-db-data:/var/lib/postgresql/data
+    # restart: unless-stopped # Politique de redémarrage (optionnel)
 
   backend:
     build:
@@ -42,10 +42,7 @@ services:
       - /app/node_modules  # Empêche les conflits entre node_modules local et conteneur
     command: npm run start
 
-volumes:
-  # Déclare le volume nommé utilisé ci-dessus
-  apizzetta-db-data:
-    driver: local # Utilise le driver par défaut pour les volumes locaux
-
-
-
+# volumes:
+#   # Déclare le volume nommé utilisé ci-dessus
+#   apizzetta-db-data:
+#     driver: local # Utilise le driver par défaut pour les volumes locaux

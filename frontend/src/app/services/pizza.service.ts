@@ -7,11 +7,15 @@ import { Pizza } from '../shared/models/pizza.model';
   providedIn: 'root'
 })
 export class PizzaService {
-  private apiUrl = 'http://backend:8080/listerPizza';
+  private apiUrl = 'http://localhost:8080';
 
   constructor(private http: HttpClient) { }
 
   getAllPizzas(): Observable<Pizza[]> {
-    return this.http.get<Pizza[]>(this.apiUrl);
+    return this.http.get<Pizza[]>(`${this.apiUrl}/listerPizza`);
+  }
+
+  getPizzaById(id: string | null): Observable<Pizza> {
+    return this.http.get<Pizza>(`${this.apiUrl}/getPizzaById/${id}`);
   }
 }
