@@ -46,3 +46,6 @@ volumes:
   # Déclare le volume nommé utilisé ci-dessus
   apizzetta-db-data:
     driver: local # Utilise le driver par défaut pour les volumes locaux
+
+
+

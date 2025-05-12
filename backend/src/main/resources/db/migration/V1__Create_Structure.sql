@@ -21,3 +21,10 @@ CREATE TABLE pizza_base_ingredients (
   FOREIGN KEY (pizza_id) REFERENCES pizzas(id) ON DELETE CASCADE,
   FOREIGN KEY (ingredient_id) REFERENCES ingredients(id) ON DELETE CASCADE
 );
+
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  username VARCHAR(255) UNIQUE NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  role VARCHAR(50) NOT NULL DEFAULT 'USER'
+);

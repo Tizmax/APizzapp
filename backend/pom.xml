@@ -51,7 +51,21 @@
       <groupId>org.flywaydb</groupId>
       <artifactId>flyway-core</artifactId>
     </dependency>
-  </dependencies>
+
+    <!-- Spring Boot Security pour la gestion des utilisateurs et des mots de passe -->
+    <!-- <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-security</artifactId>
+    </dependency> -->
+
+    <!-- Pour le support du BCryptPasswordEncoder -->
+    <!-- <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-core</artifactId>
+    </dependency> -->
+
+</dependencies>
+
 
   <build>
     <plugins>
