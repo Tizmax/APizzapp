@@ -5,7 +5,7 @@
     <div class="row">
       <div *ngFor="let pizza of pizzas" class="col-md-3 col-sm-6 mb-4">
         <div class="card pizza-card" (click)="onPizzaSelected(pizza)" data-pizza="pizza.name">
-          <img  [src]="pizza.imageUrl || 'assets/images/default-pizza.png'" [alt]="pizza.name" class="card-img-top" >
+          <img  [src]="pizza.imageUrl" [alt]="pizza.name" class="card-img-top" >
           <div class="card-body">
             <h5 class="card-title text-center"> {{pizza.name}} </h5>
             <p class="card-text text-center"> {{pizza.description}}</p>
