@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PizzaService } from '../../services/pizza.service';
 import { Pizza } from '../../shared/models/pizza.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -13,9 +14,14 @@ export class MenuComponent implements OnInit {
   isLoading: boolean = true;
   error: string | null = null;
 
-  constructor(private pizzaService: PizzaService) { }
+
+  constructor(private pizzaService: PizzaService, private router: Router) { }
 
   ngOnInit(): void {
     this.pizzaService.getAllPizzas().subscribe(response => {console.log(response); this.pizzas = response});
+  }
+
+  onPizzaSelected(pizza: Pizza): void {
+    this.router.navigate(['/detail-produit', pizza.id]);
   }
 }
