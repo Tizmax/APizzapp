@@ -1,6 +1,6 @@
-package com.example.backend.repository;
+package com.apizzapp.repository;
 
-import com.example.backend.model.User;
+import com.apizzapp.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
