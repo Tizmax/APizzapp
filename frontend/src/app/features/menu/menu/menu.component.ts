@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PizzaService } from '../../services/pizza.service';
-import { Pizza } from '../../shared/models/pizza.model';
+import { PizzaService } from '../../../services/pizza.service';
+import { Pizza } from '../../../shared/models/pizza.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -22,6 +22,6 @@ export class MenuComponent implements OnInit {
   }
 
   onPizzaSelected(pizza: Pizza): void {
-    this.router.navigate(['/detail-produit', pizza.id]);
+    this.router.navigate(['/menu/detail-produit', pizza.id]);
   }
 }
