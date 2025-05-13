@@ -13,13 +13,7 @@ body {
 }
 
 .card img {
-  border-radius: 15px 15px 0 0;
-}
-
-.order-card img {
-  border-radius: 15px;
-  width: 200px;
-  height: 200px;
+  width: 80%;
 }
 
 .card:hover {
@@ -28,6 +22,7 @@ body {
 
 .order-card:hover {
   transform: scale(1);
+  cursor: default;
 }
 
 .card .card-body {
