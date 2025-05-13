@@ -1,22 +1,55 @@
-// package com.apizzapp.controller;
+package com.apizzapp.controller;
 
-// import com.apizzapp.model.User;
-// import com.apizzapp.service.AuthService;
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.web.bind.annotation.*;
+import com.apizzapp.model.User;
+import com.apizzapp.model.ERole;
+import com.apizzapp.controller.dto.AuthDTO;
+import com.apizzapp.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-// @RestController
-// @RequestMapping("/api/auth")
-// public class AuthController {
+import java.util.Map;
+import java.util.Optional;
 
-//     @Autowired
-//     private AuthService authService;
+@RestController
+@RequestMapping("/api/auth")
+@CrossOrigin(origins = "*")
+public class AuthController {
 
-//     @PostMapping("/register")
-//     public User register(@RequestParam String email,
-//                          @RequestParam String password,
-//                          @RequestParam String firstName,
-//                          @RequestParam String lastName) {
-//         return authService.registerUser(email, password, firstName, lastName);
-//     }
-// }
+    @Autowired
+    private UserRepository userRepository;
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody AuthDTO req) {
+        if (userRepository.existsByEmail(req.email)) {
+            return ResponseEntity.badRequest().body(Map.of("error", "Email already registered."));
+        }
+
+        User user = new User();
+        user.setEmail(req.email);
+        user.setPassword(req.password);// → hasher en prod !
+        user.setFirstName(req.firstName);
+        user.setLastName(req.lastName);
+        user.setRole(ERole.ROLE_USER);    
+
+        userRepository.save(user);
+        return ResponseEntity
+           .ok(Map.of("message", "User registered successfully."));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestParam String email,
+                                   @RequestParam String password) {
+        Optional<User> userOpt = userRepository.findByEmail(email);
+        if (userOpt.isEmpty() || !userOpt.get().getPassword().equals(password)) {
+            return ResponseEntity
+              .status(401)
+              .body(Map.of("error", "Invalid credentials"));
+        }
+        User user = userOpt.get();
+        return ResponseEntity.ok(Map.of(
+            "email", user.getEmail(),
+            "role", user.getRole().name()
+        ));
+    }
+}

@@ -6,10 +6,10 @@
   </header>
 
   <!-- Formulaire de connexion -->
-  <section class="login-form">
-    <form [formGroup]="loginForm">
-      <input formControlName="username" placeholder="Nom d'utilisateur" />
-      <input type="password" formControlName="password" placeholder="Mot de passe" />
+  <section class="login-form" >
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <input type='email' formControlName="email" [(ngModel)]="email" name="email" placeholder="Email" required />
+      <input type="password" formControlName="password" [(ngModel)]="password" name="password" placeholder="Password" required />
       <button type="submit">Se connecter</button>
     </form>
     <div *ngIf="error" class="error">{{ error }}</div>

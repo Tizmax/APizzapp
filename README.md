@@ -37,4 +37,8 @@ Pour visualiser la base de données :
 Puis : 
 \dt             -- Liste les tables
 \d nom_table    -- Détail d'une table
-SELECT * FROM nom_table;
+SELECT * FROM nom_table ;
+
+Pour supprimer une table : 
+DELETE FROM nom_table ;
+
