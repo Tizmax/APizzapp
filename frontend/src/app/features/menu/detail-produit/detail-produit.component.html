@@ -71,17 +71,15 @@
 
 
   <!-- Display Supplements Grid -->
-  <!-- <h1>Supplements</h1>
+  <h1>Supplements</h1>
   <div class="row">
-    {% for supplement, details in supplements.items() %}
-    <div class="col-md-3 col-sm-6 mb-4">
-      <div class="card supplement-card" name-supplement="{{supplement}}" img-supplement="{{details.image}}">
-        <img src="{{ url_for('static', filename='images/ingredients/' ~ details.image) }}" class="card-img-top" alt="{{ supplement }}">
+    <div *ngFor="let supplement of ingredients" class="col-md-3 col-sm-6 mb-4">
+      <div class="card supplement-card">
+        <img  [src]="supplement.imageUrl" [alt]="supplement.name" class="card-img-top" >
         <div class="card-body">
-          <h5 class="card-title text-center">{{ supplement }}</h5>
+          <h5 class="card-title text-center">{{ supplement.name }}</h5>
         </div>
       </div>
     </div>
-    {% endfor %}
-  </div> -->
+  </div>
 </div>

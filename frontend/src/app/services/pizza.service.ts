@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Pizza } from '../shared/models/pizza.model'; 
+import { Ingredient } from '../shared/models/ingredient.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,5 +18,10 @@ export class PizzaService {
 
   getPizzaById(id: string | null): Observable<Pizza> {
     return this.http.get<Pizza>(`${this.apiUrl}/getPizzaById/${id}`);
+  }
+
+  
+  getAllIngredients(): Observable<Ingredient[]> {
+    return this.http.get<Ingredient[]>(`${this.apiUrl}/getAllIngredients`);
   }
 }
