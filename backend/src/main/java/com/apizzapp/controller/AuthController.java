@@ -1,10 +1,14 @@
 package com.apizzapp.controller;
 
 import com.apizzapp.model.User;
+import com.apizzapp.model.ERole;
+import com.apizzapp.controller.dto.AuthDTO;
 import com.apizzapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -16,32 +20,36 @@ public class AuthController {
     private UserRepository userRepository;
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody User user) {
-        if (userRepository.existsByEmail(user.getEmail())) {
-            return ResponseEntity.badRequest().body("Email already registered.");
+    public ResponseEntity<?> register(@RequestBody AuthDTO req) {
+        if (userRepository.existsByEmail(req.email)) {
+            return ResponseEntity.badRequest().body(Map.of("error", "Email already registered."));
         }
 
-        //Attention --> En production, hash le mot de passe avec BCrypt
+        User user = new User();
+        user.setEmail(req.email);
+        user.setPassword(req.password);// → hasher en prod !
+        user.setFirstName(req.firstName);
+        user.setLastName(req.lastName);
+        user.setRole(ERole.ROLE_USER);    
+
         userRepository.save(user);
-        return ResponseEntity.ok("User registered successfully.");
+        return ResponseEntity
+           .ok(Map.of("message", "User registered successfully."));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestParam String email, @RequestParam String password) {
+    public ResponseEntity<?> login(@RequestParam String email,
+                                   @RequestParam String password) {
         Optional<User> userOpt = userRepository.findByEmail(email);
-
-        if (userOpt.isEmpty()) {
-            return ResponseEntity.status(401).body("Invalid credentials.");
+        if (userOpt.isEmpty() || !userOpt.get().getPassword().equals(password)) {
+            return ResponseEntity
+              .status(401)
+              .body(Map.of("error", "Invalid credentials"));
         }
-
         User user = userOpt.get();
-
-        // Attention --> Comparaison simple pour l'instant — à sécuriser avec BCrypt en prod
-        if (!user.getPassword().equals(password)) {
-            return ResponseEntity.status(401).body("Invalid credentials.");
-        }
-
-        return ResponseEntity.ok("Login successful.");
+        return ResponseEntity.ok(Map.of(
+            "email", user.getEmail(),
+            "role", user.getRole().name()
+        ));
     }
 }
-

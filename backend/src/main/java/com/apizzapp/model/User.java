@@ -38,8 +38,8 @@ public class User {
 
     // Utilisation d'un Enum pour les noms de rôle est une bonne pratique
     @Enumerated(EnumType.STRING) // Stocke le nom de l'enum ("ROLE_USER", "ROLE_ADMIN") en BDD (plus lisible que ORDINAL)
-    @Column(length = 20, nullable = false, unique = true)
-    private ERole name;
+    @Column(length = 20, nullable = false)
+    private ERole role = ERole.ROLE_USER; // Par défaut, un nouvel utilisateur est un utilisateur normal
 
     // Relation OneToMany avec Order (Un utilisateur peut avoir plusieurs commandes)
     // mappedBy="user" => Le champ "user" dans l'entité Order gère la clé étrangère
@@ -54,6 +54,7 @@ public class User {
         this.password = password; // Assurez-vous de hasher le mot de passe avant de le sauvegarder !
         this.firstName = firstName;
         this.lastName = lastName;
+        this.role = ERole.ROLE_USER; // Par défaut
     }
 
     // --- equals() et hashCode() ---

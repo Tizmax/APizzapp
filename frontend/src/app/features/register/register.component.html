@@ -1,12 +1,69 @@
 <div class="register-container">
   <h2>Créer un compte</h2>
-  <form [formGroup]="registerForm">
-    <input formControlName="email" placeholder="Adresse email" type="email" required />
-    <input formControlName="password" placeholder="Mot de passe" type="password" required />
-    <input formControlName="firstName" placeholder="Prénom" required />
-    <input formControlName="lastName" placeholder="Nom" required />
-    <button type="submit">S'inscrire</button>
-  </form>
+  <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+  <!-- Prénom -->
+  <div class="form-group">
+    <input
+      type="text"
+      formControlName="firstName"
+      placeholder="Prénom"
+      required
+    />
+    <div class="validation-error"
+         *ngIf="registerForm.get('firstName')!.invalid && registerForm.get('firstName')!.touched">
+      Le prénom est obligatoire.
+    </div>
+  </div>
+
+  <!-- Nom -->
+  <div class="form-group">
+    <input
+      type="text"
+      formControlName="lastName"
+      placeholder="Nom"
+      required
+    />
+    <div class="validation-error"
+         *ngIf="registerForm.get('lastName')!.invalid && registerForm.get('lastName')!.touched">
+      Le nom est obligatoire.
+    </div>
+  </div>
+
+  <!-- Email -->
+  <div class="form-group">
+    <input
+      type="email"
+      formControlName="email"
+      placeholder="Email"
+      required
+    />
+    <div class="validation-error"
+         *ngIf="registerForm.get('email')!.touched && registerForm.get('email')!.hasError('required')">
+      L’email est obligatoire.
+    </div>
+    <div class="validation-error"
+         *ngIf="registerForm.get('email')!.touched && registerForm.get('email')!.hasError('email')">
+      Email non valide.
+    </div>
+  </div>
+
+  <!-- Mot de passe -->
+  <div class="form-group">
+    <input
+      type="password"
+      formControlName="password"
+      placeholder="Mot de passe"
+      required
+    />
+    <div class="validation-error"
+         *ngIf="registerForm.get('password')!.invalid && registerForm.get('password')!.touched">
+      Le mot de passe est obligatoire.
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="registerForm.invalid">S’inscrire</button>
+</form>
+
 
   <div *ngIf="message" class="message">{{ message }}</div>
 

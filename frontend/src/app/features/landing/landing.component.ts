@@ -23,6 +23,8 @@ export class LandingComponent implements OnInit {
 
   duplicatedPizzas: Array<any> = [];
   loginForm: FormGroup;
+  email = '';
+  password = '';
   error: string | null = null;
 
   constructor(
@@ -32,7 +34,7 @@ export class LandingComponent implements OnInit {
   ) {
     this.loginForm = this.fb.group({
       email: [''],
-      password: ['']
+      password: [''],
     });
   }
   goToMenu() {
@@ -47,14 +49,19 @@ export class LandingComponent implements OnInit {
   }
 
   onLogin(): void {
-    const { username, password } = this.loginForm.value;
-    this.authService.login(username, password).subscribe({
+    const { email, password } = this.loginForm.value;
+    this.error = null; 
+    this.authService.login(email!, password!).subscribe({
       next: (user) => {
-        if (user.role === 'ADMIN') this.router.navigate(['/admin']);
-        else if (user.role === 'OPERATOR') this.router.navigate(['/operator']);
-        else this.router.navigate(['/guest']);
+        const role = user.role.replace('ROLE_', ''); 
+        if (role === 'ADMIN') this.router.navigate(['/admin']);
+        else if (role === 'OPERATOR') this.router.navigate(['/operator']);
+        else this.router.navigate(['/menu']);
       },
-      error: () => this.error = 'Email invalide ou mot de passe incorrect'
+      error: () => {
+        // si le backend renvoie { error: "..." }
+        this.error = 'Email ou mot de passe incorrect';
+      }
     });
   }
 }
