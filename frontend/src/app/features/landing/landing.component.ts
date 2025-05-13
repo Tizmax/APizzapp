@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-// import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-landing',
@@ -27,11 +27,11 @@ export class LandingComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    // private authService: AuthService,
+    private authService: AuthService,
     private router: Router
   ) {
     this.loginForm = this.fb.group({
-      username: [''],
+      email: [''],
       password: ['']
     });
   }
@@ -46,15 +46,15 @@ export class LandingComponent implements OnInit {
     }
   }
 
-  // onLogin(): void {
-  //   const { username, password } = this.loginForm.value;
-  //   this.authService.login(username, password).subscribe({
-  //     next: (user) => {
-  //       if (user.role === 'ADMIN') this.router.navigate(['/admin']);
-  //       else if (user.role === 'OPERATOR') this.router.navigate(['/operator']);
-  //       else this.router.navigate(['/guest']);
-  //     },
-  //     error: () => this.error = 'Identifiants invalides'
-  //   });
-  // }
+  onLogin(): void {
+    const { username, password } = this.loginForm.value;
+    this.authService.login(username, password).subscribe({
+      next: (user) => {
+        if (user.role === 'ADMIN') this.router.navigate(['/admin']);
+        else if (user.role === 'OPERATOR') this.router.navigate(['/operator']);
+        else this.router.navigate(['/guest']);
+      },
+      error: () => this.error = 'Email invalide ou mot de passe incorrect'
+    });
+  }
 }

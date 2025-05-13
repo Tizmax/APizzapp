@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-// import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -32,7 +32,7 @@ export class RegisterComponent {
   registerForm: FormGroup;
   message = '';
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router, private authService: AuthService) {
     this.registerForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
@@ -42,11 +42,11 @@ export class RegisterComponent {
     
   }
 
-  // onRegister() {
-  //     const userData = this.registerForm.value;
-  //     this.authService.register(userData).subscribe({
-  //       next: () => this.message = "Inscription réussie !",
-  //       error: (err: any) => this.message = "Erreur : " + err.error
-  //     });
-  // }
+  onRegister() {
+      const userData = this.registerForm.value;
+      this.authService.register(userData).subscribe({
+        next: () => this.message = "Inscription réussie !",
+        error: (err: any) => this.message = "Erreur : " + err.error
+      });
+  }
 }
