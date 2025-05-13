@@ -67,18 +67,28 @@
     </div>
     {% endfor %}
   </div> -->
+  <div class="row">
+    <div *ngFor="let supplement of supplements; let i = index" class="col-md-3 col-sm-6 mb-4">
+      <div class="card supplement-card" (click)="removeSupplement(i)">
+        <img  [src]="supplement.imageUrl" [alt]="supplement.name" class="card-img-top" >
+        <div class="card-body">
+          <h5 class="card-title text-center">{{ supplement.name }} </h5>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Bouton valider -->
-  <!-- <div class="text-center mt-4">
-    <a class='btn btn-primary' href="/recap" onclick="addPizzaToOrder()">Ajouter cette pizza</a>
-  </div> -->
+  <div class="text-center mt-4">
+    <a class='btn btn-primary' >Ajouter cette pizza</a>
+  </div>
 
 
   <!-- Display Supplements Grid -->
   <h1>Supplements</h1>
   <div class="row">
     <div *ngFor="let supplement of ingredients" class="col-md-3 col-sm-6 mb-4">
-      <div class="card supplement-card">
+      <div class="card supplement-card"  (click)="addSupplement(supplement)">
         <img  [src]="supplement.imageUrl" [alt]="supplement.name" class="card-img-top" >
         <div class="card-body">
           <h5 class="card-title text-center">{{ supplement.name }}</h5>
