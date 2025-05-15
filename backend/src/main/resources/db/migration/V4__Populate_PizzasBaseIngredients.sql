@@ -1,7 +1,28 @@
 INSERT INTO pizza_base_ingredients (pizza_id, ingredient_id)
-VALUES 
-  (1, 1),
-  (1, 2),
-  (1, 3),
-  (1, 4),
-  (2, 5);
+SELECT p.id, i.id
+FROM pizzas p
+JOIN ingredients i ON (
+    (p.name = 'Marguerite' AND i.name IN ('Gruyère', 'Olives'))
+    OR (p.name = 'Anchois' AND i.name IN ('Anchois', 'Olives'))
+    OR (p.name = 'Napolitaine' AND i.name IN ('Anchois', 'Gruyère', 'Olives'))
+    OR (p.name = 'Jambonnière' AND i.name IN ('Jambon', 'Gruyère'))
+    OR (p.name = 'Forestière' AND i.name IN ('Champignons', 'Gruyère'))
+    OR (p.name = 'Reine' AND i.name IN ('Jambon', 'Champignons', 'Gruyère'))
+    OR (p.name = 'Oignons' AND i.name IN ('Oignons', 'Gruyère'))
+    OR (p.name = 'Knacky' AND i.name IN ('Knacky', 'Gruyère'))
+    OR (p.name = 'Chorizo' AND i.name IN ('Chorizo', 'Champignons', 'Gruyère'))
+    OR (p.name = 'Thon et Câpres' AND i.name IN ('Thon', 'Câpres', 'Gruyère'))
+    OR (p.name = 'Bolognaise' AND i.name IN ('Bolognaise', 'Gruyère'))
+    OR (p.name = 'Carbonara' AND i.name IN ('Lardons', 'Oignons', 'Gruyère'))
+    OR (p.name = 'Chausson' AND i.name IN ('Jambon', 'Champignons', 'Gruyère', 'Oeuf'))
+    OR (p.name = 'Figatellu' AND i.name IN ('Figatellu', 'Champignons', 'Gruyère'))
+    OR (p.name = 'Fruits de mer' AND i.name IN ('Fruits de mer', 'Gruyère'))
+    OR (p.name = 'Kebab' AND i.name IN ('Kebab', 'Gruyère'))
+    OR (p.name = 'Roquefort' AND i.name IN ('Jambon', 'Roquefort', 'Gruyère'))
+    OR (p.name = '3 Fromages' AND i.name IN ('Roquefort', 'Gruyère', 'Chèvre'))
+    OR (p.name = 'Poivrons et Lardons' AND i.name IN ('Poivrons', 'Lardons', 'Gruyère'))
+    OR (p.name = '4 Saisons' AND i.name IN ('Coeurs d''artichaut', 'Poivrons', 'Aubergine', 'Gruyère'))
+    OR (p.name = 'Pizza du chef' AND i.name IN ('Poivrons', 'Aubergine', 'Gruyère', 'Chèvre'))
+    OR (p.name = 'Pizza de Sophie' AND i.name IN ('Gruyère', 'Chèvre', 'Miel', 'Pignons'))
+)
+    WHERE p.id IS NOT NULL AND i.id IS NOT NULL;
