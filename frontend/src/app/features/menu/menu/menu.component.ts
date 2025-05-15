@@ -22,7 +22,6 @@ export class MenuComponent implements OnInit {
   }
 
   onPizzaSelected(pizza: Pizza): void {
-    this.router.navigate(['/menu/detail-produit', pizza.id]);
-      this.router.navigate(['detail-produit', pizza.id], { relativeTo: this.route });
+    this.router.navigate(['detail-produit', pizza.id], { relativeTo: this.route });
   }
 }
