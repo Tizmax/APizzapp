@@ -13,8 +13,9 @@ import { Ingredient } from '../../../shared/models/ingredient.model';
 export class DetailProduitComponent {
   pizza: Pizza | null = null;
   ingredients: Ingredient[] = [];
-  ingredientsBase: Ingredient[] = [];
   supplements: Ingredient[] = [];
+  depplements: Ingredient[] = [];
+  disabledIngredients: Set<number> = new Set<number>();
 
   constructor(private route: ActivatedRoute, private pizzaService: PizzaService) {}
 
@@ -27,19 +28,21 @@ export class DetailProduitComponent {
       }
     );
 
-  
+    
     
     this.pizzaService.getAllIngredients().subscribe(
       (data) => this.ingredients = data
     );
+
   }
 
 
-  removeIngredient(index: number): void {
-    // Logique pour retirer un supplément
-    console.log('Ingrédients de base retiré : n°', index);
-    this.ingredientsBase.splice(index, 1);
-    console.log('Liste des ingrédients:', this.ingredientsBase);
+  toggleIngredient(index: number): void {
+    if (this.disabledIngredients.has(index)) {
+      this.disabledIngredients.delete(index);
+    } else {
+      this.disabledIngredients.add(index);
+    }
   }
 
 
