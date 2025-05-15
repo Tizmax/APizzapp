@@ -64,8 +64,6 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="row">
     <div *ngFor="let supplement of supplements; let i = index" class="col-md-3 col-sm-6 mb-4">
       <div class="card supplement-card" (click)="removeSupplement(i)">
         <img [src]="supplement.imageUrl" [alt]="supplement.name" class="card-img-top" >
