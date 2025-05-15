@@ -64,4 +64,9 @@ export class LandingComponent implements OnInit {
       }
     });
   }
+
+  showPassword = false;
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
 }

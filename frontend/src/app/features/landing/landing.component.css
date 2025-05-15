@@ -49,9 +49,45 @@ header p {
   border: 1px solid #ccc;
   border-radius: 0.5rem;
   font-size: 1rem;
+  transition: border-color 0.2s ease;
 }
 
-.login-form button {
+.login-form input:focus {
+  outline: none;
+  border-color: #d62828;
+}
+
+/* Password field + eye toggle */
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrapper input {
+  flex: 1;
+  padding-right: 3rem; 
+}
+
+.eye-toggle {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-90%);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.eye-icon {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+/* Boutons de formulaire */
+
+.login-form button[type="submit"] {
   background-color: #d62828;
   color: white;
   padding: 0.75rem;
@@ -62,7 +98,7 @@ header p {
   transition: background-color 0.3s ease;
 }
 
-.login-form button:hover {
+.login-form button[type="submit"]:hover {
   background-color: #b71c1c;
 }
 
@@ -84,7 +120,7 @@ header p {
 }
 
 .signup-btn {
-  background-color: #ffa500;
+  background-color: #d62828;
   color: white;
   border: none;
   padding: 0.6rem 1.2rem;
@@ -95,7 +131,7 @@ header p {
 }
 
 .signup-btn:hover {
-  background-color: #e69500;
+  background-color: #b71c1c;
 }
 
 .guest-access {
@@ -109,7 +145,7 @@ header p {
 }
 
 .guest-btn {
-  background-color: #ff6347;
+  background-color: #d62828;
   color: white;
   border: none;
   padding: 0.6rem 1.2rem;
@@ -120,9 +156,8 @@ header p {
 }
 
 .guest-btn:hover {
-  background-color: #e5533d;
+  background-color: #b71c1c;
 }
-
 
 /* Défilement de pizzas */
 .pizza-scroller {
