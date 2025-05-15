@@ -57,7 +57,7 @@
   <!-- Ingredients de la pizza -->
   <div class="row" id="ingredients-container">
     <div *ngFor="let ingredient of pizza?.baseIngredients; let i = index" class="col-md-3 col-sm-6 mb-4">
-      <div class="card" >
+      <div class="card"  [ngClass]="{ 'card-deplement': disabledIngredients.has(i) }" (click)="toggleIngredient(i)">
         <img [src]="ingredient.imageUrl" [alt]="ingredient.name" class="card-img-top" >
         <div class="card-body">
           <h5 class="card-title text-center">{{ ingredient.name }}</h5>

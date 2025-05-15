@@ -22,6 +22,16 @@ body {
   align-items: center;
 }
 
+.card-deplement {
+  /* background-color: #808080; */
+  opacity: 50%;
+  border-style: dashed;
+  /* box-shadow: none;
+  border-color: gray;
+  color: gray; */
+  filter: grayscale(100%);
+}
+
 .card img {
   width: 80%;
 }
