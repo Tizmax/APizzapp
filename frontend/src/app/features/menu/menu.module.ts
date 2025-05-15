@@ -5,12 +5,14 @@ import { MenuRoutingModule } from './menu-routing.module';
 
 import { MenuComponent } from './menu/menu.component';
 import { DetailProduitComponent } from './detail-produit/detail-produit.component';
+import { RecapCommandeComponent } from './recap-commande/recap-commande.component';
 
 
 @NgModule({
   declarations: [
     MenuComponent,
-    DetailProduitComponent
+    DetailProduitComponent,
+    RecapCommandeComponent
   ],
   imports: [
     CommonModule,
