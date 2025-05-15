@@ -55,24 +55,22 @@
   </div>  
 
   <!-- Ingredients de la pizza -->
-  <!-- <div class="row" id="ingredients-container">
-    {% for ingredient in pizzas[pizza].ingredients %}
-    <div class="col-md-3 col-sm-6 mb-4 ingredient-card">
-      <div class="card" data-ingredient="{{ ingredient }}">
-        <img src="{{ url_for('static', filename='images/ingredients/' ~ supplements[ingredient].image) }}" class="card-img-top" alt="{{ ingredient }}">
+  <div class="row" id="ingredients-container">
+    <div *ngFor="let ingredient of pizza?.baseIngredients; let i = index" class="col-md-3 col-sm-6 mb-4">
+      <div class="card" >
+        <img [src]="ingredient.imageUrl" [alt]="ingredient.name" class="card-img-top" >
         <div class="card-body">
-          <h5 class="card-title text-center">{{ ingredient}}</h5>
+          <h5 class="card-title text-center">{{ ingredient.name }}</h5>
         </div>
       </div>
     </div>
-    {% endfor %}
-  </div> -->
+  </div>
   <div class="row">
     <div *ngFor="let supplement of supplements; let i = index" class="col-md-3 col-sm-6 mb-4">
       <div class="card supplement-card" (click)="removeSupplement(i)">
-        <img  [src]="supplement.imageUrl" [alt]="supplement.name" class="card-img-top" >
+        <img [src]="supplement.imageUrl" [alt]="supplement.name" class="card-img-top" >
         <div class="card-body">
-          <h5 class="card-title text-center">{{ supplement.name }} </h5>
+          <h5 class="card-title text-center">{{ supplement.name }}</h5>
         </div>
       </div>
     </div>
