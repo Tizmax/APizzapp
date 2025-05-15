@@ -13,19 +13,58 @@ import { Ingredient } from '../../../shared/models/ingredient.model';
 export class DetailProduitComponent {
   pizza: Pizza | null = null;
   ingredients: Ingredient[] = [];
+  supplements: Ingredient[] = [];
+  depplements: Ingredient[] = [];
+  disabledIngredients: Set<number> = new Set<number>();
 
   constructor(private route: ActivatedRoute, private pizzaService: PizzaService) {}
 
   ngOnInit(): void {
+
     const id = this.route.snapshot.paramMap.get('id');
 
     this.pizzaService.getPizzaById(id).subscribe(
-      (data) => this.pizza = data
+      (data) => {this.pizza = data; console.log('Détails de la pizza:', this.pizza)
+      }
     );
 
+    
     
     this.pizzaService.getAllIngredients().subscribe(
       (data) => this.ingredients = data
     );
+
+  }
+
+
+  toggleIngredient(index: number): void {
+    if (this.disabledIngredients.has(index)) {
+      this.disabledIngredients.delete(index);
+    } else {
+      this.disabledIngredients.add(index);
+    }
+  }
+
+
+  addSupplement(ingredient: Ingredient): void {
+    // Logique pour ajouter un supplément
+    console.log('Supplément ajouté:', ingredient);
+    this.supplements.push(ingredient);
+    console.log('Liste des suppléments:', this.supplements);
+  }
+
+  removeSupplement(index: number): void {
+    // Logique pour retirer un supplément
+    console.log('Supplément retiré : n°', index);
+    this.supplements.splice(index, 1);
+    console.log('Liste des suppléments:', this.supplements);
+  }
+
+  AddToCart(pizza: Pizza, quantity: number, addedSupplements: Ingredient[], removedIngredients: Ingredient[]): void {
+    // Logique pour ajouter la pizza au panier
+    console.log('Pizza ajo*utée au panier:', pizza);
+    console.log('Quantité:', quantity);
+    console.log('Suppléments ajoutés:', addedSupplements);
+    console.log('Ingrédients retirés:', removedIngredients);
   }
 }
