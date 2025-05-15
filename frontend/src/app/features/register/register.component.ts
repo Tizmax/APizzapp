@@ -45,7 +45,10 @@ export class RegisterComponent {
   onRegister() {
       const userData = this.registerForm.value;
       this.authService.register(userData).subscribe({
-        next: () => this.message = "Inscription réussie !",
+        next: () => {
+        this.message = 'Inscription réussie !';
+        this.router.navigateByUrl('/landing');
+      },
         error: () => this.message = "Erreur lors de la création du compte : l'adresse mail est déjà utilisée.",
       });
   }

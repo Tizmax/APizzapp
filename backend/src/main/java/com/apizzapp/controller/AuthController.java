@@ -6,6 +6,7 @@ import com.apizzapp.controller.dto.AuthDTO;
 import com.apizzapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -19,6 +20,9 @@ public class AuthController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody AuthDTO req) {
         if (userRepository.existsByEmail(req.email)) {
@@ -27,7 +31,7 @@ public class AuthController {
 
         User user = new User();
         user.setEmail(req.email);
-        user.setPassword(req.password);// → hasher en prod !
+        user.setPassword(passwordEncoder.encode(req.password));
         user.setFirstName(req.firstName);
         user.setLastName(req.lastName);
         user.setRole(ERole.ROLE_USER);    
@@ -41,7 +45,7 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestParam String email,
                                    @RequestParam String password) {
         Optional<User> userOpt = userRepository.findByEmail(email);
-        if (userOpt.isEmpty() || !userOpt.get().getPassword().equals(password)) {
+        if (userOpt.isEmpty() || !passwordEncoder.matches(password, userOpt.get().getPassword())) {
             return ResponseEntity
               .status(401)
               .body(Map.of("error", "Invalid credentials"));
