@@ -1,1 +1,41 @@
-<p>recap-commande works!</p>
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Recapitulatif de la commande</h1>
+
+    <!-- <div class="row">
+        {% for pizza in order %}
+        <div class="card order-card col-md-3">
+            <div class="quantity-controls">
+            <button  onclick="tryDecQuantity('{{loop.index0}}', '{{pizza.quantity}}')">-</button>
+            <button onclick="incQuantity('{{loop.index0}}', '{{pizza.quantity}}')">+</button>
+            </div>
+            <img src="{{ url_for('static', filename='images/' ~ pizzas[pizza.name].image) }}" class="card-img-top ">
+            <div class="card-body">
+            <h4 class="card-title text-center"> {{ pizza.quantity }} {{pizza.size}} {{ pizza.name }} {{ pizza.sauce }}</h4>
+            {% for supplement in pizza.supplements %}
+            <span class="badge badge-success">{{ supplement }} </span>
+            {% endfor %}
+            {% for deplement in pizza.deplements %}
+            
+            <span class="badge badge-danger">{{ deplement }} </span>
+            {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div> -->
+</div>
+<!-- <a href="/choose_pizza" class="btn btn-primary text-center mt-4">Ajouter une pizza</a> -->
+<!-- <form method="POST" class="mt-4">
+    <div class="form-group">
+        <label for="name">Nom du client:</label>
+        <input type="text" id="name" name="name" class="form-control" value="{{ name }}">
+    </div>
+    <div class="form-group">
+        <label for="time">Heure:</label>
+        <input type="text" id="time" name="time" class="form-control" required value="{{hour}}">
+    </div>
+    <div class="form-group">
+        <label for="details">Infos supplémentaires:</label>
+        <input type="text" id="details" name="details" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Fin de la commande</button>
+</form> -->
