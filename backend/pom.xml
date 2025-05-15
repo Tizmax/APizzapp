@@ -52,17 +52,12 @@
       <artifactId>flyway-core</artifactId>
     </dependency>
 
-    <!-- Spring Boot Security pour la gestion des utilisateurs et des mots de passe -->
-    <!-- <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-security</artifactId>
-    </dependency> -->
-
-    <!-- Pour le support du BCryptPasswordEncoder -->
-    <!-- <dependency>
-        <groupId>org.springframework.security</groupId>
-        <artifactId>spring-security-core</artifactId>
-    </dependency> -->
+    <!-- Spring Security (pour la sécurité) -->
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-crypto</artifactId>
+      <version>6.1.3</version>     
+    </dependency>
 
 </dependencies>
 
