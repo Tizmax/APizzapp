@@ -7,7 +7,10 @@ import { PlanningComponent } from './features/planning/planning.component';
 export const routes: Routes = [
 
   { path: '', component: LandingComponent },
-  { path: 'planning', component: PlanningComponent},
+  { path: 'planning',
+    loadChildren: () => 
+      import('./features/planning/planning.module').then((m) => m.PlanningModule)
+  },
   { path: 'menu', 
     loadChildren: () => 
       import('./features/menu/menu.module').then((m) => m.MenuModule) }, // page d'accueil
