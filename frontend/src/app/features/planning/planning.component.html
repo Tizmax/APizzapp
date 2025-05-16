@@ -1,0 +1,54 @@
+<div class="order-display-container">
+  <h1>Planning des commandes</h1>
+
+  <table class="table table-striped mt-4">
+    <thead>
+      <tr>
+        <th>N°</th>
+        <th>Nom</th>
+        <th>Pizza</th>
+        <th>Prix Total</th>
+        <th>État</th>
+        <th>Supprimer</th>
+        <th>Modifier</th>
+      </tr>
+    </thead>
+
+    <tbody *ngIf="planning && planning.length > 0">
+      <tr *ngFor="let order of planning">
+        <td>{{ order.id }}</td>
+        <td>{{ order.userId }}</td>
+        
+        <!-- Liste des pizzas dans la commande -->
+        <td>
+          <ul>
+            <li *ngFor="let item of order.items">
+              {{ item.name }} ({{ item.basePrice | currency:'EUR' }})
+            </li>
+          </ul>
+        </td>
+
+        <td>{{ order.totalAmount | currency:'EUR' }}</td>
+        <td>{{ order.status }}</td>
+
+        <td>
+          <button (click)="removeOrder(order.id)" class="btn-delete">Supprimer</button>
+        </td>
+        
+        <td>
+          <a routerLink="/recap" class="btn-modify">Modifier</a>
+        </td>
+      </tr>
+    </tbody>
+
+    <tbody *ngIf="!planning || planning.length === 0">
+      <tr>
+        <td colspan="7" style="text-align: center;">Aucune commande pour le moment</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="new-order-button">
+    <a routerLink="/choose_pizza" class="btn btn-primary mt-4">Nouvelle commande</a>
+  </div>
+</div>

@@ -1,0 +1,65 @@
+.order-display-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #fff5f0, #ffe1d6);
+  font-family: 'Segoe UI', sans-serif;
+  padding: 2rem;
+}
+
+h1 {
+  font-size: 2.4rem;
+  color: #d62828;
+  margin-bottom: 1rem;
+}
+
+.table {
+  width: 100%;
+  max-width: 1200px;
+  margin-bottom: 2rem;
+}
+
+.btn-status {
+  background-color: #ffc107;
+  border: none;
+  color: white;
+  padding: 0.4rem 1rem;
+  border-radius: 0.5rem;
+}
+
+.btn-delete {
+  background-color: #dc3545;
+  border: none;
+  color: white;
+  padding: 0.4rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.btn-modify {
+  background-color: #007bff;
+  color: white;
+  padding: 0.4rem 1rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+}
+
+.new-order-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.new-order-button .btn {
+  background-color: #d62828;
+  color: white;
+  border-radius: 5px;
+  padding: 10px 20px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.new-order-button .btn:hover {
+  background-color: #b71c1c;
+}

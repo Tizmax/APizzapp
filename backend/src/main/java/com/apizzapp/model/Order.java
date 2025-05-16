@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "orders")
 @Getter
@@ -36,6 +38,7 @@ public class Order {
     // fetch=LAZY => Ne charge pas l'utilisateur systématiquement (bonne pratique)
     // nullable=false => Une commande DOIT avoir un utilisateur associé
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 

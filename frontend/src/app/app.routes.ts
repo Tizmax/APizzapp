@@ -2,10 +2,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LandingComponent } from './features/landing/landing.component';
+import { PlanningComponent } from './features/planning/planning.component';
 
 export const routes: Routes = [
+
   { path: '', component: LandingComponent },
-  { path: 'menu',   
+  { path: 'planning',
+    loadChildren: () => 
+      import('./features/planning/planning.module').then((m) => m.PlanningModule)
+  },
+  { path: 'menu', 
     loadChildren: () => 
       import('./features/menu/menu.module').then((m) => m.MenuModule) }, // page d'accueil
   { path: 'register', loadChildren: () => import('./features/register/register.module').then(m => m.RegisterModule) }, // page d'inscription

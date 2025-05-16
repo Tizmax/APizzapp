@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "users", uniqueConstraints = {
     @UniqueConstraint(columnNames = "email") // Assure l'unicité de l'email
@@ -47,6 +49,7 @@ public class User {
     // orphanRemoval=true => Si on retire une commande de la liste orders du user, elle est supprimée de la BDD
     // fetch=LAZY => Ne charge pas les commandes sauf si on le demande explicitement (TRÈS IMPORTANT pour la perf)
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Order> orders = new ArrayList<>(); // Initialiser la collection
 
     public User(String email, String password, String firstName, String lastName) {

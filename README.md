@@ -18,7 +18,7 @@ Pour tout changement au niveau du backend ou de la base de données il est néce
 La commande suivante permet de lancer l'application sans la rebuild (lancer le serveur de bdd et le serveur de dev angular avec le dernier build du back donc sans tenir compte des modifs back et bdd) 
 `docker compose up`
 
-Enfin pour shutdown l'application il suffit de lancer : 
+Enfin pour shutdown l'application il suffit de lancer :
 `docker compose down`
 
 # Exécuter des commandes dans un container

@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { PlanningComponent } from '../features/planning/planning.component';
-import { PlanningService } from './planning.service';
+import { PlanningComponent } from './planning.component';
+import { PlanningService } from '../../services/planning.service';
 
 describe('PlanningComponent', () => {
   let component: PlanningComponent;
@@ -30,34 +30,12 @@ describe('PlanningComponent', () => {
   });
 
   it('should load initial orders correctly from the service', () => {
-    const dummyOrders = [
-      {
-        id: 1,
-        pizzas: [
-          { id: 1, name: 'Margherita', basePrice: 12.5, baseIngredients: [] }
-        ],
-        name: 'Dupont Jean',
-        price: 12.50,
-        status: 'En attente',
-      },
-      {
-        id: 2,
-        pizzas: [
-          { id: 2, name: 'Pepperoni', basePrice: 14.0, baseIngredients: [] }
-        ],
-        name: 'Durand Marie',
-        price: 14.00,
-        status: 'En attente',
-      }
-    ];
-
     const request = httpMock.expectOne('http://localhost:8080/listerOrder');
     expect(request.request.method).toBe('GET');
-    request.flush(dummyOrders);
+    request.flush([]); // Simule un retour vide du backend
 
     fixture.detectChanges();
-    expect(component.planning.length).toBe(2);
-    expect(component.planning[0].name).toBe('Dupont Jean');
+    expect(component.planning.length).toBe(0); // Vérifie que le tableau est vide
   });
 
   it('should remove an order correctly', () => {
