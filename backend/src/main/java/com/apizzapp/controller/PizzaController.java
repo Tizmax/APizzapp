@@ -49,6 +49,9 @@ public class PizzaController {
     Collection<Ingredient> getAllIngredients() {
         return ingredient.findAll();
     }
+    
+    @GetMapping("/listerOrder")
+    Collection<Order> ListerOrder() {return orderRepository.findAll();}
 
     @PostMapping("/placeOrder")
     public ResponseEntity<?> createOrder(@RequestBody Order order) {
