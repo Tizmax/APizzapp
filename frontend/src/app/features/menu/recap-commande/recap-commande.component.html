@@ -2,34 +2,49 @@
     <h1 class="text-center mb-4">Recapitulatif de la commande</h1>
 
     <div class="row">
-        <div *ngFor="let item of cartItems" class="card order-card col-md-3">
-            <div class="quantity-controls">
-            <!-- <button  onclick="tryDecQuantity('{{loop.index0}}', '{{pizza.quantity}}')">-</button>
-            <button onclick="incQuantity('{{loop.index0}}', '{{pizza.quantity}}')">+</button> -->
-            </div>
-            <img [src]="item.pizza.imageUrl" class="card-img-top ">
-            <div class="card-body">
-            <!-- <h4 class="card-title text-center"> {{ item.quantity }} {{ item.size }} {{ item.name }} {{ item.sauce }}</h4> -->
-            <h4 class="card-title text-center"> {{ item.pizza.name }}</h4>
-            <span *ngFor="let supplement of item.addedSupplements" class="">{{ supplement.name }} </span>
-            <span *ngFor="let depplement of item.removedIngredients" class="">{{ depplement.name }} </span>
+        <div *ngFor="let item of cartItems" class="col-md-2 col-sm-6 mb-4">
+            <div class="card">
+                <div class="quantity-controls">
+                    <!-- <button  onclick="tryDecQuantity('{{loop.index0}}', '{{pizza.quantity}}')">-</button>
+                    <button onclick="incQuantity('{{loop.index0}}', '{{pizza.quantity}}')">+</button> -->
+                    <button>-</button>
+                    <button>+</button>
+                </div>
+                <div>
+                    <img [src]="item.pizza.imageUrl" class="card-img-top ">
+
+                </div>
+                <!-- <h4 class="card-title text-center"> {{ item.quantity }} {{ item.size }} {{ item.name }} {{ item.sauce }}</h4> -->
+                <h4 class="card-title text-center"> {{ item.pizza.name }}</h4>
+                <div class="badges card-body">
+                    <span *ngFor="let supplement of item.addedSupplements" class="badge badge-supplement">{{ supplement.name }} </span>
+                    <span *ngFor="let depplement of item.removedIngredients" class="badge badge-deplement">{{ depplement.name }} </span>
+                </div>
             </div>
         </div>
     </div>
+    
+    <div class="text-center">
+        <a class="btn btn-primary" (click)="goToMenu()">Ajouter une pizza à la commande</a>
+    </div>
+    
+    <form [formGroup]="orderForm" (ngSubmit)="validateOrder()" class="mt-4">
+        <div class="form-group">
+            <label for="name">Nom du client:</label>
+            <input type="text" id="name" name="name" class="form-control" value="">
+        </div>
+        <div class="form-group">
+            <label for="time">Heure:</label>
+            <input type="text" id="time" name="time" class="form-control" required value="">
+        </div>
+        <div class="form-group">
+            <label for="details">Infos supplémentaires:</label> 
+            <input type="text" id="details" name="details" class="form-control">
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Passer commande</button>
+            <a class="btn btn-secondary" (click)="cancelOrder()">Annuler cette commande</a>
+        </div>
+    </form>
+
 </div>
-<!-- <a href="/choose_pizza" class="btn btn-primary text-center mt-4">Ajouter une pizza</a> -->
-<!-- <form method="POST" class="mt-4">
-    <div class="form-group">
-        <label for="name">Nom du client:</label>
-        <input type="text" id="name" name="name" class="form-control" value="{{ name }}">
-    </div>
-    <div class="form-group">
-        <label for="time">Heure:</label>
-        <input type="text" id="time" name="time" class="form-control" required value="{{hour}}">
-    </div>
-    <div class="form-group">
-        <label for="details">Infos supplémentaires:</label>
-        <input type="text" id="details" name="details" class="form-control">
-    </div>
-    <button type="submit" class="btn btn-primary">Fin de la commande</button>
-</form> -->

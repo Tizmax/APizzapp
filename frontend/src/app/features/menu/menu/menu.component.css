@@ -49,7 +49,7 @@ body {
 .table .tr {
   border: none;
 }
-
+/* 
 .quantity-controls {
   display: flex;
   align-items: center;
@@ -80,4 +80,4 @@ body {
   border-width: 10px 10px 10px 10px;
   border-color: black;
   background-color: #0056b3;
-}
+} */

@@ -1,6 +1,8 @@
 body {
-    background-color: #f8f9fa;
+    background-color: #ffffff;
+    
   }
+  
 
 .card {
   border: none;
@@ -12,42 +14,20 @@ body {
   align-items: center;
 }
 
-.card img {
-  border-radius: 15px 15px 0 0;
+.badges {
+  width: 90%;
 }
 
-.order-card img {
-  border-radius: 15px;
-  width: 200px;
-  height: 200px;
+.badge {
+  margin-right: 2%;
 }
 
-.card:hover {
-  transform: scale(1.05);
+.badge-supplement {
+  background-color: brown;
 }
 
-.order-card:hover {
-  transform: scale(1);
-}
-
-.card .card-body {
-  padding: 10px;
-}
-
-.card .card-title {
-  margin-bottom: 0;
-}
-
-.taille-card {
-  padding: 4;
-}
-
-.selected-card {
-  border: 2px solid #007bff;
-}
-
-.table .tr {
-  border: none;
+.badge-deplement {
+  background-color:rgb(94, 94, 94);
 }
 
 .quantity-controls {
