@@ -26,7 +26,7 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody AuthDTO req) {
         if (userRepository.existsByEmail(req.email)) {
-            return ResponseEntity.badRequest().body(Map.of("error", "Email already registered."));
+            return ResponseEntity.badRequest().body(Map.of("error", ""));
         }
 
         User user = new User();
@@ -38,7 +38,7 @@ public class AuthController {
 
         userRepository.save(user);
         return ResponseEntity
-           .ok(Map.of("message", "User registered successfully."));
+           .ok(Map.of("message", ""));
     }
 
     @PostMapping("/login")
@@ -48,7 +48,7 @@ public class AuthController {
         if (userOpt.isEmpty() || !passwordEncoder.matches(password, userOpt.get().getPassword())) {
             return ResponseEntity
               .status(401)
-              .body(Map.of("error", "Invalid credentials"));
+              .body(Map.of("error", ""));
         }
         User user = userOpt.get();
         return ResponseEntity.ok(Map.of(
