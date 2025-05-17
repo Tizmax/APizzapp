@@ -5,10 +5,7 @@ import { LandingComponent } from './features/landing/landing.component';
 import { PlanningComponent } from './features/planning/planning.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
-import { AuthGuard } from './guards/auth.guard';
-import { UserDashboardComponent } from './features/dashboards/user-dashboard/user-dashboard.component';
-import { OperatorDashboardComponent } from './features/dashboards/operator-dashboard/operator-dashboard.component';
-import { AdminDashboardComponent } from './features/dashboards/admin-dashboard/admin-dashboard.component';
+
 
 
 export const routes: Routes = [
@@ -23,22 +20,10 @@ export const routes: Routes = [
       import('./features/menu/menu.module').then((m) => m.MenuModule)}, // page de menu
   { path: 'register', loadChildren: () => import('./features/register/register.module').then(m => m.RegisterModule) }, // page d'inscription
   {
-    path: 'user',
-    component: UserDashboardComponent,
-    canActivate: [AuthGuard],
-    data: { roles: ['USER'] }
-  },
-  {
-    path: 'operator',
-    component: OperatorDashboardComponent,
-    canActivate: [AuthGuard],
-    data: { roles: ['OPERATOR'] }
-  },
-  {
-    path: 'admin',
-    component: AdminDashboardComponent,
-    canActivate: [AuthGuard],
-    data: { roles: ['ADMIN'] }
+    path: 'dashboards',
+    loadChildren: () =>
+      import('./features/dashboards/dashboards.module')
+        .then(m => m.DashboardsModule)
   },
   { path: '**', redirectTo: '' } // redirection des routes non définies
 ];

@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-operator-dashboard',
-  imports: [],
+  standalone: false,
   templateUrl: './operator-dashboard.component.html',
-  styleUrl: './operator-dashboard.component.css'
+  styleUrls: ['./operator-dashboard.component.css','../dashboards.component.css'],
 })
 export class OperatorDashboardComponent {
 

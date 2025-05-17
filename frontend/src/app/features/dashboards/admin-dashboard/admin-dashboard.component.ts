@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-admin-dashboard',
-  imports: [],
+  standalone: false,
   templateUrl: './admin-dashboard.component.html',
-  styleUrl: './admin-dashboard.component.css'
+  styleUrls: ['./admin-dashboard.component.css','../dashboards.component.css'],
 })
 export class AdminDashboardComponent {
 

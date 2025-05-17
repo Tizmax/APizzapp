@@ -1,1 +1,34 @@
-<p>admin-dashboard works!</p>
+<div class="dashboard-container">
+  <div class="dashboard-card">
+    <header class="dashboard-header">
+      <h1>Tableau de bord – Administrateur</h1>
+    </header>
+    <div class="dashboard-body">
+      <p>Accédez aux fonctionnalités d’administration :</p>
+
+      <section class="dashboard-section">
+        <button routerLink="/planning" class="btn">
+          Voir le planning
+        </button>
+      </section>
+
+      <section class="dashboard-section">
+        <button routerLink="/dashboards/operator/ingredients" class="btn">
+          Gérer les ingrédients
+        </button>
+      </section>
+
+      <section class="dashboard-section">
+        <button routerLink="/dashboards/admin/accounting" class="btn">
+          Ouvrir la comptabilité
+        </button>
+      </section>
+
+      <section class="dashboard-section">
+        <button routerLink="/dashboards/admin/settings" class="btn">
+          Réglages généraux
+        </button>
+      </section>
+    </div>
+  </div>
+</div>
