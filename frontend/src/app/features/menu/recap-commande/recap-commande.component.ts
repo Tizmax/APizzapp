@@ -40,28 +40,39 @@ export class RecapCommandeComponent implements OnInit{
   }
 
   validateOrder(): void {
-    const order = {
-      name: this.orderForm.value.name,
-      time: this.orderForm.value.time,
-      details: this.orderForm.value.details,
-      cartItems: this.cartItems.map(item => ({
-        pizzaName: item.pizza.name,
+    const cartItems = this.cartItems.map(item => {
+      return {
+        pizzaId: item.pizza.id, // Assure-toi que tu as l'ID
         quantity: item.quantity,
         supplements: item.addedSupplements.map(s => s.name),
         depplements: item.removedIngredients.map(d => d.name)
-      }))
+      };
+    });
+
+    // const totalAmount = this.cartItems.reduce((total, item) => {
+    //   const supplementsPrice = item.addedSupplements.reduce((sum, s) => sum + s.price, 0);
+    //   return total + (item.pizza.basePrice + supplementsPrice) * item.quantity;
+    // }, 0);
+
+    const order = {
+      orderDate: new Date().toISOString(), // ou this.orderForm.value.time
+      status: 'PENDING',
+      totalAmount: 0,
+      userId: 1,
+      orderItems: cartItems
     };
 
-    this.pizzaService.placeOrder(order).subscribe({
-      next: () => {
-        console.log('Commande envoyée avec succès !');
-        this.cancelOrder();
-      },
-      error: (err) => {
-        console.error('Erreur lors de la commande', err);
-      }
-    });
-  }
+  this.pizzaService.placeOrder(order).subscribe({
+    next: () => {
+      console.log('Commande envoyée avec succès !');
+      this.cancelOrder();
+    },
+    error: (err) => {
+      console.error('Erreur lors de la commande', err);
+    }
+  });
+}
+
 
 
   goToMenu(): void {

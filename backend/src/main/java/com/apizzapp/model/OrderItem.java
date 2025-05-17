@@ -25,7 +25,7 @@ public class OrderItem {
     @Column(nullable = false)
     private Long orderId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "pizza_id", nullable = false)
     private Pizza pizza;
 
