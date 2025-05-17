@@ -1,0 +1,6 @@
+<div class="user-status" *ngIf="auth.currentUser$ | async as user">
+  Connecté·e en tant que
+  <strong>{{ user.firstName }} {{ user.lastName }}</strong>
+  <button (click)="logout()" class="logout-btn">Déconnexion</button>
+</div>
+

@@ -1,0 +1,14 @@
+.user-status {
+  background: #fff5f0;
+  padding: .5rem 1rem;
+  text-align: right;
+  font-size: .9rem;
+}
+
+.logout-btn {
+  margin-left: 1rem;
+  background: transparent;
+  border: none;
+  color: #d62828;
+  cursor: pointer;
+}
