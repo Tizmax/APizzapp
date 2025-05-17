@@ -57,7 +57,12 @@ export class LandingComponent implements OnInit {
         const role = user.role.replace('ROLE_', ''); 
         if (role === 'ADMIN') this.router.navigate(['/admin']);
         else if (role === 'OPERATOR') this.router.navigate(['/operator']);
-        else this.router.navigate(['/menu']);
+        const target = {
+          ADMIN:    '/admin',
+          OPERATOR: '/operator',
+          USER:     '/user'
+        }[role] || '/user';
+        this.router.navigateByUrl(target);
       },
       error: () => {
         this.error = 'Email ou mot de passe incorrect';
