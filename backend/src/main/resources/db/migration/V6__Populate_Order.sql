@@ -7,19 +7,29 @@ VALUES
     (NOW(), 'PENDING', 21.98, 1); -- Deuxième commande de John Doe
 
 -- Commande 1
-INSERT INTO order_items (order_id, name, base_price, image_url)
+INSERT INTO order_items (order_id, pizza_id)
 VALUES 
-    (1, 'Margherita', 7.99, 'img/margherita.jpg'),
-    (1, 'Pepperoni', 9.49, 'img/pepperoni.jpg');
+    (1, 1),
+    (1, 2),
+    (2, 3),
+    (2, 4),
+    (3, 5),
+    (3, 6);
 
--- Commande 2
-INSERT INTO order_items (order_id, name, base_price, image_url)
+INSERT INTO supplements (item_id, ingredient_id)
 VALUES 
-    (2, 'Végétarienne', 8.99, 'img/vegetarienne.jpg'),
-    (2, 'Hawaïenne', 9.29, 'img/hawaienne.jpg');
+    (1, 1), 
+    (2, 2),
+    (3, 3),
+    (4, 4), 
+    (5, 5), 
+    (6, 6);
 
--- Commande 3
-INSERT INTO order_items (order_id, name, base_price, image_url)
+INSERT INTO deplements (item_id, ingredient_id)
 VALUES 
-    (3, 'Quatre Fromages', 10.99, 'img/quatrefromages.jpg'),
-    (3, 'Quatre Fromages', 10.99, 'img/quatrefromages.jpg');
+    (1, 7), 
+    (2, 8),
+    (3, 9),
+    (4, 10), 
+    (5, 11), 
+    (6, 12);

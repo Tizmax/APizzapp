@@ -26,9 +26,6 @@ public class Pizza {
     @Column(length = 100, nullable = false, unique = true)
     private String name;
 
-    @Column(length = 255)
-    private String description;
-
     // Prix de base de la pizza AVEC ses ingrédients standards
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal basePrice;
@@ -48,7 +45,6 @@ public class Pizza {
     // Correction: Constructeur correct
     public Pizza(String name, String description, BigDecimal basePrice, String imageUrl) {
         this.name = name;
-        this.description = description;
         this.basePrice = basePrice;
         this.imageUrl = imageUrl;
     }

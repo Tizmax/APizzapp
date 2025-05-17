@@ -25,31 +25,26 @@ public class OrderItem {
     @Column(nullable = false)
     private Long orderId;
 
-    @Column(length = 100, nullable = false, unique = true)
-    private String name;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pizza_id", nullable = false)
+    private Pizza pizza;
 
-    // Prix de base de la pizza AVEC ses ingrédients standards
-    @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal basePrice;
-
-    @Column(length = 255)
-    private String imageUrl;
-
-    // Relation ManyToMany pour définir les ingrédients de base de la recette
-    @ManyToMany(fetch = FetchType.LAZY) // LAZY est bien ici
+    @ManyToMany(fetch = FetchType.LAZY) 
     @JoinTable(
-        name = "pizza_base_ingredients", // Table de jointure pour la recette
-        joinColumns = @JoinColumn(name = "pizza_id"),
+        name = "supplements",
+        joinColumns = @JoinColumn(name = "item_id"),
         inverseJoinColumns = @JoinColumn(name = "ingredient_id")
     )
-    private Set<Ingredient> baseIngredients = new HashSet<>(); // Les ingrédients standards
+    private Set<Ingredient> supplements = new HashSet<>();
 
-    // Correction: Constructeur correct
-    public OrderItem(String name, String description, BigDecimal basePrice, String imageUrl) {
-        this.name = name;
-        this.basePrice = basePrice;
-        this.imageUrl = imageUrl;
-    }
+    @ManyToMany(fetch = FetchType.LAZY) 
+    @JoinTable(
+        name = "deplements",
+        joinColumns = @JoinColumn(name = "item_id"),
+        inverseJoinColumns = @JoinColumn(name = "ingredient_id")
+    )
+    private Set<Ingredient> deplements = new HashSet<>();
+
 
     // equals/hashCode géré par Lombok
 }
