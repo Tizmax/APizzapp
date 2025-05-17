@@ -1,4 +1,4 @@
-import { Ingredient } from './ingredient.model'; // si tu as ce modèle
+import { Ingredient } from './ingredient.model'; 
 
 export interface Pizza {
   id: number;

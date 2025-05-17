@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+// import com.apizzapp.security.JwtProvider;
 
 import java.util.Map;
 import java.util.Optional;
@@ -23,6 +24,9 @@ public class AuthController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    // @Autowired
+    // private JwtProvider jwtProvider;   
+
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody AuthDTO req) {
         if (userRepository.existsByEmail(req.email)) {
@@ -34,8 +38,7 @@ public class AuthController {
         user.setPassword(passwordEncoder.encode(req.password));
         user.setFirstName(req.firstName);
         user.setLastName(req.lastName);
-        user.setRole(ERole.ROLE_USER);    
-
+        user.setRole(ERole.ROLE_USER); 
         userRepository.save(user);
         return ResponseEntity
            .ok(Map.of("message", ""));
@@ -51,9 +54,15 @@ public class AuthController {
               .body(Map.of("error", ""));
         }
         User user = userOpt.get();
+        // String jwt = jwtProvider.generateToken(user.getEmail());
+
+   
         return ResponseEntity.ok(Map.of(
-            "email", user.getEmail(),
-            "role", user.getRole().name()
+        // "token",     jwt,
+        "email",     user.getEmail(),
+        "role",      user.getRole().name(),
+        "firstName", user.getFirstName(),
+        "lastName",  user.getLastName()
         ));
     }
 }

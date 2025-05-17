@@ -53,6 +53,7 @@ export class LandingComponent implements OnInit {
     this.error = null; 
     this.authService.login(email!, password!).subscribe({
       next: (user: { role: string; }) => {
+        console.log('Logged in user payload:', user);
         const role = user.role.replace('ROLE_', ''); 
         if (role === 'ADMIN') this.router.navigate(['/admin']);
         else if (role === 'OPERATOR') this.router.navigate(['/operator']);
