@@ -11,9 +11,7 @@ public class OrderDTO {
 
     
     public static class OrderItemDTO {
-        public Long productId;
-        public Integer quantity;
-        public BigDecimal price;
+        public Long pizzaId;
     }
 }
 

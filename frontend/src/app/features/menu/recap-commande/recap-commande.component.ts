@@ -44,8 +44,8 @@ export class RecapCommandeComponent implements OnInit{
       return {
         pizzaId: item.pizza.id, // Assure-toi que tu as l'ID
         quantity: item.quantity,
-        supplements: item.addedSupplements.map(s => s.name),
-        depplements: item.removedIngredients.map(d => d.name)
+        supplements: item.addedSupplements.map(s => s.id),
+        depplements: item.removedIngredients.map(d => d.id)
       };
     });
 

@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.jaxb.SpringDataJaxb.OrderDto;
@@ -35,11 +36,11 @@ public class PizzaController {
     
 
     @Autowired
-    PizzaRepository pizza;
+    PizzaRepository pizzaRepository;
 
 
     @Autowired
-    IngredientRepository ingredient;
+    IngredientRepository ingredientRepository;
 
     @Autowired
     OrderRepository orderRepository;
@@ -49,17 +50,17 @@ public class PizzaController {
 
 
     @GetMapping("/listerPizza")
-    Collection<Pizza> ListerPizza() {return pizza.findAll();}
+    Collection<Pizza> ListerPizza() {return pizzaRepository.findAll();}
 
     
     @GetMapping("/getPizzaById/{id}")
     public Pizza getPizzaById(@PathVariable Long id) {
-        return pizza.findById(id).orElseThrow(() -> new RuntimeException("Pizza not found"));
+        return pizzaRepository.findById(id).orElseThrow(() -> new RuntimeException("Pizza not found"));
     }
 
     @GetMapping("/getAllIngredients")
     Collection<Ingredient> getAllIngredients() {
-        return ingredient.findAll();
+        return ingredientRepository.findAll();
     }
     
     @GetMapping("/listerOrder")
@@ -71,10 +72,29 @@ public class PizzaController {
         Order order = new Order();
         order.setOrderDate(LocalDateTime.now());
         order.setTotalAmount(orderDTO.totalAmount);
-        order.setOrderItems(new ArrayList<OrderItem>());
         order.setUser(userRepository.findById(orderDTO.userId).orElseThrow(() -> new RuntimeException("User not found")));
+        // Save order first to get an ID
+        Order savedOrder = orderRepository.save(order);
 
-        orderRepository.save(order);
+        // On récupère la liste actuelle (gérée par Hibernate) et on la modifie
+        List<OrderItem> targetList = savedOrder.getOrderItems();
+        targetList.clear(); // supprime les anciens éléments (et déclenche orphanRemoval)
+        targetList.addAll(
+            orderDTO.orderItems.stream()
+                .map(itemDTO -> {
+                    OrderItem orderItem = new OrderItem();
+                    orderItem.setPizza(pizzaRepository.findById(itemDTO.pizzaId)
+                        .orElseThrow(() -> new RuntimeException("Pizza not found")));
+                    orderItem.setOrderId(savedOrder.getId());
+                    orderItem.setSupplements(new HashSet<>());
+                    orderItem.setDeplements(new HashSet<>());
+                    return orderItem;
+                })
+                .collect(Collectors.toCollection(ArrayList::new))
+        );
+
+
+        orderRepository.save(savedOrder);
         return ResponseEntity.ok().build();
     }
 
