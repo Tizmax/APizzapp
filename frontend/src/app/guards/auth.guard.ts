@@ -24,11 +24,17 @@ export class AuthGuard implements CanActivate {
   if (allowedRoles.includes(userRole)) {
     return true;
   }
-
+  
   switch (userRole) {
-    case 'OPERATOR': this.router.navigate(['/operator']); break;
-    case 'ADMIN':    this.router.navigate(['/admin']);    break;
-    default:         this.router.navigate(['/user']);     break;
+    case 'OPERATOR':
+      this.router.navigate(['/dashboards/operator']);
+      break;
+    case 'ADMIN':
+      this.router.navigate(['/dashboards/admin']);
+      break;      
+    default:
+        this.router.navigate(['/dashboards/user']);
+        break;
   }
   return false;
 }

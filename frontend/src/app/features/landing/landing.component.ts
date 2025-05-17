@@ -54,15 +54,8 @@ export class LandingComponent implements OnInit {
     this.authService.login(email!, password!).subscribe({
       next: (user: { role: string; }) => {
         console.log('Logged in user payload:', user);
-        const role = user.role.replace('ROLE_', ''); 
-        if (role === 'ADMIN') this.router.navigate(['/admin']);
-        else if (role === 'OPERATOR') this.router.navigate(['/operator']);
-        const target = {
-          ADMIN:    '/admin',
-          OPERATOR: '/operator',
-          USER:     '/user'
-        }[role] || '/user';
-        this.router.navigateByUrl(target);
+        const role = user.role.replace('ROLE_', '');  
+        this.router.navigate(['/dashboards', role.toLowerCase()]);  
       },
       error: () => {
         this.error = 'Email ou mot de passe incorrect';

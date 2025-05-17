@@ -8,7 +8,7 @@ describe('OperatorDashboardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [OperatorDashboardComponent]
+      declarations: [OperatorDashboardComponent]
     })
     .compileComponents();
 
