@@ -1,8 +1,4 @@
-INSERT INTO users (email, password, first_name, last_name, role)
-VALUES 
-    ('john.doe@example.com', 'password123', 'John', 'Doe', 'ROLE_USER'),
-    ('jane.smith@example.com', 'mypassword', 'Jane', 'Smith', 'ROLE_USER'),
-    ('admin.user@example.com', 'adminpass', 'Admin', 'User', 'ROLE_ADMIN');
+
 
 INSERT INTO orders (order_date, status, total_amount, user_id)
 VALUES 

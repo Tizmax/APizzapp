@@ -27,6 +27,10 @@ export class AuthService {
     }
   }
 
+  public get currentUserValue(): AuthResponse | null {
+    return this._currentUser.value;
+  }
+
   register(userData: {
     email: string;
     password: string;
@@ -61,6 +65,10 @@ export class AuthService {
       localStorage.removeItem('currentUser');
     }
     this._currentUser.next(null);
+
+    if (typeof window !== 'undefined' && window.location) {
+      window.location.reload();
+    }
   }
 
   get token(): string | null {
@@ -70,4 +78,4 @@ export class AuthService {
   get isLoggedIn(): boolean {
     return !!this._currentUser.value;
   }
-}
+} 

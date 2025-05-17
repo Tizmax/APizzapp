@@ -21,6 +21,9 @@ La commande suivante permet de lancer l'application sans la rebuild (lancer le s
 Enfin pour shutdown l'application il suffit de lancer :
 `docker compose down`
 
+IMPORTANT : Pour détruire les volumes existant en cas de modificationde la db:
+`docker compose down -v`
+
 # Exécuter des commandes dans un container
 
 Pour exécuter une commande à l'interieur d'une container utiliser la commande suivante : 
