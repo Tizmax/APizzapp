@@ -5,15 +5,20 @@ import { LandingComponent } from './features/landing/landing.component';
 import { PlanningComponent } from './features/planning/planning.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { AuthGuard } from './guards/auth.guard';
 
 
 
 export const routes: Routes = [
 
   { path: '', component: LandingComponent },
-  { path: 'planning',
-    loadChildren: () => 
-      import('./features/planning/planning.module').then((m) => m.PlanningModule)
+  {
+    path: 'planning',
+    canActivate: [AuthGuard],
+    data: { roles: ['ADMIN', 'OPERATOR'] },
+    loadChildren: () =>
+      import('./features/planning/planning.module')
+        .then(m => m.PlanningModule)
   },
   { path: 'menu', 
     loadChildren: () => 
