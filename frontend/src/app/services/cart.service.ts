@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Pizza } from '../shared/models/pizza.model'; // Votre modèle Pizza
 import { Ingredient } from '../shared/models/ingredient.model'; // Votre modèle Ingredient/Supplement
-import { CartItem } from '../shared/models/cart-item.model';
+import { CartItem } from '../shared/models/order.model';
 
 // Interface pour un article dans le panier (inchangée)
 

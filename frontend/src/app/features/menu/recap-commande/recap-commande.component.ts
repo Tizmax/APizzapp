@@ -2,7 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CartService } from '../../../services/cart.service';
 import { PizzaService } from '../../../services/pizza.service';
-import { CartItem } from '../../../shared/models/cart-item.model';
+import { CartItem } from '../../../shared/models/order.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
