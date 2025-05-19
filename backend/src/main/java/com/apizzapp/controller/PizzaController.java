@@ -89,6 +89,8 @@ public class PizzaController {
                         .orElseThrow(() -> new RuntimeException("Pizza not found")));
                     orderItem.setOrderId(savedOrder.getId());
                     
+                    orderItem.setQuantity(itemDTO.quantity);
+
                     if (itemDTO.supplements != null && !itemDTO.supplements.isEmpty()) {
                         orderItem.setSupplements(new HashSet<>(ingredientRepository.findAllById(itemDTO.supplements)));
                     } else {
@@ -103,9 +105,16 @@ public class PizzaController {
                 })
                 .collect(Collectors.toCollection(ArrayList::new))
         );
+        
+        // Calculate total amount after all items are created
+        BigDecimal totalAmount = savedOrder.getOrderItems().stream()
+            .map(item -> item.getPizza().getPrice().multiply(new BigDecimal(item.getQuantity())))
+            .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-
+        // Update the order with the calculated total
+        savedOrder.setTotalAmount(totalAmount);
         orderRepository.save(savedOrder);
+
         return ResponseEntity.ok().build();
     }
 

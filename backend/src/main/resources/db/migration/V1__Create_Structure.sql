@@ -2,7 +2,7 @@ CREATE TABLE pizzas (
   id SERIAL PRIMARY KEY,
   name VARCHAR(100) NOT NULL UNIQUE,
   description VARCHAR(255),
-  base_price NUMERIC(10, 2) NOT NULL,
+  price NUMERIC(10, 2) NOT NULL,
   image_url VARCHAR(255)
 );
 
@@ -45,6 +45,7 @@ CREATE TABLE orders (
 CREATE TABLE order_items (
     id SERIAL PRIMARY KEY,
     order_id BIGINT NOT NULL,
+    quantity INTEGER NOT NULL DEFAULT 1,
     pizza_id BIGINT NOT NULL,
     CONSTRAINT fk_order_items_pizza FOREIGN KEY (pizza_id) REFERENCES pizzas(id),
     CONSTRAINT fk_order_items_order FOREIGN KEY (order_id) REFERENCES orders(id)

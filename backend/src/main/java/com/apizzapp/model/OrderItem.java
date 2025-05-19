@@ -25,6 +25,9 @@ public class OrderItem {
     @Column(nullable = false)
     private Long orderId;
 
+    @Column(nullable = false)
+    private Integer quantity;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "pizza_id", nullable = false)
     private Pizza pizza;
