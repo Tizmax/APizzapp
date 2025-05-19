@@ -34,10 +34,8 @@ import com.apizzapp.repository.UserRepository;
 @RestController
 public class PizzaController {
     
-
     @Autowired
     PizzaRepository pizzaRepository;
-
 
     @Autowired
     IngredientRepository ingredientRepository;
@@ -121,5 +119,10 @@ public class PizzaController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/deleteOrder/{id}")
+    public ResponseEntity<?> deleteOrder(@PathVariable Long id) {
+        orderRepository.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
 
 }

@@ -28,4 +28,8 @@ export class PizzaService {
   placeOrder(order: any) {
     return this.http.post(`${this.apiUrl}/placeOrder`, order); // '/api' peut être le préfixe de ton proxy
   }
+
+  deleteOrder(id: number) {
+    return this.http.get(`${this.apiUrl}/deleteOrder/${id}`);
+  }
 }
