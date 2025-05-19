@@ -108,7 +108,10 @@ public class PizzaController {
         
         // Calculate total amount after all items are created
         BigDecimal totalAmount = savedOrder.getOrderItems().stream()
-            .map(item -> item.getPizza().getPrice().multiply(new BigDecimal(item.getQuantity())))
+            .map(item -> (item.getPizza().getPrice()
+            .add(item.getSupplements().stream().map(supplement -> supplement.getSupplementPrice())
+            .reduce(BigDecimal.ZERO, BigDecimal::add)))
+            .multiply(new BigDecimal(item.getQuantity())))
             .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         // Update the order with the calculated total
