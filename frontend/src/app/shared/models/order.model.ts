@@ -1,6 +1,7 @@
 
 import { Pizza } from '../../shared/models/pizza.model';
 import { Ingredient } from '../../shared/models/ingredient.model';
+import { User } from '../../shared/models/user.model';
 
 export interface CartItem {
   tempId: string; // ID unique pour cet item DANS le panier (utile pour le supprimer/modifier)
@@ -14,9 +15,7 @@ export interface CartItem {
 export interface OrderItem {
   id: number;
   orderId: number;
-  name: string;
-  basePrice: number;
-  imageUrl?: string;
+  pizza: Pizza;
 }
 
 export interface Order {
@@ -24,6 +23,6 @@ export interface Order {
   orderDate: Date;
   status: string;
   totalAmount: number;
-  userId: number;
-  items: OrderItem[];
+  user: User;
+  orderItems: OrderItem[];
 }

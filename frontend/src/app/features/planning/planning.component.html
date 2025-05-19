@@ -17,18 +17,18 @@
     <tbody *ngIf="planning && planning.length > 0">
       <tr *ngFor="let order of planning">
         <td>{{ order.id }}</td>
-        <td>{{ order.userId }}</td>
+        <td>{{ order.user.firstName }} {{ order.user.lastName }}</td>
         
         <!-- Liste des pizzas dans la commande -->
         <td>
           <ul>
-            <li *ngFor="let item of order.items">
-              {{ item.name }} ({{ item.basePrice | currency:'EUR' }})
+            <li *ngFor="let item of order.orderItems">
+              {{ item.pizza.name }}
             </li>
           </ul>
         </td>
 
-        <td>{{ order.totalAmount | currency:'EUR' }}</td>
+        <td>{{ order.totalAmount }} €</td>
         <td>{{ order.status }}</td>
 
         <td>
