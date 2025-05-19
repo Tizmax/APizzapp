@@ -24,9 +24,24 @@
           <ul>
             <li *ngFor="let item of order.orderItems">
               {{ item.pizza.name }}
+
+              <span *ngIf="item.supplements && item.supplements.length > 0">
+                - Suppléments: 
+                <span *ngFor="let supplement of item.supplements; let isLast = last">
+                  {{ supplement.name }}{{ !isLast ? ', ' : '' }}
+                </span>
+              </span>
+              <span *ngIf="item.deplements && item.deplements.length > 0">
+                - Dépléments: 
+                <span *ngFor="let deplement of item.deplements; let isLast = last">
+                  {{ deplement.name }}{{ !isLast ? ', ' : '' }}
+                </span>
+              </span>
             </li>
           </ul>
         </td>
+
+        <!-- Ajouter la liste des ingrédients / dépléments -->
 
         <td>{{ order.totalAmount }} €</td>
         <td>{{ order.status }}</td>

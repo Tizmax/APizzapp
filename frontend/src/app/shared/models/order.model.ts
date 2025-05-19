@@ -16,6 +16,8 @@ export interface OrderItem {
   id: number;
   orderId: number;
   pizza: Pizza;
+  supplements: Ingredient[];
+  deplements: Ingredient[];
 }
 
 export interface Order {

@@ -71,9 +71,11 @@ public class PizzaController {
 
         Order order = new Order();
         order.setOrderDate(LocalDateTime.now());
+
+        // A CHANGER : Calcul du montant coté back pour éviter les failles
         order.setTotalAmount(orderDTO.totalAmount);
         order.setUser(userRepository.findById(orderDTO.userId).orElseThrow(() -> new RuntimeException("User not found")));
-        // Save order first to get an ID
+
         Order savedOrder = orderRepository.save(order);
 
         // On récupère la liste actuelle (gérée par Hibernate) et on la modifie
@@ -86,8 +88,17 @@ public class PizzaController {
                     orderItem.setPizza(pizzaRepository.findById(itemDTO.pizzaId)
                         .orElseThrow(() -> new RuntimeException("Pizza not found")));
                     orderItem.setOrderId(savedOrder.getId());
-                    orderItem.setSupplements(new HashSet<>());
-                    orderItem.setDeplements(new HashSet<>());
+                    
+                    if (itemDTO.supplements != null && !itemDTO.supplements.isEmpty()) {
+                        orderItem.setSupplements(new HashSet<>(ingredientRepository.findAllById(itemDTO.supplements)));
+                    } else {
+                        orderItem.setSupplements(new HashSet<>());
+                    }
+                    if (itemDTO.deplements != null && !itemDTO.deplements.isEmpty()) {
+                        orderItem.setDeplements(new HashSet<>(ingredientRepository.findAllById(itemDTO.deplements)));
+                    } else {
+                        orderItem.setDeplements(new HashSet<>());
+                    }
                     return orderItem;
                 })
                 .collect(Collectors.toCollection(ArrayList::new))

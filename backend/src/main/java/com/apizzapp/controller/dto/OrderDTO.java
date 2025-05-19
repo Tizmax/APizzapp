@@ -2,6 +2,7 @@ package com.apizzapp.controller.dto;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 
 public class OrderDTO {
@@ -12,6 +13,9 @@ public class OrderDTO {
     
     public static class OrderItemDTO {
         public Long pizzaId;
+        public Integer quantity;
+        public Set<Long> supplements; 
+        public Set<Long> deplements; 
     }
 }
 
