@@ -43,14 +43,13 @@ public class User {
     @Column(length = 20, nullable = false)
     private ERole role = ERole.ROLE_USER; // Par défaut, un nouvel utilisateur est un utilisateur normal
 
-    // Relation OneToMany avec Order (Un utilisateur peut avoir plusieurs commandes)
-    // mappedBy="user" => Le champ "user" dans l'entité Order gère la clé étrangère
-    // cascade=ALL => Si on supprime un User, ses commandes sont supprimées (Attention! Peut-être pas souhaitable)
-    // orphanRemoval=true => Si on retire une commande de la liste orders du user, elle est supprimée de la BDD
-    // fetch=LAZY => Ne charge pas les commandes sauf si on le demande explicitement (TRÈS IMPORTANT pour la perf)
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JsonManagedReference
-    private List<Order> orders = new ArrayList<>(); // Initialiser la collection
+    // // Relation OneToMany avec Order (Un utilisateur peut avoir plusieurs commandes)
+    // // mappedBy="user" => Le champ "user" dans l'entité Order gère la clé étrangère
+    // // cascade=ALL => Si on supprime un User, ses commandes sont supprimées (Attention! Peut-être pas souhaitable)
+    // // orphanRemoval=true => Si on retire une commande de la liste orders du user, elle est supprimée de la BDD
+    // // fetch=LAZY => Ne charge pas les commandes sauf si on le demande explicitement (TRÈS IMPORTANT pour la perf)
+    // @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    // private List<Order> orders = new ArrayList<>(); // Initialiser la collection
 
     public User(String email, String password, String firstName, String lastName) {
         this.email = email;

@@ -37,8 +37,7 @@ public class Order {
     // Relation ManyToOne avec User (Plusieurs commandes peuvent appartenir à un User)
     // fetch=LAZY => Ne charge pas l'utilisateur systématiquement (bonne pratique)
     // nullable=false => Une commande DOIT avoir un utilisateur associé
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
+    @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 

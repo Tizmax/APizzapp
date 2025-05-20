@@ -24,4 +24,12 @@ export class PizzaService {
   getAllIngredients(): Observable<Ingredient[]> {
     return this.http.get<Ingredient[]>(`${this.apiUrl}/getAllIngredients`);
   }
+
+  placeOrder(order: any) {
+    return this.http.post(`${this.apiUrl}/placeOrder`, order); // '/api' peut être le préfixe de ton proxy
+  }
+
+  deleteOrder(id: number) {
+    return this.http.get(`${this.apiUrl}/deleteOrder/${id}`);
+  }
 }

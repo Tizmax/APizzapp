@@ -26,12 +26,9 @@ public class Pizza {
     @Column(length = 100, nullable = false, unique = true)
     private String name;
 
-    @Column(length = 255)
-    private String description;
-
     // Prix de base de la pizza AVEC ses ingrédients standards
     @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal basePrice;
+    private BigDecimal price;
 
     @Column(length = 255)
     private String imageUrl;
@@ -46,10 +43,9 @@ public class Pizza {
     private Set<Ingredient> baseIngredients = new HashSet<>(); // Les ingrédients standards
 
     // Correction: Constructeur correct
-    public Pizza(String name, String description, BigDecimal basePrice, String imageUrl) {
+    public Pizza(String name, String description, BigDecimal price, String imageUrl) {
         this.name = name;
-        this.description = description;
-        this.basePrice = basePrice;
+        this.price = price;
         this.imageUrl = imageUrl;
     }
 
