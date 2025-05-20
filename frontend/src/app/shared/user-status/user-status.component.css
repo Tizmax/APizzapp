@@ -12,3 +12,19 @@
   color: #d62828;
   cursor: pointer;
 }
+
+.status-btn {
+  margin-left: 1rem;
+  background: #d62828;
+  color: #fff;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.status-btn:hover {
+  background: #b71c1c;
+}
+

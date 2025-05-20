@@ -1,6 +1,14 @@
 <div class="user-status" *ngIf="auth.currentUser$ | async as user">
   Connecté·e en tant que
   <strong>{{ user.firstName }} {{ user.lastName }}</strong>
-  <button (click)="logout()" class="logout-btn">Déconnexion</button>
-</div>
 
+  <!-- Bouton vers le dashboard -->
+  <button routerLink="/dashboards" class="status-btn">
+    Mon tableau de bord
+  </button>
+
+  <!-- Déconnexion -->
+  <button (click)="logout()" class="logout-btn">
+    Déconnexion
+  </button>
+</div>
