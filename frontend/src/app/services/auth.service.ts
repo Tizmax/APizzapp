@@ -3,7 +3,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 export interface AuthResponse {
-  token: string;
   email: string;
   role: string;
   firstName: string;
@@ -69,10 +68,6 @@ export class AuthService {
     if (typeof window !== 'undefined' && window.location) {
       window.location.reload();
     }
-  }
-
-  get token(): string | null {
-    return this._currentUser.value?.token ?? null;
   }
 
   get isLoggedIn(): boolean {

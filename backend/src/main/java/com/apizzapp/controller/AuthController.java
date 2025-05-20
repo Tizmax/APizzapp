@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-// import com.apizzapp.security.JwtProvider;
 
 import java.util.Map;
 import java.util.Optional;
@@ -23,9 +22,6 @@ public class AuthController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-    // @Autowired
-    // private JwtProvider jwtProvider;   
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody AuthDTO req) {
@@ -53,12 +49,10 @@ public class AuthController {
               .status(401)
               .body(Map.of("error", ""));
         }
-        User user = userOpt.get();
-        // String jwt = jwtProvider.generateToken(user.getEmail());
+        User user = userOpt.get();;
 
-   
         return ResponseEntity.ok(Map.of(
-        // "token",     jwt,
+        "id",        user.getId(),
         "email",     user.getEmail(),
         "role",      user.getRole().name(),
         "firstName", user.getFirstName(),
