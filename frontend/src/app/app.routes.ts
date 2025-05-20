@@ -2,7 +2,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LandingComponent } from './features/landing/landing.component';
-import { PlanningComponent } from './features/planning/planning.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { AuthGuard } from './guards/auth.guard';
@@ -11,7 +10,7 @@ import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
 
-  { path: '', component: LandingComponent },
+  { path: '', component: LandingComponent, canActivate: [AuthGuard] },
   {
     path: 'planning',
     canActivate: [AuthGuard],
