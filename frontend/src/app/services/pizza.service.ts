@@ -32,4 +32,8 @@ export class PizzaService {
   deleteOrder(id: number) {
     return this.http.get(`${this.apiUrl}/deleteOrder/${id}`);
   }
+
+  updateIngredients(ingredients: Ingredient[]): Observable<any> {
+    return this.http.post(`${this.apiUrl}/updateIngredients`, ingredients);
+  }
 }

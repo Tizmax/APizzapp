@@ -4,16 +4,22 @@ import { DashboardsRoutingModule } from './dashboards-routing.module';
 import { UserDashboardComponent }     from './user-dashboard/user-dashboard.component';
 import { OperatorDashboardComponent } from './operator-dashboard/operator-dashboard.component';
 import { AdminDashboardComponent }    from './admin-dashboard/admin-dashboard.component';
+import { IngredientsComponent }       from './operator/ingredients/ingredients.component';
+import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     UserDashboardComponent,
     OperatorDashboardComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
+    IngredientsComponent
   ],
   imports: [
     CommonModule,
-    DashboardsRoutingModule
+    DashboardsRoutingModule,
+    RouterModule,
+    FormsModule
   ]
 })
 export class DashboardsModule { } 
