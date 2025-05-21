@@ -70,9 +70,16 @@ public class PizzaController {
         Order order = new Order();
         order.setScheduledTime(orderDTO.scheduledTime);
 
-        order.setUser(userRepository.findById(orderDTO.userId).orElseThrow(() -> new RuntimeException("User not found")));
+        if (orderDTO.userId == null) {
+            order.setUser(null);
+        } else {
+            order.setUser(userRepository.findById(orderDTO.userId)
+                .orElseThrow(() -> new RuntimeException("User not found")));
+        }
 
         order.setTotalAmount(BigDecimal.ZERO);
+        order.setFirstNameGuest(orderDTO.firstNameGuest);
+        order.setLastNameGuest(orderDTO.lastNameGuest);
 
         Order savedOrder = orderRepository.save(order);
         

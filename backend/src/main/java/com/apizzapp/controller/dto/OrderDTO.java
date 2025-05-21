@@ -10,6 +10,9 @@ public class OrderDTO {
     public List<OrderItemDTO> orderItems;
     public String scheduledTime;
 
+    public String lastNameGuest;
+    public String firstNameGuest;
+
     
     public static class OrderItemDTO {
         public Long pizzaId;

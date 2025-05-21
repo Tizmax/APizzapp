@@ -23,6 +23,8 @@ export interface OrderItem {
 export interface Order {
   id: number;
   scheduledTime: string;
+  firstNameGuest: string;
+  lastNameGuest: string;
   status: string;
   totalAmount: number;
   user: User;
