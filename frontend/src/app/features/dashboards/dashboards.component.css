@@ -14,7 +14,7 @@
   background: #fff;
   border-radius: 1rem;
   box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-  max-width: 500px;
+  max-width: 600px;
   width: 100%;
   padding: 2rem;
 }
@@ -23,12 +23,14 @@
 .dashboard-header {
   border-bottom: 2px solid #e0e0e0;
   margin-bottom: 1.5rem;
+  text-align: center;
 }
 
 .dashboard-header h1 {
-  margin: 0;
+  margin: 0 0 1.5rem;
   font-size: 1.8rem;
   color: #d62828;
+  text-align: center;
 }
 
 /* Corps de la carte */
