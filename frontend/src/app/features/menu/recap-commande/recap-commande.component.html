@@ -27,19 +27,29 @@
     <div class="text-center">
         <a class="btn btn-primary" (click)="goToMenu()">Ajouter une pizza à la commande</a>
     </div>
-    
-    <form [formGroup]="orderForm" (ngSubmit)="validateOrder()" class="mt-4 card p-4 " *ngIf="cartItems.length > 0">
-        <div class="mb-3">
+      <form [formGroup]="orderForm" (ngSubmit)="validateOrder()" class="mt-4 card p-4 " *ngIf="cartItems.length > 0">
+        <!-- Les champs nom et prénom ne sont affichés que si l'utilisateur n'est pas connecté -->
+        <div class="mb-3" *ngIf="!authService.isLoggedIn">
             <label for="surname" class="form-label">Prénom<span class="text-danger">*</span>:</label>
-            <input type="text" id="surname" formControlName="surname" class="form-control">
+            <input type="text" id="surname" formControlName="surname" class="form-control"
+                   [ngClass]="{ 'is-invalid': formControls['surname'].touched && formControls['surname'].errors }">
+            <div *ngIf="formControls['surname'].touched && formControls['surname'].errors?.['required']" 
+                 class="invalid-feedback">
+                Le prénom est obligatoire.
+            </div>
         </div>
-        <div class="mb-3">
+        <div class="mb-3" *ngIf="!authService.isLoggedIn">
             <label for="name" class="form-label">Nom<span class="text-danger">*</span>:</label>
-            <input type="text" id="name" formControlName="name" class="form-control">
+            <input type="text" id="name" formControlName="name" class="form-control"
+                   [ngClass]="{ 'is-invalid': formControls['name'].touched && formControls['name'].errors }">
+            <div *ngIf="formControls['name'].touched && formControls['name'].errors?.['required']" 
+                 class="invalid-feedback">
+                Le nom est obligatoire.
+            </div>
         </div>
 
         <div class="mb-3">
-            <label for="scheduledTime" class="form-label">Heure de retrait/livraison<span class="text-danger">*</span>:</label>
+            <label for="scheduledTime" class="form-label">Heure de retrait<span class="text-danger">*</span>:</label>
             <select id="scheduledTime" formControlName="scheduledTime" class="form-select"
                     [ngClass]="{ 'is-invalid': formControls['scheduledTime'].touched && formControls['scheduledTime'].errors }">
                 <option value="" disabled>Choisissez un créneau</option>

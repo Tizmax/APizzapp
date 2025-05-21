@@ -17,7 +17,9 @@
     <tbody *ngIf="planning && planning.length > 0">
       <tr *ngFor="let order of planning">
         <td>{{ order.scheduledTime }}</td>
-        <td>{{ order.user.firstName }} {{ order.user.lastName }}</td>
+        
+
+        <td>{{ order.firstNameGuest }} {{ order.lastNameGuest }} <span *ngIf="order.user === null">(Invité)</span></td>
         
         <!-- Liste des pizzas dans la commande -->
         <td>

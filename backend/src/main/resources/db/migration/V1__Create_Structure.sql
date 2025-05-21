@@ -35,9 +35,11 @@ CREATE TABLE users (
 CREATE TABLE orders (
     id BIGSERIAL PRIMARY KEY,
     scheduled_time VARCHAR(10) NOT NULL,
+    first_name_guest VARCHAR(50),
+    last_name_guest VARCHAR(50),
     status VARCHAR(30) NOT NULL DEFAULT 'PENDING',
     total_amount DECIMAL(10, 2) NOT NULL,
-    user_id BIGINT NOT NULL,
+    user_id BIGINT,
     CONSTRAINT fk_user
         FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );

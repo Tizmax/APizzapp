@@ -19,7 +19,7 @@ export class RecapCommandeComponent implements OnInit{
 
   timeSlots: string[] = []; // Pour les créneaux horaires
 
-  constructor(private cartService: CartService, private pizzaService: PizzaService, private router: Router, private route: ActivatedRoute, private fb: FormBuilder, private authService: AuthService) {}
+  constructor(private cartService: CartService, private pizzaService: PizzaService, private router: Router, private route: ActivatedRoute, private fb: FormBuilder, public authService: AuthService) {}
 
   ngOnInit(): void {
     this.loadCartData(); // Charger les données initialement
@@ -77,7 +77,7 @@ export class RecapCommandeComponent implements OnInit{
       userId = this.authService.currentUserValue?.id;
     } else {
       // Sinon, on peut gérer le cas où l'utilisateur n'est pas connecté
-      userId = 1;
+      userId = null;
       console.warn('Utilisateur non connecté. ID utilisateur non ajouté aux articles du panier.');
     }
 
@@ -86,6 +86,8 @@ export class RecapCommandeComponent implements OnInit{
       status: 'PENDING',
       totalAmount: 0,
       userId: userId,
+      firstNameGuest: this.orderForm.value.surname,
+      lastNameGuest: this.orderForm.value.name,
       orderItems: cartItems
     };
 

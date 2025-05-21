@@ -38,8 +38,14 @@ public class Order {
     // fetch=LAZY => Ne charge pas l'utilisateur systématiquement (bonne pratique)
     // nullable=false => Une commande DOIT avoir un utilisateur associé
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = true)
     private User user;
+
+    @Column()
+    private String lastNameGuest;
+    
+    @Column()
+    private String firstNameGuest;
 
     // Relation OneToMany avec OrderItem (Une commande contient plusieurs lignes/items)
     // cascade=ALL => Si on supprime une Order, ses OrderItem sont supprimés
