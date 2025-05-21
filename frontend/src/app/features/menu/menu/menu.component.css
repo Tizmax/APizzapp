@@ -10,10 +10,14 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
   align-items: center;
+
 }
 
 .card img {
   border-radius: 15px 15px 0 0;
+  width: 100%;         /* prend toute la largeur de la carte */
+  height: 250px;       /* fixe une hauteur constante */
+  object-fit: cover;
 }
 
 .order-card img {

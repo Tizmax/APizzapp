@@ -1,7 +1,7 @@
 INSERT INTO pizzas (name, price, image_url)
 VALUES 
-  ('Marguerite', 8.5, 'images/pizzas/olive.png'),
-  ('Anchois', 8.5, 'images/pizzas/olive.png'),
+  ('Marguerite', 8.5, 'images/pizzas/margherite.webp'),
+  ('Anchois', 8.5, 'images/pizzas/anchois.jpg'),
   ('Napolitaine', 8.5, 'images/pizzas/olive.png'),
   ('Jambonnière', 8.5, 'images/pizzas/olive.png'),
   ('Forestière', 8.5, 'images/pizzas/olive.png'),
