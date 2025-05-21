@@ -25,7 +25,7 @@ public class Order {
     private Long id;
 
     @Column(nullable = false)
-    private LocalDateTime orderDate;
+    private String scheduledTime;
 
     @Enumerated(EnumType.STRING) // Statut de la commande
     @Column(length = 30, nullable = false)

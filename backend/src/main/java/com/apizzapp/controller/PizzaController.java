@@ -68,14 +68,14 @@ public class PizzaController {
     public ResponseEntity<?> createOrder(@RequestBody OrderDTO orderDTO) {
 
         Order order = new Order();
-        order.setOrderDate(LocalDateTime.now());
+        order.setScheduledTime(orderDTO.scheduledTime);
 
-        // A CHANGER : Calcul du montant coté back pour éviter les failles
-        order.setTotalAmount(orderDTO.totalAmount);
         order.setUser(userRepository.findById(orderDTO.userId).orElseThrow(() -> new RuntimeException("User not found")));
 
-        Order savedOrder = orderRepository.save(order);
+        order.setTotalAmount(BigDecimal.ZERO);
 
+        Order savedOrder = orderRepository.save(order);
+        
         // On récupère la liste actuelle (gérée par Hibernate) et on la modifie
         List<OrderItem> targetList = savedOrder.getOrderItems();
         targetList.clear(); // supprime les anciens éléments (et déclenche orphanRemoval)

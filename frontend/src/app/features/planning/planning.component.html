@@ -4,7 +4,7 @@
   <table class="table table-striped mt-4">
     <thead>
       <tr>
-        <th>N°</th>
+        <th>Horaire</th>
         <th>Nom</th>
         <th>Pizza</th>
         <th>Prix Total</th>
@@ -16,7 +16,7 @@
 
     <tbody *ngIf="planning && planning.length > 0">
       <tr *ngFor="let order of planning">
-        <td>{{ order.id }}</td>
+        <td>{{ order.scheduledTime }}</td>
         <td>{{ order.user.firstName }} {{ order.user.lastName }}</td>
         
         <!-- Liste des pizzas dans la commande -->

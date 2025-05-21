@@ -23,7 +23,9 @@ export class PlanningComponent implements OnInit {
   fetchOrders(): void {
     this.planningService.getAllOrders().subscribe({
       next: (orders: Order[]) => {
-        this.planning = orders;
+        this.planning = orders.sort((a, b) => {
+          return a.scheduledTime.localeCompare(b.scheduledTime);
+        });
         console.log('Commandes récupérées depuis le backend :', this.planning);
       },
       error: (err) => {

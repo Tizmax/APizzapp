@@ -22,7 +22,7 @@ export interface OrderItem {
 
 export interface Order {
   id: number;
-  orderDate: Date;
+  scheduledTime: string;
   status: string;
   totalAmount: number;
   user: User;

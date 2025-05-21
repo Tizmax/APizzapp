@@ -7,8 +7,8 @@ import java.util.Set;
 
 public class OrderDTO {
     public Long userId;
-    public BigDecimal totalAmount;
     public List<OrderItemDTO> orderItems;
+    public String scheduledTime;
 
     
     public static class OrderItemDTO {
