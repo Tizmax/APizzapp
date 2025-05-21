@@ -21,7 +21,13 @@ export class MenuComponent implements OnInit {
     this.pizzaService.getAllPizzas().subscribe(response => {console.log(response); this.pizzas = response});
   }
 
+  isPizzaAvailable(pizza: Pizza): boolean {
+    return pizza.baseIngredients.every(ingredient => ingredient.availableAsSupplement);
+  }
+
   onPizzaSelected(pizza: Pizza): void {
-    this.router.navigate(['detail-produit', pizza.id], { relativeTo: this.route });
+    if (this.isPizzaAvailable(pizza)) {
+      this.router.navigate(['detail-produit', pizza.id], { relativeTo: this.route });
+    }
   }
 }

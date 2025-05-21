@@ -1,0 +1,13 @@
+<div class="row">
+  <div *ngFor="let pizza of pizzas" class="col-md-3 col-sm-6 mb-4">
+    <div class="card pizza-card" 
+         [ngClass]="{'disabled': !isPizzaAvailable(pizza)}"
+         (click)="isPizzaAvailable(pizza) && selectPizza(pizza)">
+      <img [src]="pizza.imageUrl" [alt]="pizza.name" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title text-center">{{ pizza.name }}</h5>
+        <p class="card-text text-center">{{ pizza.basePrice }} €</p>
+      </div>
+    </div>
+  </div>
+</div> 

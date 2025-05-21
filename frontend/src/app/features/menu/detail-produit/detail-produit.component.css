@@ -96,3 +96,13 @@ body {
   border-color: black;
   background-color: #0056b3;
 }
+
+.supplement-card.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(100%);
+}
+
+.supplement-card.disabled:hover {
+  transform: none;
+}

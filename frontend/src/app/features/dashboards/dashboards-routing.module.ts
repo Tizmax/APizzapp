@@ -4,6 +4,7 @@ import { AuthGuard }            from '../../guards/auth.guard';
 import { UserDashboardComponent }     from './user-dashboard/user-dashboard.component';
 import { OperatorDashboardComponent } from './operator-dashboard/operator-dashboard.component';
 import { AdminDashboardComponent }    from './admin-dashboard/admin-dashboard.component';
+import { IngredientsComponent }       from './operator/ingredients/ingredients.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,12 @@ const routes: Routes = [
         component: OperatorDashboardComponent,
         canActivate: [AuthGuard],
         data: { roles: ['OPERATOR'] }
+      },
+      {
+        path: 'operator/ingredients',
+        component: IngredientsComponent,
+        canActivate: [AuthGuard],
+        data: { roles: ['OPERATOR', 'ADMIN'] }
       },
       {
         path: 'admin',

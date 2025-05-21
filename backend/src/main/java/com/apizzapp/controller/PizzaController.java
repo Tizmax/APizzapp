@@ -125,4 +125,10 @@ public class PizzaController {
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping("/updateIngredients")
+    public ResponseEntity<?> updateIngredients(@RequestBody List<Ingredient> ingredients) {
+        ingredientRepository.saveAll(ingredients);
+        return ResponseEntity.ok().build();
+    }
+
 }
