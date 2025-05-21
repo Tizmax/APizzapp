@@ -19,7 +19,7 @@ export class RecapCommandeComponent implements OnInit{
 
   timeSlots: string[] = []; // Pour les créneaux horaires
 
-  constructor(private cartService: CartService, private pizzaService: PizzaService, private router: Router, private route: ActivatedRoute, private fb: FormBuilder, private authService: AuthService) {}
+  constructor(private cartService: CartService, private pizzaService: PizzaService, private router: Router, private route: ActivatedRoute, private fb: FormBuilder, public authService: AuthService) {}
 
   ngOnInit(): void {
     this.loadCartData(); // Charger les données initialement
