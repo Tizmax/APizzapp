@@ -34,7 +34,7 @@ CREATE TABLE users (
 
 CREATE TABLE orders (
     id BIGSERIAL PRIMARY KEY,
-    order_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    scheduled_time VARCHAR(10) NOT NULL,
     status VARCHAR(30) NOT NULL DEFAULT 'PENDING',
     total_amount DECIMAL(10, 2) NOT NULL,
     user_id BIGINT NOT NULL,

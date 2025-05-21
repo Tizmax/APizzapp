@@ -28,22 +28,36 @@
         <a class="btn btn-primary" (click)="goToMenu()">Ajouter une pizza à la commande</a>
     </div>
     
-    <form [formGroup]="orderForm" (ngSubmit)="validateOrder()" class="mt-4">
-        <div class="form-group">
-            <label for="name">Nom du client:</label>
-            <input type="text" id="name" name="name" class="form-control" value="">
+    <form [formGroup]="orderForm" (ngSubmit)="validateOrder()" class="mt-4 card p-4 " *ngIf="cartItems.length > 0">
+        <div class="mb-3">
+            <label for="surname" class="form-label">Prénom<span class="text-danger">*</span>:</label>
+            <input type="text" id="surname" formControlName="surname" class="form-control">
         </div>
-        <div class="form-group">
-            <label for="time">Heure:</label>
-            <input type="text" id="time" name="time" class="form-control" required value="">
+        <div class="mb-3">
+            <label for="name" class="form-label">Nom<span class="text-danger">*</span>:</label>
+            <input type="text" id="name" formControlName="name" class="form-control">
         </div>
-        <div class="form-group">
-            <label for="details">Infos supplémentaires:</label> 
-            <input type="text" id="details" name="details" class="form-control">
+
+        <div class="mb-3">
+            <label for="scheduledTime" class="form-label">Heure de retrait/livraison<span class="text-danger">*</span>:</label>
+            <select id="scheduledTime" formControlName="scheduledTime" class="form-select"
+                    [ngClass]="{ 'is-invalid': formControls['scheduledTime'].touched && formControls['scheduledTime'].errors }">
+                <option value="" disabled>Choisissez un créneau</option>
+                <option *ngFor="let slot of timeSlots" [value]="slot">{{ slot }}</option>
+            </select>
+            <div *ngIf="formControls['scheduledTime'].touched && formControls['scheduledTime'].errors?.['required']"
+                 class="invalid-feedback">
+                Le créneau horaire est obligatoire.
+            </div>
         </div>
+
         <div class="text-center">
-            <button type="submit" class="btn btn-primary">Passer commande</button>
-            <a class="btn btn-secondary" (click)="cancelOrder()">Annuler cette commande</a>
+            <button type="submit" class="btn btn-primary me-2" [disabled]="orderForm.invalid || cartItems.length === 0">
+                Passer commande
+            </button>
+            <button type="button" class="btn btn-outline-secondary" (click)="cancelOrder()">
+                Annuler cette commande
+            </button>
         </div>
     </form>
 

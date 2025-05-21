@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CartService } from '../../../services/cart.service';
 import { PizzaService } from '../../../services/pizza.service';
 import { CartItem } from '../../../shared/models/order.model';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 
 @Component({
@@ -17,17 +17,37 @@ export class RecapCommandeComponent implements OnInit{
   cartItems: CartItem[] = [];
   // totalPrice: number = 0;
 
+  timeSlots: string[] = []; // Pour les créneaux horaires
+
   constructor(private cartService: CartService, private pizzaService: PizzaService, private router: Router, private route: ActivatedRoute, private fb: FormBuilder, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.loadCartData(); // Charger les données initialement
+    this.generateTimeSlots(17, 0, 21, 0, 15); // Génère créneaux de 17h00 à 21h00 par tranche de 15 min
+
 
     this.orderForm = this.fb.group({
-      name: [''],
-      time: [''],
-      details: ['']
+      surname: [this.authService.currentUserValue?.firstName || '', Validators.required], // Pré-remplissage si utilisateur connecté, sinon vide
+      name: [this.authService.currentUserValue?.lastName || '', Validators.required], // Pré-remplissage si utilisateur connecté, sinon vide
+      scheduledTime: ['', Validators.required], // Champ pour le créneau horaire
     });
   }
+
+  generateTimeSlots(startHour: number, startMinute: number, endHour: number, endMinute: number, intervalMinutes: number): void {
+    let currentTime = new Date();
+    currentTime.setHours(startHour, startMinute, 0, 0); // Heure de début
+
+    const endTime = new Date();
+    endTime.setHours(endHour, endMinute, 0, 0); // Heure de fin
+
+    while (currentTime <= endTime) {
+      const hours = currentTime.getHours().toString().padStart(2, '0');
+      const minutes = currentTime.getMinutes().toString().padStart(2, '0');
+      this.timeSlots.push(`${hours}:${minutes}`);
+      currentTime.setMinutes(currentTime.getMinutes() + intervalMinutes);
+    }
+  }
+  get formControls() { return this.orderForm.controls; }
 
   loadCartData(): void {
     this.cartItems = this.cartService.getCartItems();
@@ -43,17 +63,14 @@ export class RecapCommandeComponent implements OnInit{
   validateOrder(): void {
     const cartItems = this.cartItems.map(item => {
       return {
-        pizzaId: item.pizza.id, // Assure-toi que tu as l'ID
+        pizzaId: item.pizza.id,
         quantity: item.quantity,
         supplements: item.addedSupplements.map(s => s.id),
         depplements: item.removedIngredients.map(d => d.id)
       };
     });
 
-    // const totalAmount = this.cartItems.reduce((total, item) => {
-    //   const supplementsPrice = item.addedSupplements.reduce((sum, s) => sum + s.price, 0);
-    //   return total + (item.pizza.basePrice + supplementsPrice) * item.quantity;
-    // }, 0);
+    
     let userId;
     if (this.authService.isLoggedIn) {
       // Si l'utilisateur est connecté, on peut récupérer son ID
@@ -65,7 +82,7 @@ export class RecapCommandeComponent implements OnInit{
     }
 
     const order = {
-      orderDate: new Date().toISOString(), // ou this.orderForm.value.time
+      scheduledTime: this.orderForm.value.scheduledTime,
       status: 'PENDING',
       totalAmount: 0,
       userId: userId,
