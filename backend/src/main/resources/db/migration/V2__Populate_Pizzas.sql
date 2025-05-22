@@ -7,6 +7,7 @@ VALUES
   ('Forestière', 8.5, 'images/pizzas/bufalina.webp'),
   ('Reine', 8.5, 'images/pizzas/reine.webp'),
   ('Oignons', 8.5, 'images/pizzas/lorenza.webp'),
+  ('Knacki', 8.5, 'images/pizzas/pistachio.webp'),
   ('Chorizo', 9, 'images/pizzas/arrivederci.webp'),
   ('Thon et Câpres', 9, 'images/pizzas/traditional.webp'),
   ('Bolognaise', 9, 'images/pizzas/gasconne.webp'),
