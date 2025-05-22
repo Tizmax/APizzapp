@@ -1,7 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 
-/* Style global des boutons pour éviter que l'appli parte en couille visuellement */
+body {
+  background: linear-gradient(to bottom, #fff5f0, #ffe1d6) fixed;
+  font-family: 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 
+
+/* Style global des boutons pour éviter que l'appli parte en couille visuellement */
 .btn {
   background-color: #000000;
   border: none;
@@ -36,8 +44,9 @@
   background-color: #111111;
 }
 
-
 .btn:disabled {
     opacity: 0.3;
     cursor: not-allowed;
 }
+
+/* */

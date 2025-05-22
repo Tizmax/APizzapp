@@ -1,8 +1,4 @@
-body {
-    background-color: #ffffff;
-    
-  }
-  
+
 
 .card {
   border: none;
@@ -55,9 +51,3 @@ body {
   background-color: #0056b3;
 } */
 
-.delete img {
-  border-radius: 5px;
-  border-width: 10px 10px 10px 10px;
-  border-color: black;
-  background-color: #0056b3;
-}
