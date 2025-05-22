@@ -25,7 +25,7 @@
         <td>
           <ul>
             <li *ngFor="let item of order.orderItems">
-              {{ item.pizza.name }}
+              {{ item.quantity }}x {{ item.pizza.name }}
 
               <span *ngIf="item.supplements && item.supplements.length > 0">
                 - Suppléments: 
