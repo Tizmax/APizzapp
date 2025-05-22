@@ -27,36 +27,3 @@
   justify-content: space-between;
   gap: 10px;
 }
-
-.btn-available, .btn-unavailable {
-  flex: 1;
-  padding: 8px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.btn-available {
-  background-color: #e0e0e0;
-  color: #333;
-}
-
-.btn-unavailable {
-  background-color: #e0e0e0;
-  color: #333;
-}
-
-.btn-available.active {
-  background-color: #4CAF50;
-  color: white;
-}
-
-.btn-unavailable.active {
-  background-color: #f44336;
-  color: white;
-}
-
-.btn-available:hover, .btn-unavailable:hover {
-  opacity: 0.9;
-} 

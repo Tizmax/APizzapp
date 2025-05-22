@@ -14,14 +14,14 @@
           <h5 class="card-title text-center">{{ ingredient.name }}</h5>
           <div class="availability-buttons">
             <button 
-              class="btn btn-available" 
-              [class.active]="ingredient.availableAsSupplement"
+              class="btn btn-primary" 
+              [disabled]="!ingredient.availableAsSupplement"
               (click)="toggleAvailability(ingredient)">
               Disponible
             </button>
             <button 
-              class="btn btn-unavailable" 
-              [class.active]="!ingredient.availableAsSupplement"
+              class="btn btn-secondary" 
+              [disabled]="ingredient.availableAsSupplement"
               (click)="toggleAvailability(ingredient)">
               Stock épuisé
             </button>

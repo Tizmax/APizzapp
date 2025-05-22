@@ -30,7 +30,7 @@ body {
   background-color:rgb(94, 94, 94);
 }
 
-.quantity-controls {
+/* .quantity-controls {
   display: flex;
   align-items: center;
   position: absolute;
@@ -53,7 +53,7 @@ body {
 
 .quantity-controls button:hover {
   background-color: #0056b3;
-}
+} */
 
 .delete img {
   border-radius: 5px;
