@@ -5,17 +5,15 @@
         <div *ngFor="let item of cartItems" class="col-md-2 col-sm-6 mb-4">
             <div class="card">
                 <div class="quantity-controls">
-                    <!-- <button  onclick="tryDecQuantity('{{loop.index0}}', '{{pizza.quantity}}')">-</button>
-                    <button onclick="incQuantity('{{loop.index0}}', '{{pizza.quantity}}')">+</button> -->
-                    <button>-</button>
-                    <button>+</button>
+                    <button (click)="decQuantity(item)">-</button>
+                    <button (click)="incQuantity(item)">+</button>
                 </div>
                 <div>
                     <img [src]="item.pizza.imageUrl" class="card-img-top ">
 
                 </div>
                 <!-- <h4 class="card-title text-center"> {{ item.quantity }} {{ item.size }} {{ item.name }} {{ item.sauce }}</h4> -->
-                <h4 class="card-title text-center"> {{ item.pizza.name }}</h4>
+                <h4 class="card-title text-center"> {{item.quantity}}x {{ item.pizza.name }}</h4>
                 <div class="badges card-body">
                     <span *ngFor="let supplement of item.addedSupplements" class="badge badge-supplement">{{ supplement.name }} </span>
                     <span *ngFor="let depplement of item.removedIngredients" class="badge badge-deplement">{{ depplement.name }} </span>

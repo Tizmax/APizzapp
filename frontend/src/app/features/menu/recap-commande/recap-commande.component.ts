@@ -54,6 +54,18 @@ export class RecapCommandeComponent implements OnInit{
     // this.totalPrice = this.cartService.getCartTotalPrice();
   }
 
+  incQuantity(item: CartItem): void {
+    this.cartService.updateItemQuantity(item.tempId, item.quantity + 1);
+    console.log('Item quantity increased:', item.pizza.name, item.quantity);
+    this.loadCartData(); // Charger les données initialement
+    
+  }
+  decQuantity(item: CartItem): void {
+    this.cartService.updateItemQuantity(item.tempId, item.quantity - 1);
+    console.log('Item quantity decreased:', item.pizza.name, item.quantity);
+    this.loadCartData(); // Charger les données initialement
+  }
+
   cancelOrder(): void {
     this.cartService.clearCart();
     this.loadCartData(); 
