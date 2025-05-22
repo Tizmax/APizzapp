@@ -7,6 +7,8 @@
 
   <!-- Formulaire de connexion -->
   <section class="login-form">
+    <h2 class="form-title">Connexion</h2>
+    
     <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
       <input
         type="email"
@@ -61,17 +63,6 @@
     </div>
   </section>
 
-  <!-- Pizza's Scroller -->
-  <div class="pizza-scroller">
-    <div class="pizza-container">
-      <img
-        *ngFor="let pizza of duplicatedPizzas"
-        [src]="pizza.imgUrl"
-        [alt]="pizza.name"
-        class="pizza"
-      />
-    </div>
-  </div>
 
   <footer>
     <p>&copy; 2025 APIZZAPP. Tous droits réservés.</p>
