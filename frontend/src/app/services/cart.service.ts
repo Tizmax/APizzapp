@@ -77,7 +77,15 @@ export class CartService {
       if (newQuantity > 0) {
         this.items[itemIndex].quantity = newQuantity;
       } else {
-        this.items.splice(itemIndex, 1); // Supprimer l'item si quantité <= 0
+        // Ask for confirmation before removing the item
+        if (!window.confirm('Êtes-vous sûr de vouloir supprimer cet article du panier ?')) {
+          // If user cancels, set quantity to 1 instead of removing
+          this.items[itemIndex].quantity = 1;
+          this.saveCartToLocalStorage();
+          return;
+        } else {
+          this.items.splice(itemIndex, 1); // Supprimer l'item si quantité <= 0
+        }
       }
       this.saveCartToLocalStorage();
       // IMPORTANT: Notification manuelle nécessaire pour les composants.
