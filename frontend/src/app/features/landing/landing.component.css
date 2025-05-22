@@ -1,13 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500&display=swap');
+
 /* Styles généraux */
 .landing-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(to bottom, #fff5f0, #ffe1d6);
+ /* background: linear-gradient(to bottom, #fff5f0, #ffe1d6);*/
+
+  position: relative;
+  background-image: url('../../../../public/images/landing/pizza_feu_de_bois.webp');
+  background-size: cover;         /* couvre tout l'écran */
+  background-position: center;    /* bien centré */
+  background-repeat: no-repeat;   /* pas de répétition */
+
   font-family: 'Segoe UI', sans-serif;
   padding: 2rem;
   box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.6;
 }
 
 /* En-tête */
@@ -17,19 +33,26 @@ header {
 }
 
 header h1 {
-  font-size: 2.8rem;
-  color: #d62828;
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  color: #b22222; /* rouge profond, plus raffiné */
   margin-bottom: 0.5rem;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* subtile profondeur */
 }
 
 header p {
+  font-family: 'Inter', sans-serif;
+  font-style: italic;
   font-size: 1.1rem;
-  color: #6c757d;
+  color: #f0e3c0;
+  margin-bottom: 2rem;
 }
 
 /* Formulaire de connexion */
 .login-form {
-  background-color: #ffffffee;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   padding: 2rem;
   border-radius: 1rem;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
@@ -116,7 +139,7 @@ header p {
 
 .signup-link p {
   margin: 0 0 0.5rem 0;
-  color: #6c757d;
+  color: #f0e3c0;
 }
 
 .signup-btn {
@@ -141,7 +164,7 @@ header p {
 
 .guest-access p {
   margin: 0 0 0.5rem 0;
-  color: #6c757d;
+  color: #f0e3c0;
 }
 
 .guest-btn {
@@ -198,4 +221,29 @@ footer {
   font-size: 0.9rem;
   color: #adb5bd;
   margin-top: 2rem;
+}
+
+.landing-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4); /* opacité douce et lumineuse */
+  z-index: 0;
+}
+
+.landing-container > * {
+  position: relative;
+  z-index: 1;
+}
+
+.form-title {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #b22222; /* même rouge que le titre principal */
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 1.5rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
