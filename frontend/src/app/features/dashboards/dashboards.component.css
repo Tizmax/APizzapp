@@ -1,10 +1,28 @@
+html, body {
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+}
+
 /* Layout général : plein écran, centré */
 .dashboard-container {
   display: flex;
   align-items: flex-start;          /* on ancre en haut au lieu du centre */
   justify-content: center;
   min-height: 100vh;
-  background: linear-gradient(to bottom, #fff5f0, #ffe1d6);
+  overflow: hidden; /* ← empêche le scroll interne */
+
+  /* background: linear-gradient(to bottom, #fff5f0, #ffe1d6); */
+
+  background-image: url('../../../../public/images/landing/pizza_feu_de_bois.webp');
+  background-size: cover;         /* couvre tout l'écran */
+  background-position: center;    /* bien centré */
+  background-repeat: no-repeat;   /* pas de répétition */
+  background-attachment: fixed;  /* Fixe l'image */
+
   padding: 4rem 1rem 1rem;          /* plus de padding en haut pour remonter */
   box-sizing: border-box;
 }
@@ -14,9 +32,11 @@
   background: #fff;
   border-radius: 1rem;
   box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-  max-width: 600px;
+  max-width: 1600px;
   width: 100%;
   padding: 2rem;
+
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 /* En-tête de la carte */
@@ -40,20 +60,28 @@
 
 .dashboard-body p {
   font-size: 1.1rem;
-  color: #555;
+  color: #f0e3c0;
   margin-bottom: 1.5rem;
+}
+
+.dashboard-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 /* Boutons */
 .btn {
   display: inline-block;
   margin: .5rem 0;
-  padding: .75rem 1.5rem;
-  background: #d62828;
+  padding: 3rem 6rem;
+  background-color: rgba(195, 34, 34, 0.7);
+  /* background: #d62828; */
   color: #fff;
   border: none;
   border-radius: .5rem;
-  font-size: 1rem;
+  font-size: 3rem;
   cursor: pointer;
   text-decoration: none;
   transition: background 0.2s, transform 0.1s;
@@ -70,4 +98,22 @@
 
 .dashboard-section {
   margin-bottom: 1.5rem;
+}
+
+.dashboard-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.2); /* 👈 ici tu règles l’opacité */
+  z-index: 0;
+  pointer-events: none; /* ✅ évite de bloquer les clics */
+
+}
+
+.dashboard-container > * {
+  position: relative;
+  z-index: 1;
 }

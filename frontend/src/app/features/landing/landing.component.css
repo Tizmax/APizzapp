@@ -6,6 +6,7 @@
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
+  overflow: hidden;
  /* background: linear-gradient(to bottom, #fff5f0, #ffe1d6);*/
 
   position: relative;
@@ -13,8 +14,9 @@
   background-size: cover;         /* couvre tout l'écran */
   background-position: center;    /* bien centré */
   background-repeat: no-repeat;   /* pas de répétition */
+  background-attachment: fixed;  /* Fixe l'image */
 
-  font-family: 'Segoe UI', sans-serif;
+  /* font-family: 'Segoe UI', sans-serif; */
   padding: 2rem;
   box-sizing: border-box;
 }
@@ -33,7 +35,7 @@ header {
 }
 
 header h1 {
-  font-family: 'Playfair Display', serif;
+  /* font-family: 'Playfair Display', serif; */
   font-size: 3rem;
   color: #b22222; /* rouge profond, plus raffiné */
   margin-bottom: 0.5rem;
@@ -41,7 +43,7 @@ header h1 {
 }
 
 header p {
-  font-family: 'Inter', sans-serif;
+  /* font-family: 'Inter', sans-serif; */
   font-style: italic;
   font-size: 1.1rem;
   color: #f0e3c0;
@@ -50,10 +52,10 @@ header p {
 
 /* Formulaire de connexion */
 .login-form {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
-  padding: 2rem;
+  padding: 1rem;
   border-radius: 1rem;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   width: 100%;
@@ -220,7 +222,6 @@ footer {
   text-align: center;
   font-size: 0.9rem;
   color: #adb5bd;
-  margin-top: 2rem;
 }
 
 .landing-container::before {
@@ -230,7 +231,7 @@ footer {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.4); /* opacité douce et lumineuse */
+  background-color: rgba(0, 0, 0, 0.2); /* opacité douce et lumineuse */
   z-index: 0;
 }
 
@@ -243,7 +244,7 @@ footer {
   text-align: center;
   font-size: 1.8rem;
   color: #b22222; /* même rouge que le titre principal */
-  font-family: 'Playfair Display', serif;
+  /* font-family: 'Playfair Display', serif; */
   margin-bottom: 1.5rem;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
