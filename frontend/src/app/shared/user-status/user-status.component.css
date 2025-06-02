@@ -1,34 +1,81 @@
-
 .user-status {
-  position: fixed; /* nécessaire pour appliquer le z-index */
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  background: #00000000;
+  background: rgba(0, 0, 0, 0);
   color: #fff;
-  padding: .5rem 1rem;
-  text-align: right;
-  font-size: .9rem;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+  z-index: 1000;
+  box-sizing: border-box;
 }
 
-.logout-btn {
-  margin-left: 1rem;
-  background: transparent;
+.cart-btn {
+  position: relative;
+  background: none;
   border: none;
-  color: #d62828;
   cursor: pointer;
+  font-size: 1.4rem;
+  color: #fff;
+}
+.cart-btn:hover {
+  color: #d62828;
+}
+
+.cart-icon {
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -0.4rem;
+  right: -0.6rem;
+  background: #d62828;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.user-welcome {
+  margin-right: auto; 
+  font-size: 0.9rem;
+  color: #d62828;
 }
 
 .status-btn {
-  margin-left: 1rem;
   background: #d62828;
   color: #fff;
   border: none;
   padding: 0.4rem 0.8rem;
   border-radius: 0.25rem;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.2s, transform 0.1s;
+  font-size: 0.9rem;
 }
-
 .status-btn:hover {
   background: #b71c1c;
+  transform: translateY(-1px);
 }
 
+.logout-btn {
+  background: transparent;
+  border: none;
+  color: #d62828;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+.logout-btn:hover {
+  color: #b71c1c;
+}

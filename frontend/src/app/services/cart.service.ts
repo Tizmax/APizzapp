@@ -15,16 +15,25 @@ export class CartService {
 
   constructor() {
     // Charger le panier depuis localStorage au démarrage du service
-    this.items = this.loadCartFromLocalStorage();
+    if (typeof window !== 'undefined' && window.localStorage) {
+      this.items = this.loadCartFromLocalStorage();
+    } else {
+      this.items = [];
+    }
   }
 
   private saveCartToLocalStorage(): void {
-    localStorage.setItem('pizzeriaCart', JSON.stringify(this.items));
+    if (typeof window !== 'undefined' && window.localStorage) {
+      localStorage.setItem('pizzeriaCart', JSON.stringify(this.items));
+    }
   }
 
   private loadCartFromLocalStorage(): CartItem[] {
-    const cartData = localStorage.getItem('pizzeriaCart');
-    return cartData ? JSON.parse(cartData) : [];
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const cartData = localStorage.getItem('pizzeriaCart');
+      return cartData ? JSON.parse(cartData) : [];
+    }
+    return [];
   }
 
   // Méthodes pour que les composants récupèrent les données du panier
