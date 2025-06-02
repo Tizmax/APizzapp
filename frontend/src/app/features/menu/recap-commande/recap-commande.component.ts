@@ -86,7 +86,7 @@ export class RecapCommandeComponent implements OnInit{
     let userId;
     let userRole = '';
     if (user) {
-      userRole = user.role.replace('ROLE_', '');
+      userRole = userRole ;
       if (this.authService.isLoggedIn && userRole === 'USER') {
         // Si l'utilisateur est connecté et a le role USER, on peut récupérer son ID
         userId = user.id;
@@ -118,10 +118,17 @@ export class RecapCommandeComponent implements OnInit{
   });
 }
 
-
-
   goToMenu(): void {
     this.router.navigate(['../'], { relativeTo: this.route});
+  }
+
+  get userRole(): string {
+    const user = this.authService.currentUserValue;
+    return user ? user.role.replace('ROLE_', '') : '';
+  }
+
+  get isAdminOrOperator(): boolean {
+    return this.userRole === 'ADMIN' || this.userRole === 'OPERATOR';
   }
 
 }
