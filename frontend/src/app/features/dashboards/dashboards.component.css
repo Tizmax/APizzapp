@@ -1,11 +1,4 @@
-html, body {
-  height: 100%;
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
 
-}
 
 /* Layout général : plein écran, centré */
 .dashboard-container {
@@ -73,27 +66,10 @@ html, body {
 
 /* Boutons */
 .btn {
-  display: inline-block;
   margin: .5rem 0;
   padding: 3rem 6rem;
-  background-color: rgba(195, 34, 34, 0.7);
-  /* background: #d62828; */
-  color: #fff;
-  border: none;
   border-radius: .5rem;
   font-size: 3rem;
-  cursor: pointer;
-  text-decoration: none;
-  transition: background 0.2s, transform 0.1s;
-}
-
-.btn:hover {
-  background: #b71c1c;
-  transform: translateY(-1px);
-}
-
-.btn:active {
-  transform: translateY(0);
 }
 
 .dashboard-section {

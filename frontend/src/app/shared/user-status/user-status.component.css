@@ -1,14 +1,9 @@
-html, body {
-  height: 100%;
-  overflow: hidden;   /* ✅ bloque le scroll */
-  margin: 0;
-  padding: 0;
-}
 
 .user-status {
-  position: relative; /* nécessaire pour appliquer le z-index */
-  z-index: 2; /* au-dessus du pseudo-élément ::before */
-  background: #fff5f0;
+  position: fixed; /* nécessaire pour appliquer le z-index */
+  width: 100%;
+  background: #00000000;
+  color: #fff;
   padding: .5rem 1rem;
   text-align: right;
   font-size: .9rem;

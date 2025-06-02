@@ -5,8 +5,8 @@
         <div *ngFor="let item of cartItems" class="col-md-2 col-sm-6 mb-4">
             <div class="card">
                 <div class="quantity-controls">
-                    <button (click)="decQuantity(item)">-</button>
-                    <button (click)="incQuantity(item)">+</button>
+                    <button class="btn" (click)="decQuantity(item)">-</button>
+                    <button class="btn" (click)="incQuantity(item)">+</button>
                 </div>
                 <div>
                     <img [src]="item.pizza.imageUrl" class="card-img-top ">
@@ -60,10 +60,11 @@
         </div>
 
         <div class="text-center">
+
             <button type="submit" class="btn btn-primary me-2" [disabled]="orderForm.invalid || cartItems.length === 0">
-                Passer commande
+                    Passer commande
             </button>
-            <button type="button" class="btn btn-outline-secondary" (click)="cancelOrder()">
+            <button type="button" class="btn btn-secondary" (click)="cancelOrder()">
                 Annuler cette commande
             </button>
         </div>

@@ -1,8 +1,4 @@
-body {
-    background-color: #f8f9fa;
-  }
-
-.card {
+ .card {
   border: none;
   cursor: pointer;
   transition: transform 0.2s;
@@ -11,12 +7,12 @@ body {
 
   align-items: center;
 
-}
+} 
 
 .card img {
   border-radius: 15px 15px 0 0;
-  width: 100%;         /* prend toute la largeur de la carte */
-  height: 250px;       /* fixe une hauteur constante */
+  width: 100%;        
+  height: 250px;     
   object-fit: cover;
 }
 
@@ -67,35 +63,3 @@ body {
 .pizza-card.disabled:hover {
   transform: none;
 }
-/* 
-.quantity-controls {
-  display: flex;
-  align-items: center;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}
-
-.quantity-controls button {
-  width: 25px;
-  height: 25px;
-  font-size: auto;
-  border: none;
-  background-color: #007bff;
-  color: white;
-  border-radius: 5px;
-  margin: 0 5px;
-  cursor: pointer;
-  text-align: center;
-}
-
-.quantity-controls button:hover {
-  background-color: #0056b3;
-}
-
-.delete img {
-  border-radius: 5px;
-  border-width: 10px 10px 10px 10px;
-  border-color: black;
-  background-color: #0056b3;
-} */

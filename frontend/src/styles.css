@@ -1,1 +1,52 @@
 /* You can add global styles to this file, and also import other style files */
+
+body {
+  background: linear-gradient(to bottom, #fff5f0, #ffe1d6) fixed;
+  font-family: 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* Style global des boutons pour éviter que l'appli parte en couille visuellement */
+.btn {
+  background-color: #000000;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  
+}
+
+.btn.btn-primary {
+  background-color: #d62828;
+  color: white;
+  border-radius: 5px;
+}
+
+.btn.btn-primary:hover {
+  background: #b71c1c;
+}
+
+.btn.btn-secondary {
+  background-color: #3d3d3d;
+  color: white;
+  border-radius: 5px;
+}
+
+.btn.btn-secondary:hover {
+  background-color: #111111;
+}
+
+.btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+/* */
