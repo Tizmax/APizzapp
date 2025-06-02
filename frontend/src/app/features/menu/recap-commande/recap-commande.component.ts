@@ -82,11 +82,15 @@ export class RecapCommandeComponent implements OnInit{
       };
     });
 
-    
+    const user = this.authService.currentUserValue;
     let userId;
-    if (this.authService.isLoggedIn) {
-      // Si l'utilisateur est connecté, on peut récupérer son ID
-      userId = this.authService.currentUserValue?.id;
+    let userRole = '';
+    if (user) {
+      userRole = user.role.replace('ROLE_', '');
+      if (this.authService.isLoggedIn && userRole === 'USER') {
+        // Si l'utilisateur est connecté et a le role USER, on peut récupérer son ID
+        userId = user.id;
+      }
     } else {
       // Sinon, on peut gérer le cas où l'utilisateur n'est pas connecté
       userId = null;

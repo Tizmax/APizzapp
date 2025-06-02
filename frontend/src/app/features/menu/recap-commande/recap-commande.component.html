@@ -26,8 +26,8 @@
         <a class="btn btn-primary" (click)="goToMenu()">Ajouter une pizza à la commande</a>
     </div>
       <form [formGroup]="orderForm" (ngSubmit)="validateOrder()" class="mt-4 card p-4 " *ngIf="cartItems.length > 0">
-        <!-- Les champs nom et prénom ne sont affichés que si l'utilisateur n'est pas connecté -->
-        <div class="mb-3" *ngIf="!authService.isLoggedIn">
+        <!-- Les champs nom et prénom ne sont affichés que si l'utilisateur n'est pas connecté ou connecté en tant qu'admin et operateur -->
+        <div class="mb-3" *ngIf="['ADMIN','OPERATOR'].includes((authService.currentUserValue?.role ?? '').replace('ROLE_', ''))">
             <label for="surname" class="form-label">Prénom<span class="text-danger">*</span>:</label>
             <input type="text" id="surname" formControlName="surname" class="form-control"
                    [ngClass]="{ 'is-invalid': formControls['surname'].touched && formControls['surname'].errors }">
@@ -36,7 +36,7 @@
                 Le prénom est obligatoire.
             </div>
         </div>
-        <div class="mb-3" *ngIf="!authService.isLoggedIn">
+        <div class="mb-3" *ngIf="['ADMIN','OPERATOR'].includes((authService.currentUserValue?.role ?? '').replace('ROLE_', ''))">
             <label for="name" class="form-label">Nom<span class="text-danger">*</span>:</label>
             <input type="text" id="name" formControlName="name" class="form-control"
                    [ngClass]="{ 'is-invalid': formControls['name'].touched && formControls['name'].errors }">
