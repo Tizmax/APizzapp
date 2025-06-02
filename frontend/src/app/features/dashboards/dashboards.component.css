@@ -1,5 +1,4 @@
 
-
 /* Layout général : plein écran, centré */
 .dashboard-container {
   display: flex;
@@ -57,109 +56,6 @@
   margin-bottom: 1.5rem;
 }
 
-.dashboard-buttons {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-/* Boutons */
-.btn {
-  margin: .5rem 0;
-  padding: 3rem 6rem;
-  border-radius: .5rem;
-  font-size: 3rem;
-}
-
-.dashboard-section {
-  margin-bottom: 1.5rem;
-}
-
-.dashboard-container::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.2); /* 👈 ici tu règles l’opacité */
-  z-index: 0;
-  pointer-events: none; /* ✅ évite de bloquer les clics */
-
-}
-
-/* Layout général : plein écran, centré */
-.dashboard-container {
-  display: flex;
-  align-items: flex-start;          /* on ancre en haut au lieu du centre */
-  justify-content: center;
-  min-height: 100vh;
-  overflow: hidden; /* ← empêche le scroll interne */
-
-  /* background: linear-gradient(to bottom, #fff5f0, #ffe1d6); */
-
-  background-image: url('../../../../public/images/landing/pizza_feu_de_bois.webp');
-  background-size: cover;         /* couvre tout l'écran */
-  background-position: center;    /* bien centré */
-  background-repeat: no-repeat;   /* pas de répétition */
-  background-attachment: fixed;  /* Fixe l'image */
-
-  padding: 4rem 1rem 1rem;          /* plus de padding en haut pour remonter */
-  box-sizing: border-box;
-}
-
-/* Carte centrale */
-.dashboard-card {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 1rem;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-  max-width: 1600px;
-  width: 100%;
-  padding: 2rem;
-  z-index: 1;
-  position: relative;
-}
-
-/* En-tête de la carte */
-.dashboard-header {
-  border-bottom: 2px solid #e0e0e0;
-  margin-bottom: 1.5rem;
-  text-align: center;
-}
-
-.dashboard-header h1 {
-  margin: 0 0 1.5rem;
-  font-size: 1.8rem;
-  color: #d62828;
-  text-align: center;
-}
-
-/* Corps de la carte */
-.dashboard-body {
-  text-align: center;
-}
-
-.dashboard-body p {
-  font-size: 1.1rem;
-  color: #f0e3c0;
-  margin-bottom: 1.5rem;
-}
-
-.dashboard-buttons {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-/* Boutons */
-.btn {
-  margin: .5rem 0;
-  padding: 3rem 6rem;
-  border-radius: .5rem;
-  font-size: 3rem;
-}
 
 .dashboard-section {
   margin-bottom: 1.5rem;
