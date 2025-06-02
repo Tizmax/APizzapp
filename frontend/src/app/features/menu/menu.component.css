@@ -1,19 +1,10 @@
-.pizza-card {
-  transition: all 0.3s ease;
+/* .card {
+  border: none;
   cursor: pointer;
-}
+  transition: transform 0.2s;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
-.pizza-card.disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  filter: grayscale(100%);
-}
+  align-items: center;
 
-.pizza-card:hover:not(.disabled) {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-.pizza-card.disabled:hover {
-  transform: none;
-} 
+} */

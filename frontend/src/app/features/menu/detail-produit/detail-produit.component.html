@@ -5,9 +5,14 @@
 
   <div class="row mb-4">
     <!-- Pizza selectionnée -->
-    <div class="col-3  text-center card order-card">
-      <h2>{{ pizza?.name }}</h2>
-      <img  [src]="pizza?.imageUrl" [alt]="pizza?.name">
+    <div class="col-3">
+      
+      <div class="card pizza-card">
+        <img [src]="pizza?.imageUrl" [alt]="pizza?.name" class="card-img-top">
+        <div class="card-body">
+          <h5 class="card-title text-center">{{ pizza?.name }}</h5>
+        </div>
+      </div>
     </div>
 
     <div class="col-9">

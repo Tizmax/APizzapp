@@ -1,4 +1,4 @@
-.card {
+ .card {
   border: none;
   cursor: pointer;
   transition: transform 0.2s;
@@ -6,20 +6,20 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
   align-items: center;
-}
 
-.card-deplement {
-  /* background-color: #808080; */
-  opacity: 50%;
-  border-style: dashed;
-  /* box-shadow: none;
-  border-color: gray;
-  color: gray; */
-  filter: grayscale(100%);
 }
 
 .card img {
-  width: 80%;
+  border-radius: 15px 15px 0 0;
+  width: 100%;        
+  height: 250px;     
+  object-fit: cover;
+}
+
+.order-card img {
+  border-radius: 15px;
+  width: 200px;
+  height: 200px;
 }
 
 .card:hover {
@@ -28,7 +28,6 @@
 
 .order-card:hover {
   transform: scale(1);
-  cursor: default;
 }
 
 .card .card-body {
@@ -51,44 +50,27 @@
   border: none;
 }
 
-.quantity-controls {
-  display: flex;
-  align-items: center;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}
-
-.quantity-controls button {
-  width: 25px;
-  height: 25px;
-  font-size: auto;
-  border: none;
-  background-color: #007bff;
-  color: white;
-  border-radius: 5px;
-  margin: 0 5px;
-  cursor: pointer;
-  text-align: center;
-}
-
-.quantity-controls button:hover {
-  background-color: #0056b3;
-}
-
-.delete img {
-  border-radius: 5px;
-  border-width: 10px 10px 10px 10px;
-  border-color: black;
-  background-color: #0056b3;
-}
-
-.supplement-card.disabled {
+.pizza-card.disabled {
   opacity: 0.5;
   cursor: not-allowed;
   filter: grayscale(100%);
 }
 
-.supplement-card.disabled:hover {
+.pizza-card:hover:not(.disabled) {
+  transform: scale(1.05);
+}
+
+.pizza-card.disabled:hover {
   transform: none;
+}
+
+
+.card-deplement {
+  /* background-color: #808080; */
+  opacity: 50%;
+  border-style: dashed;
+  /* box-shadow: none;
+  border-color: gray;
+  color: gray; */
+  filter: grayscale(100%);
 }
