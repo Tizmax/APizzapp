@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.apizzapp.model.Pizza;
@@ -30,7 +31,8 @@ import com.apizzapp.model.EOrderStatus;
 import com.apizzapp.model.OrderItem;
 import com.apizzapp.repository.UserRepository;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("/api")
+@CrossOrigin(origins = "*")
 @RestController
 public class PizzaController {
     
