@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { User } from  '../shared/models/user.model';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class AuthService {
   private _currentUser = new BehaviorSubject<User | null>(null);
   currentUser$ = this._currentUser.asObservable();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     if (typeof window !== 'undefined' && window.localStorage) {
       const saved = localStorage.getItem('currentUser');
       if (saved) {
@@ -58,10 +59,7 @@ export class AuthService {
       localStorage.removeItem('currentUser');
     }
     this._currentUser.next(null);
-
-    if (typeof window !== 'undefined' && window.location) {
-      window.location.reload();
-    }
+    this.router.navigate(['/landing']);
   }
 
   get isLoggedIn(): boolean {
