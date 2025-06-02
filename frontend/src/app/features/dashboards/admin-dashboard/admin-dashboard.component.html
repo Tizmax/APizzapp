@@ -1,36 +1,24 @@
 <div class="dashboard-container">
-  <div class="dashboard-card">
+  <div class="dashboard-card">    
     <header class="dashboard-header">
       <h1>Tableau de bord – Administrateur</h1>
     </header>
-    <div class="dashboard-body">
-
-      <div class="dashboard-buttons">
-
-
-        <section class="dashboard-section">
-          <button routerLink="/planning" class="btn">
-            Planning
-          </button>
-        </section>
-
-        <section class="dashboard-section">
-          <button routerLink="/dashboards/operator/ingredients" class="btn">
-            Disponibilité des ingrédients
-          </button>
-        </section>
-
-        <section class="dashboard-section">
-          <button routerLink="/dashboards/admin/accounting" class="btn">
-            Comptabilité
-          </button>
-        </section>
-
-        <section class="dashboard-section">
-          <button routerLink="/menu" class="btn">
-            Menu
-          </button>
-        </section>
+    <div class="admin-card-grid">
+      <div class="admin-card" routerLink="/dashboards/operator/ingredients">
+        <h3>Gestion des Ingrédients</h3>
+        <p>Gérer la disponibilité des ingrédients pour les pizzas</p>
+      </div>
+      <div class="admin-card" routerLink="/planning">
+        <h3>Planning</h3>
+        <p>Voir toutes les commandes en cours</p>
+      </div>
+      <div class="admin-card" routerLink="/menu">
+        <h3>Menu</h3>
+        <p>Passer une commande</p>
+      </div>
+      <div class="admin-card">
+        <h3>Comptabilité</h3>
+        <p>Consulter les rapports de ventes</p>
       </div>
     </div>
   </div>

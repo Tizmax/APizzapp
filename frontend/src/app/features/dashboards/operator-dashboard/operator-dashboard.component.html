@@ -3,27 +3,19 @@
     <header class="dashboard-header">
       <h1>Tableau de bord – Opérateur</h1>
     </header>
-    <div class="dashboard-body">
-      <div class="dashboard-buttons">
-        <section class="dashboard-section">
-
-          <button routerLink="/planning" class="btn">
-            Planning
-          </button>
-        </section>
-
-        <section class="dashboard-section">
-          <button routerLink="/dashboards/operator/ingredients" class="btn">
-            Disponibilité des ingrédients
-          </button>
-        </section>
+    <div class="admin-card-grid">
+      <div class="admin-card" routerLink="/planning">
+        <h3>Planning</h3>
+        <p>Gestion des commandes en cours</p>
       </div>
-
-        <section class="dashboard-section">
-          <button routerLink="/menu" class="btn">
-            Menu
-          </button>
-        </section>
+      <div class="admin-card" routerLink="/dashboards/operator/ingredients">
+        <h3>Ingrédients</h3>
+        <p>Gérer la disponibilité des ingrédients</p>
+      </div>
+      <div class="admin-card" routerLink="/menu">
+        <h3>Menu</h3>
+        <p>Voir le menu et passer une commande</p>
+      </div>
     </div>
   </div>
 </div>
