@@ -8,7 +8,7 @@ import { Ingredient } from '../shared/models/ingredient.model';
   providedIn: 'root'
 })
 export class PizzaService {
-  private apiUrl = 'http://localhost:8080';
+  private apiUrl = '/api';
 
   constructor(private http: HttpClient) { }
 

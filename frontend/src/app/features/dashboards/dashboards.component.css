@@ -1,5 +1,4 @@
 
-
 /* Layout général : plein écran, centré */
 .dashboard-container {
   display: flex;
@@ -22,14 +21,14 @@
 
 /* Carte centrale */
 .dashboard-card {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.2);
   border-radius: 1rem;
   box-shadow: 0 8px 24px rgba(0,0,0,0.1);
   max-width: 1600px;
   width: 100%;
   padding: 2rem;
-
-  background-color: rgba(255, 255, 255, 0.2);
+  z-index: 1;
+  position: relative;
 }
 
 /* En-tête de la carte */
@@ -57,20 +56,6 @@
   margin-bottom: 1.5rem;
 }
 
-.dashboard-buttons {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-/* Boutons */
-.btn {
-  margin: .5rem 0;
-  padding: 3rem 6rem;
-  border-radius: .5rem;
-  font-size: 3rem;
-}
 
 .dashboard-section {
   margin-bottom: 1.5rem;
@@ -83,13 +68,46 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.2); /* 👈 ici tu règles l’opacité */
+  background-color: rgba(0, 0, 0, 0.2); /* 👈 ici tu règles l'opacité */
   z-index: 0;
   pointer-events: none; /* ✅ évite de bloquer les clics */
-
 }
 
-.dashboard-container > * {
-  position: relative;
-  z-index: 1;
+/* Styles communs pour les cartes */
+.admin-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.admin-card {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  padding: 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+.admin-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+  background-color: #f9f9f9;
+}
+
+.admin-card h3 {
+  color: #d62828;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.admin-card p {
+  color: #333;
+  font-size: 1.1rem;
 }

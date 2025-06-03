@@ -8,7 +8,7 @@ import { Order } from '../shared/models/order.model';
 })
 export class PlanningService {
 
-  private apiUrl = 'http://localhost:8080/listerOrder'; // URL du backend
+  private apiUrl = '/api/listerOrder'; // URL du backend
 
   constructor(private http: HttpClient) {}
 

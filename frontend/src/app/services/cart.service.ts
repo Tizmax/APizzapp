@@ -53,11 +53,21 @@ export class CartService {
     return this.items.reduce((count, item) => count + item.quantity, 0);
   }
 
+
+  private generateUUID(): string {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+      const r = (Math.random() * 16) | 0;
+      const v = c === 'x' ? r : (r & 0x3) | 0x8;
+      return v.toString(16);
+    });
+  }
+
   // Méthodes pour modifier le panier
   addItem(pizza: Pizza, quantity: number, addedSupplements: Ingredient[], removedIngredients: Ingredient[]): void {
     // const calculatedItemPrice = this.calculatePriceForPizzaConfiguration(pizza, addedSupplements);
+    
     const newItem: CartItem = {
-      tempId: crypto.randomUUID(),
+      tempId: this.generateUUID(),
       pizza: pizza,
       quantity: quantity,
       addedSupplements: [...addedSupplements],
