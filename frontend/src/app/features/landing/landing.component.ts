@@ -11,17 +11,8 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.css']
 })
-export class LandingComponent implements OnInit {
-  pizzas = [
-    { name: 'AI_Pizza', imgUrl: 'images/pizzas/ai_pizza.webp' },
-    { name: 'Reine', imgUrl: 'images/pizzas/reine.png' },
-    { name: 'Pepperoni', imgUrl: 'images/pizzas/pepperoni.png' },
-    { name: 'Cheese', imgUrl: 'images/pizzas/cheese.png' },
-    { name: 'Poivron', imgUrl: 'images/pizzas/poivron.png' },
-    { name: 'Olive', imgUrl: 'images/pizzas/olive.png' },
-  ];
+export class LandingComponent {
 
-  duplicatedPizzas: Array<any> = [];
   loginForm: FormGroup;
   email = '';
   password = '';
@@ -39,13 +30,6 @@ export class LandingComponent implements OnInit {
   }
   goToMenu() {
     this.router.navigateByUrl('/menu', { skipLocationChange: false });
-  }
-
-  ngOnInit(): void {
-    const duplications = 10;
-    for (let i = 0; i < duplications; i++) {
-      this.duplicatedPizzas = this.duplicatedPizzas.concat(this.pizzas);
-    }
   }
 
   onLogin(): void {

@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { PizzaService } from '../../../../services/pizza.service';
-import { Ingredient } from '../../../../shared/models/ingredient.model';
+import { PizzaService } from '../../services/pizza.service';
+import { Ingredient } from '../../shared/models/ingredient.model';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-ingredients',
   templateUrl: './ingredients.component.html',
   styleUrls: ['./ingredients.component.css'],
-  standalone: false
+  standalone: false 
 })
 export class IngredientsComponent implements OnInit {
   ingredients: Ingredient[] = [];
@@ -40,17 +40,17 @@ export class IngredientsComponent implements OnInit {
   }
 
   cancel(): void {
-    this.router.navigate(['/dashboards/operator']);
+    this.router.navigate(['/dashboards']);
   }
 
   save(): void {
     this.pizzaService.updateIngredients(this.ingredients).subscribe({
       next: () => {
-        this.router.navigate(['/dashboards/operator']);
+        this.router.navigate(['/dashboards']);
       },
       error: (error) => {
         console.error('Erreur lors de la mise à jour des ingrédients:', error);
       }
     });
   }
-} 
+}

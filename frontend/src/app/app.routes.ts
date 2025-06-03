@@ -17,6 +17,22 @@ export const routes: Routes = [
       import('./features/planning/planning.module')
         .then(m => m.PlanningModule)
   },
+   {
+    path: 'ingredients',
+    canActivate: [AuthGuard],
+    data: { roles: ['ADMIN', 'OPERATOR'] },
+    loadChildren: () =>
+      import('./features/ingredients/ingredients.module')
+        .then(m => m.IngredientsModule)
+  },
+  {
+    path: 'comptabilite',
+    canActivate: [AuthGuard],
+    data: { roles: ['ADMIN'] },
+    loadChildren: () =>
+      import('./features/comptabilite/comptabilite.module')
+        .then(m => m.ComptabiliteModule)
+  },
   { path: 'menu', 
     loadChildren: () => 
       import('./features/menu/menu.module').then((m) => m.MenuModule)}, // page de menu

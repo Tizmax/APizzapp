@@ -1,0 +1,108 @@
+<!-- comptabilite.component.html -->
+<div class="compta-container">
+  <div class="compta-card">
+    <!-- En-tête -->
+    <div class="compta-header">
+      <h2>Comptabilité</h2>
+      <p>Statistiques des commandes</p>
+    </div>
+
+    <div class="compta-body">
+      <!-- Loader -->
+      <div *ngIf="isLoading" class="loader-wrapper">
+        <div class="loader"></div>
+        <p>Chargement des données...</p>
+      </div>
+
+      <!-- Message d’erreur -->
+      <div *ngIf="error" class="error-box">
+        <span>{{ error }}</span>
+        <button class="btn-retry" (click)="refresh()">Réessayer</button>
+      </div>
+
+      <!-- Statistiques principales -->
+      <div *ngIf="!isLoading && !error && orders.length > 0">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-title">Commandes</div>
+            <div class="stat-value">{{ totalOrders }}</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-title">Chiffre d’affaires</div>
+            <div class="stat-value">{{ totalRevenue | currency:'EUR' }}</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-title">Panier moyen</div>
+            <div class="stat-value">{{ averageOrderValue | currency:'EUR' }}</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-title">Pizzas vendues</div>
+            <div class="stat-value">{{ totalPizzaCount }}</div>
+          </div>
+        </div>
+
+        <!-- Top 5 des pizzas -->
+        <section class="section-block">
+          <h4>Top 5 des pizzas</h4>
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Pizza</th>
+                  <th>Quantité vendue</th>
+                  <th>Revenu généré</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let pizza of topSellingPizzas">
+                  <td>{{ pizza.name }}</td>
+                  <td>{{ pizza.count }}</td>
+                  <td>{{ pizza.revenue | currency:'EUR' }}</td>
+                </tr>
+                <tr *ngIf="topSellingPizzas.length === 0">
+                  <td colspan="3" class="text-center">Aucune donnée disponible</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Répartition par créneau horaire -->
+        <section class="section-block">
+          <h4>Répartition par créneau horaire</h4>
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Créneau horaire</th>
+                  <th>Nombre de commandes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let slot of timeSlotDistribution | keyvalue">
+                  <td>{{ slot.key }}</td>
+                  <td>{{ slot.value }}</td>
+                </tr>
+                <tr *ngIf="(timeSlotDistribution | keyvalue).length === 0">
+                  <td colspan="2" class="text-center">Aucune donnée disponible</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <!-- Aucune commande -->
+      <div *ngIf="!isLoading && !error && orders.length === 0" class="info-box">
+        Aucune commande trouvée. Les statistiques seront disponibles lorsque des commandes auront été passées.
+      </div>
+
+      <!-- Bouton Actualiser -->
+      <div class="refresh-wrapper">
+        <button class="btn-refresh" (click)="refresh()">
+          Actualiser les données
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
