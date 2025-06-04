@@ -4,7 +4,6 @@ import { DashboardsRoutingModule } from './dashboards-routing.module';
 import { UserDashboardComponent }     from './user-dashboard/user-dashboard.component';
 import { OperatorDashboardComponent } from './operator-dashboard/operator-dashboard.component';
 import { AdminDashboardComponent }    from './admin-dashboard/admin-dashboard.component';
-import { IngredientsComponent }       from './operator/ingredients/ingredients.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
@@ -13,7 +12,6 @@ import { FormsModule } from '@angular/forms';
     UserDashboardComponent,
     OperatorDashboardComponent,
     AdminDashboardComponent,
-    IngredientsComponent
   ],
   imports: [
     CommonModule,

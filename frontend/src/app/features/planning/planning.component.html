@@ -46,7 +46,14 @@
         <!-- Ajouter la liste des ingrédients / dépléments -->
 
         <td>{{ order.totalAmount }} €</td>
-        <td>{{ order.status }}</td>
+        <td>
+          <button
+            class="btn btn-sm btn-primary"
+            (click)="toggleStatus(order)"
+          >
+            {{ order.status }}
+          </button>
+        </td>
 
         <td>
           <button (click)="removeOrder(order.id)" class="btn btn-secondary">Supprimer</button>

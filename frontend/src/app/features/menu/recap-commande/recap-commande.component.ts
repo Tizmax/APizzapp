@@ -131,4 +131,20 @@ export class RecapCommandeComponent implements OnInit{
     return this.userRole === 'ADMIN' || this.userRole === 'OPERATOR';
   }
 
+  // Calculer le prix unitaire (basePrice + suppléments éventuels)
+  getUnitPrice(item: CartItem): number {
+    let unit = item.pizza.price;
+    // Si vous avez des suppléments avec des prix :
+    item.addedSupplements.forEach(sup => {
+      if (sup.supplementPrice) {
+        unit += sup.supplementPrice;
+      }
+    });
+    return unit;
+  }
+
+  getLinePrice(item: CartItem): number {
+    return this.getUnitPrice(item) * item.quantity;
+  }
+
 }
