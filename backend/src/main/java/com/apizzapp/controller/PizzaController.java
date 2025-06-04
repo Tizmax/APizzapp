@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.Map; 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.jaxb.SpringDataJaxb.OrderDto;
@@ -138,6 +139,20 @@ public class PizzaController {
     public ResponseEntity<?> updateIngredients(@RequestBody List<Ingredient> ingredients) {
         ingredientRepository.saveAll(ingredients);
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/listerOrder/orders/status") 
+    public ResponseEntity<?> updateOrderStatus(@RequestBody Map<String, String> payload) {
+        String idStr = payload.get("id");
+        String statusStr = payload.get("status");
+        Long orderId = Long.valueOf(idStr);
+        EOrderStatus newStatus = EOrderStatus.valueOf(statusStr);
+        Order order = orderRepository.findById(orderId)
+        .orElseThrow(() -> new RuntimeException("Order not found with ID: " + orderId));
+        order.setStatus(newStatus);
+        orderRepository.save(order);
+
+        return ResponseEntity.ok(order);
     }
 
 }

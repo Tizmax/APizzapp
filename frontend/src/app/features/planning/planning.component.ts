@@ -49,4 +49,31 @@ export class PlanningComponent implements OnInit {
       });
     }
   }
+
+  toggleStatus(order: Order): void {
+    const current = order.status ;
+    
+    const etats = [
+      'PENDING',
+      'PAID',
+      'PREPARING',
+      'READY_FOR_PICKUP',
+      'CANCELLED'
+    ];
+
+    const idx = etats.indexOf(current);
+    const nextIdx = idx === etats.length - 1 ? 0 : idx + 1;
+    const newStatus = etats[nextIdx];
+
+    this.planningService.updateOrderStatus(order.id, newStatus).subscribe({
+      next: (updatedOrder: Order) => {
+        order.status = updatedOrder.status;
+      },
+      error: (err: any) => {
+        console.error('Erreur lors de la mise à jour de l’état :', err);
+      }
+    });
+  }
+
+
 }
