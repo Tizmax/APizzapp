@@ -1,0 +1,35 @@
+<!-- user-status.component.html -->
+<ng-container *ngIf="!isOnLandingPage()">
+  <div class="user-status">
+    <!-- Icône Panier à gauche -->
+    <button class="cart-btn" routerLink="/menu/recap-commande">
+      <img
+        src="/images/icons/shopping-cart-solid.svg"
+        alt="Panier"
+        class="cart-icon"
+      />
+      <span class="cart-badge" *ngIf="count > 0">{{ count }}</span>
+    </button>
+
+    <!-- Si l’utilisateur est connecté, on affiche son nom + Dashboard + Déconnexion -->
+    <ng-container *ngIf="auth.currentUser$ | async as user; else guest">
+      <span class="user-welcome">
+        Connecté·e en tant que
+        <strong>{{ user.firstName }} {{ user.lastName }}</strong>
+      </span>
+      <button routerLink="/dashboards" class="status-btn">
+        Mon tableau de bord
+      </button>
+      <button (click)="logout()" class="logout-btn">
+        Déconnexion
+      </button>
+    </ng-container>
+
+    <!-- Sinon, on propose un bouton de connexion -->
+    <ng-template #guest>
+      <button routerLink="/landing" class="status-btn">
+        Se connecter
+      </button>
+    </ng-template>
+  </div>
+</ng-container>

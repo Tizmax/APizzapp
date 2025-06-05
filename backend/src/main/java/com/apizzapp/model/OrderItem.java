@@ -1,4 +1,4 @@
-package com.apizzapp.model; // Assurez-vous que le package est correct
+package com.apizzapp.model; 
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -7,48 +7,47 @@ import lombok.Setter;
 import lombok.EqualsAndHashCode;
 
 import java.math.BigDecimal;
-import java.util.HashSet; // Importer HashSet
-import java.util.Set;     // Importer Set
-import java.util.Objects;
+import java.util.HashSet; 
+import java.util.Set;
 
 @Entity
-@Table(name = "pizzas")
+@Table(name = "order_items")
 @Getter
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Pizza { // Correction: 'class' en minuscule
+public class OrderItem { 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 100, nullable = false, unique = true)
-    private String name;
+    @Column(nullable = false)
+    private Long orderId;
 
-    // Prix de base de la pizza AVEC ses ingrédients standards
-    @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal basePrice;
+    @Column(nullable = false)
+    private Integer quantity;
 
-    @Column(length = 255)
-    private String imageUrl;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "pizza_id", nullable = false)
+    private Pizza pizza;
 
-    // Relation ManyToMany pour définir les ingrédients de base de la recette
-    @ManyToMany(fetch = FetchType.LAZY) // LAZY est bien ici
+    @ManyToMany(fetch = FetchType.LAZY) 
     @JoinTable(
-        name = "pizza_base_ingredients", // Table de jointure pour la recette
-        joinColumns = @JoinColumn(name = "pizza_id"),
+        name = "supplements",
+        joinColumns = @JoinColumn(name = "item_id"),
         inverseJoinColumns = @JoinColumn(name = "ingredient_id")
     )
-    private Set<Ingredient> baseIngredients = new HashSet<>(); // Les ingrédients standards
+    private Set<Ingredient> supplements = new HashSet<>();
 
-    // Correction: Constructeur correct
-    public Pizza(String name, String description, BigDecimal basePrice, String imageUrl) {
-        this.name = name;
-        this.description = description;
-        this.basePrice = basePrice;
-        this.imageUrl = imageUrl;
-    }
+    @ManyToMany(fetch = FetchType.LAZY) 
+    @JoinTable(
+        name = "deplements",
+        joinColumns = @JoinColumn(name = "item_id"),
+        inverseJoinColumns = @JoinColumn(name = "ingredient_id")
+    )
+    private Set<Ingredient> deplements = new HashSet<>();
+
 
     // equals/hashCode géré par Lombok
 }

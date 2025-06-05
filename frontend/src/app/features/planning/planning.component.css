@@ -1,0 +1,21 @@
+.order-display-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+h1 {
+  font-size: 2.4rem;
+  color: #d62828;
+  margin-bottom: 1rem;
+}
+
+.table {
+  width: 100%;
+  max-width: 1200px;
+  margin-bottom: 2rem;
+}
+
+

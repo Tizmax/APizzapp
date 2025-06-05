@@ -1,0 +1,78 @@
+<div class="order-display-container">
+  <h1>Planning des commandes</h1>
+
+  <table class="table table-striped mt-4">
+    <thead>
+      <tr>
+        <th>Horaire</th>
+        <th>Nom</th>
+        <th>Pizza</th>
+        <th>Prix Total</th>
+        <th>État</th>
+        <th>Supprimer</th>
+        <th>Modifier</th>
+      </tr>
+    </thead>
+
+    <tbody *ngIf="planning && planning.length > 0">
+      <tr *ngFor="let order of planning">
+        <td>{{ order.scheduledTime }}</td>
+        
+
+        <td>{{ order.firstNameGuest }} {{ order.lastNameGuest }} <span *ngIf="order.user === null">(Invité)</span></td>
+        
+        <!-- Liste des pizzas dans la commande -->
+        <td>
+          <ul>
+            <li *ngFor="let item of order.orderItems">
+              {{ item.quantity }}x {{ item.pizza.name }}
+
+              <span *ngIf="item.supplements && item.supplements.length > 0">
+                - Suppléments: 
+                <span *ngFor="let supplement of item.supplements; let isLast = last">
+                  {{ supplement.name }}{{ !isLast ? ', ' : '' }}
+                </span>
+              </span>
+              <span *ngIf="item.deplements && item.deplements.length > 0">
+                - Dépléments: 
+                <span *ngFor="let deplement of item.deplements; let isLast = last">
+                  {{ deplement.name }}{{ !isLast ? ', ' : '' }}
+                </span>
+              </span>
+            </li>
+          </ul>
+        </td>
+
+        <!-- Ajouter la liste des ingrédients / dépléments -->
+
+        <td>{{ order.totalAmount }} €</td>
+        <td>
+          <button
+            class="btn btn-sm btn-primary"
+            (click)="toggleStatus(order)"
+          >
+            {{ order.status }}
+          </button>
+        </td>
+
+        <td>
+          <button (click)="removeOrder(order.id)" class="btn btn-secondary">Supprimer</button>
+        </td>
+        
+        <td>
+          <a routerLink="/recap" class="btn btn-primary">Modifier</a>
+        </td>
+      </tr>
+    </tbody>
+
+    <tbody *ngIf="!planning || planning.length === 0">
+      <tr>
+        <td colspan="7" style="text-align: center;">Aucune commande pour le moment</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="new-order-button">
+    <a routerLink="/choose_pizza" class="btn btn-primary mt-4">Nouvelle commande</a>
+  </div>
+</div>

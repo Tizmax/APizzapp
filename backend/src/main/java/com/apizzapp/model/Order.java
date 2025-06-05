@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "orders")
 @Getter
@@ -23,7 +25,7 @@ public class Order {
     private Long id;
 
     @Column(nullable = false)
-    private LocalDateTime orderDate;
+    private String scheduledTime;
 
     @Enumerated(EnumType.STRING) // Statut de la commande
     @Column(length = 30, nullable = false)
@@ -35,15 +37,21 @@ public class Order {
     // Relation ManyToOne avec User (Plusieurs commandes peuvent appartenir à un User)
     // fetch=LAZY => Ne charge pas l'utilisateur systématiquement (bonne pratique)
     // nullable=false => Une commande DOIT avoir un utilisateur associé
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = true)
     private User user;
+
+    @Column()
+    private String lastNameGuest;
+    
+    @Column()
+    private String firstNameGuest;
 
     // Relation OneToMany avec OrderItem (Une commande contient plusieurs lignes/items)
     // cascade=ALL => Si on supprime une Order, ses OrderItem sont supprimés
     // orphanRemoval=true => Si on retire un OrderItem de la liste, il est supprimé
     // fetch=LAZY => Charger les items seulement quand nécessaire
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "orderId", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<OrderItem> orderItems = new ArrayList<>(); // Initialiser
 
     @PrePersist // Méthode appelée juste avant la sauvegarde initiale

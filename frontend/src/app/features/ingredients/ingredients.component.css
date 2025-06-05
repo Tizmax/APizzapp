@@ -1,0 +1,29 @@
+.ingredient-card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.ingredient-card:hover {
+  transform: scale(1.05);
+}
+
+.ingredient-card img {
+  width: 80%;
+  margin: 10px auto;
+  display: block;
+}
+
+.ingredient-card.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(100%);
+}
+
+.availability-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}

@@ -1,0 +1,123 @@
+/* Conteneur principal */
+.register-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #fff5f0, #ffe1d6);
+  font-family: 'Segoe UI', sans-serif;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+/* Titre */
+.register-container h2 {
+  font-size: 2.4rem;
+  color: #d62828;
+  margin-bottom: 1.5rem;
+}
+
+/* Formulaire */
+form {
+  background-color: #ffffffee;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Groupements de champs pour gestion des validations */
+.form-group {
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+/* Champs input */
+input {
+  padding: 0.75rem;
+  margin-bottom: 0.25rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Bord rouge si invalide après toucher */
+input.ng-touched.ng-invalid {
+  border: 1px solid #d9534f;
+}
+
+/* Messages d’erreur de validation */
+.validation-error {
+  color: #d9534f;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+/* Bouton de soumission */
+button[type="submit"] {
+  background-color: #d62828;
+  color: white;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 1rem;
+}
+
+button[type="submit"]:hover {
+  background-color: #b71c1c;
+}
+
+button[type="submit"]:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Message de retour (succès ou erreur) */
+.message {
+  margin-top: 1rem;
+  color: #d62828;
+  font-size: 1rem;
+  text-align: center;
+}
+
+/* Lien de retour à la connexion */
+.landing-link {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.landing-link p {
+  margin-bottom: 0.5rem;
+  color: #6c757d;
+}
+
+.login-btn {
+  background-color: #d62828;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-btn:hover {
+  background-color: #b71c1c;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #adb5bd;
+  margin-top: 2rem;
+}

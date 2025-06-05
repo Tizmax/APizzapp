@@ -7,7 +7,6 @@ import lombok.Setter;
 import lombok.EqualsAndHashCode; // Importer pour Lombok
 
 import java.math.BigDecimal;
-import java.util.Objects;
 
 @Entity
 @Table(name = "ingredients")
@@ -15,7 +14,7 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id") // equals/hashCode basé sur l'ID via Lombok
-public class Ingredient { // Correction: 'class' en minuscule
+public class Ingredient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,7 +38,6 @@ public class Ingredient { // Correction: 'class' en minuscule
 
     public Ingredient(String name, String description, boolean availableAsSupplement, BigDecimal supplementPrice) {
         this.name = name;
-        this.description = description;
         this.availableAsSupplement = availableAsSupplement;
         this.supplementPrice = supplementPrice;
     }

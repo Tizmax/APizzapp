@@ -1,0 +1,33 @@
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Gestion des ingrédients</h1>
+
+  <div class="text-center mb-4">
+    <button class="btn btn-secondary me-2" (click)="cancel()">Annuler</button>
+    <button class="btn btn-primary" (click)="save()">Sauvegarder</button>
+  </div>
+
+  <div class="row">
+    <div *ngFor="let ingredient of ingredients" class="col-md-3 col-sm-6 mb-4">
+      <div class="card ingredient-card">
+        <img [src]="ingredient.imageUrl" [alt]="ingredient.name" class="card-img-top">
+        <div class="card-body">
+          <h5 class="card-title text-center">{{ ingredient.name }}</h5>
+          <div class="availability-buttons">
+            <button 
+              class="btn btn-primary" 
+              [disabled]="!ingredient.availableAsSupplement"
+              (click)="toggleAvailability(ingredient)">
+              Disponible
+            </button>
+            <button 
+              class="btn btn-secondary" 
+              [disabled]="ingredient.availableAsSupplement"
+              (click)="toggleAvailability(ingredient)">
+              Stock épuisé
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

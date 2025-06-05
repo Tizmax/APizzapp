@@ -1,0 +1,102 @@
+
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Choix des suppléments</h1>
+  
+
+  <div class="row mb-4">
+    <!-- Pizza selectionnée -->
+    <div class="col-3">
+      
+      <div class="card pizza-card">
+        <img [src]="pizza?.imageUrl" [alt]="pizza?.name" class="card-img-top">
+        <div class="card-body">
+          <h5 class="card-title text-center">{{ pizza?.name }}</h5>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-9">
+      
+    </div>
+        
+    <!-- Choix des sauces -->
+    <!-- <div class = "col-8">
+      <h2>Sauce</h2>
+      <div class="row">
+        {% for sauce, img in sauces.items() %}
+        <div class="col-4">
+          <div class="card sauce-card {%if sauce== pizzas[pizza].sauce %} selected-card {%endif%}" data-ingredient="{{ sauce }}">
+            <img src="{{ url_for('static', filename='images/' ~ img) }}" class="card-img-top" alt="{{ sauce }}">
+            <div class="card-body">
+              <h5 class="card-title text-center">{{ sauce }}</h5>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div> -->
+
+    <div class="col-1">
+      <!-- Choix des tailles -->
+      <!-- <h2>Taille</h2>
+      {% for taille in tailles %}
+      <div class="card taille-card {%if loop.index == 2%} selected-card {%endif%} my-3" data="{{taille}}">
+        <div class="card-body">
+          <h5 class="card-title text-center">{{taille}}</h5>
+        </div>
+      </div>
+      {% endfor %} -->
+      
+      <!-- Moitié/Moitié -->
+      <!-- <div class="card mt-4">
+        <div class="card-body">
+          <a href="{{ url_for('choose_pizza') }}">
+            <h5 class="card-title text-center">Moitié </h5>
+          </a>
+        </div>
+      </div> -->
+      
+    </div> 
+  </div>  
+
+  <!-- Ingredients de la pizza -->
+  <div class="row" id="ingredients-container">
+    <div *ngFor="let ingredient of pizza?.baseIngredients" class="col-md-3 col-sm-6 mb-4">
+      <div class="card"  [ngClass]="{ 'card-deplement': disabledIngredients.has(ingredient.id) }" (click)="toggleIngredient(ingredient.id)">
+        <img [src]="ingredient.imageUrl" [alt]="ingredient.name" class="card-img-top" >
+        <div class="card-body">
+          <h5 class="card-title text-center">{{ ingredient.name }}</h5>
+        </div>
+      </div>
+    </div>
+    <div *ngFor="let supplement of supplements; let i = index" class="col-md-3 col-sm-6 mb-4">
+      <div class="card supplement-card" (click)="removeSupplement(i)">
+        <img [src]="supplement.imageUrl" [alt]="supplement.name" class="card-img-top" >
+        <div class="card-body">
+          <h5 class="card-title text-center">{{ supplement.name }}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bouton valider -->
+  <div class="text-center mt-4">
+    <a class='btn btn-primary' (click)="addToCart()">Ajouter cette pizza</a>
+  </div>
+
+
+  <!-- Display Supplements Grid -->
+  <h1>Supplements</h1>
+  <div class="row">
+    <div *ngFor="let supplement of ingredients" class="col-md-3 col-sm-6 mb-4">
+      <div class="card supplement-card" 
+           [ngClass]="{'disabled': !supplement.availableAsSupplement}"
+           (click)="supplement.availableAsSupplement && addSupplement(supplement)">
+        <img [src]="supplement.imageUrl" [alt]="supplement.name" class="card-img-top">
+        <div class="card-body">
+          <h5 class="card-title text-center">{{ supplement.name }}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

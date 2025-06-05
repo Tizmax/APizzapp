@@ -1,0 +1,65 @@
+ .card {
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  align-items: center;
+
+} 
+
+.card img {
+  border-radius: 15px 15px 0 0;
+  width: 100%;        
+  height: 250px;     
+  object-fit: cover;
+}
+
+.order-card img {
+  border-radius: 15px;
+  width: 200px;
+  height: 200px;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.order-card:hover {
+  transform: scale(1);
+}
+
+.card .card-body {
+  padding: 10px;
+}
+
+.card .card-title {
+  margin-bottom: 0;
+}
+
+.taille-card {
+  padding: 4;
+}
+
+.selected-card {
+  border: 2px solid #007bff;
+}
+
+.table .tr {
+  border: none;
+}
+
+.pizza-card.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(100%);
+}
+
+.pizza-card:hover:not(.disabled) {
+  transform: scale(1.05);
+}
+
+.pizza-card.disabled:hover {
+  transform: none;
+}

@@ -1,0 +1,119 @@
+<!-- recap-commande.component.html -->
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Recapitulatif de la commande</h1>
+
+  <div class="row g-3">
+    <div *ngFor="let item of cartItems" class="col-md-2 col-sm-6 mb-4">
+      <div class="card h-100">
+        <!-- Contrôles quantité -->
+        <div class="quantity-controls">
+          <button class="btn" (click)="decQuantity(item)">-</button>
+          <button class="btn" (click)="incQuantity(item)">+</button>
+        </div>
+
+        <!-- Image de la pizza -->
+        <div>
+          <img [src]="item.pizza.imageUrl" class="card-img-top" />
+        </div>
+
+        <!-- Nom + Quantité + Prix unitaire et total -->
+        <div class="card-body">
+          <h4 class="card-title text-center">
+            {{ item.quantity }}× {{ item.pizza.name }}
+          </h4>
+          
+          <!-- Prix unitaire -->
+          <p class="text-center mb-1">
+            Prix unitaire : 
+            <strong>{{ getUnitPrice(item) | currency:'EUR' }}</strong>
+          </p>
+
+          <!-- Prix pour ces pizzas -->
+          <p class="text-center mb-2">
+            Total: 
+            <strong>{{ getLinePrice(item) | currency:'EUR' }}</strong>
+          </p>
+
+          <!-- Badges des suppléments / ingrédients retirés -->
+          <div class="badges">
+            <span *ngFor="let supplement of item.addedSupplements"
+                  class="badge badge-supplement">
+              +{{ supplement.name }}
+            </span>
+            <span *ngFor="let depplement of item.removedIngredients"
+                  class="badge badge-deplement">
+              –{{ depplement.name }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bouton pour ajouter une pizza -->
+  <div class="text-center mt-3">
+    <button class="btn btn-primary" (click)="goToMenu()">
+      Ajouter une pizza à la commande
+    </button>
+  </div>
+
+  <!-- Formulaire de validation d’ordre -->
+  <form *ngIf="cartItems.length > 0"
+        [formGroup]="orderForm"
+        (ngSubmit)="validateOrder()"
+        class="mt-4 card p-4">
+
+    <!-- Champs Prénom / Nom s’ils sont nécessaires -->
+    <div class="mb-3" *ngIf="!authService.isLoggedIn || isAdminOrOperator">
+      <label for="surname" class="form-label">
+        Prénom<span class="text-danger">*</span>:
+      </label>
+      <input type="text" id="surname" formControlName="surname"
+             class="form-control"
+             [ngClass]="{ 'is-invalid': formControls['surname'].touched && formControls['surname'].errors }" />
+      <div *ngIf="formControls['surname'].touched && formControls['surname'].errors?.['required']"
+           class="invalid-feedback">
+        Le prénom est obligatoire.
+      </div>
+    </div>
+
+    <div class="mb-3" *ngIf="!authService.isLoggedIn || isAdminOrOperator">
+      <label for="name" class="form-label">
+        Nom<span class="text-danger">*</span>:
+      </label>
+      <input type="text" id="name" formControlName="name"
+             class="form-control"
+             [ngClass]="{ 'is-invalid': formControls['name'].touched && formControls['name'].errors }" />
+      <div *ngIf="formControls['name'].touched && formControls['name'].errors?.['required']"
+           class="invalid-feedback">
+        Le nom est obligatoire.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="scheduledTime" class="form-label">
+        Heure de retrait<span class="text-danger">*</span>:
+      </label>
+      <select id="scheduledTime" formControlName="scheduledTime"
+              class="form-select"
+              [ngClass]="{ 'is-invalid': formControls['scheduledTime'].touched && formControls['scheduledTime'].errors }">
+        <option value="" disabled>Choisissez un créneau</option>
+        <option *ngFor="let slot of timeSlots" [value]="slot">{{ slot }}</option>
+      </select>
+      <div *ngIf="formControls['scheduledTime'].touched && formControls['scheduledTime'].errors?.['required']"
+           class="invalid-feedback">
+        Le créneau horaire est obligatoire.
+      </div>
+    </div>
+
+    <div class="text-center">
+      <button type="submit" class="btn btn-primary me-2"
+              [disabled]="orderForm.invalid || cartItems.length === 0">
+        Passer commande
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="cancelOrder()">
+        Annuler cette commande
+      </button>
+    </div>
+  </form>
+</div>

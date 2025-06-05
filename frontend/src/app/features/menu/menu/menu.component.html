@@ -1,0 +1,16 @@
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Choisissez une pizza</h1>
+
+  <div class="row">
+    <div *ngFor="let pizza of pizzas" class="col-md-3 col-sm-6 mb-4">
+      <div class="card pizza-card" 
+           [ngClass]="{'disabled': !isPizzaAvailable(pizza)}"
+           (click)="isPizzaAvailable(pizza) && onPizzaSelected(pizza)">
+        <img [src]="pizza.imageUrl" [alt]="pizza.name" class="card-img-top">
+        <div class="card-body">
+          <h5 class="card-title text-center">{{ pizza.name }}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

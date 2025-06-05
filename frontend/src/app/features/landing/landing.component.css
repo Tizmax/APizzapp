@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500&display=swap');
+
+/* Styles généraux */
+.landing-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+ /* background: linear-gradient(to bottom, #fff5f0, #ffe1d6);*/
+
+  position: relative;
+  background-image: url('../../../../public/images/landing/pizza_feu_de_bois.webp');
+  background-size: cover;         /* couvre tout l'écran */
+  background-position: center;    /* bien centré */
+  background-repeat: no-repeat;   /* pas de répétition */
+  background-attachment: fixed;  /* Fixe l'image */
+
+  /* font-family: 'Segoe UI', sans-serif; */
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* En-tête */
+header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+header h1 {
+  /* font-family: 'Playfair Display', serif; */
+  font-size: 3rem;
+  color: #b22222; /* rouge profond, plus raffiné */
+  margin-bottom: 0.5rem;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* subtile profondeur */
+}
+
+header p {
+  /* font-family: 'Inter', sans-serif; */
+  font-style: italic;
+  font-size: 1.1rem;
+  color: #f0e3c0;
+  margin-bottom: 2rem;
+}
+
+/* Formulaire de connexion */
+.login-form {
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 3rem;
+}
+
+.login-form form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form input {
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.login-form input:focus {
+  outline: none;
+  border-color: #d62828;
+}
+
+/* Password field + eye toggle */
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrapper input {
+  flex: 1;
+  padding-right: 3rem; 
+}
+
+.eye-toggle {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-90%);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.eye-icon {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+/* Boutons de formulaire */
+
+.login-form button[type="submit"] {
+  background-color: #d62828;
+  color: white;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-form button[type="submit"]:hover {
+  background-color: #b71c1c;
+}
+
+.error {
+  color: red;
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.signup-link {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.signup-link p {
+  margin: 0 0 0.5rem 0;
+  color: #f0e3c0;
+}
+
+.signup-btn {
+  background-color: #d62828;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.signup-btn:hover {
+  background-color: #b71c1c;
+}
+
+.guest-access {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.guest-access p {
+  margin: 0 0 0.5rem 0;
+  color: #f0e3c0;
+}
+
+.guest-btn {
+  background-color: #d62828;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.guest-btn:hover {
+  background-color: #b71c1c;
+}
+
+
+/* Pied de page */
+footer {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #adb5bd;
+}
+
+.landing-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.2); /* opacité douce et lumineuse */
+  z-index: 0;
+}
+
+.landing-container > * {
+  position: relative;
+  z-index: 1;
+}
+
+.form-title {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #b22222; /* même rouge que le titre principal */
+  /* font-family: 'Playfair Display', serif; */
+  margin-bottom: 1.5rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
