@@ -18,6 +18,9 @@ export class PlanningComponent implements OnInit {
   ngOnInit(): void {
     // Appel au service pour récupérer les commandes depuis l'API
     this.fetchOrders();
+    setInterval(() => {
+      this.fetchOrders();
+    }, 5000);
   }
   
   fetchOrders(): void {

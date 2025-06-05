@@ -50,17 +50,17 @@
   border: none;
 }
 
-.pizza-card.disabled {
+.supplement-card.disabled {
   opacity: 0.5;
   cursor: not-allowed;
   filter: grayscale(100%);
 }
 
-.pizza-card:hover:not(.disabled) {
+.supplement-card:hover:not(.disabled) {
   transform: scale(1.05);
 }
 
-.pizza-card.disabled:hover {
+.supplement-card.disabled:hover {
   transform: none;
 }
 
