@@ -11,62 +11,78 @@ import { Ingredient } from '../../../shared/models/ingredient.model';
   templateUrl: './detail-produit.component.html',
   styleUrl: './detail-produit.component.css'
 })
-export class DetailProduitComponent {
-  pizza: Pizza | null = null;
-  ingredients: Ingredient[] = [];
-  supplements: Ingredient[] = [];
-  disabledIngredients: Set<number> = new Set<number>();
 
+
+export class DetailProduitComponent {
+
+  halves : any[] = [];
+  ingredients : Ingredient[] = [];
+ 
   constructor(private cartService: CartService, private route: ActivatedRoute, private router: Router, private pizzaService: PizzaService) {}
 
   ngOnInit(): void {
 
-    const id = this.route.snapshot.paramMap.get('id');
+    const id1 = this.route.snapshot.paramMap.get('id1');
+    const id2 = this.route.snapshot.paramMap.get('id2');
 
-    this.pizzaService.getPizzaById(id).subscribe(
-      (data) => {this.pizza = data; console.log('Détails de la pizza:', this.pizza)
+    this.pizzaService.getPizzaById(id1).subscribe((data) => {
+      this.halves.push({
+        "pizza" : data,
+        "supplements": [],
+        "disabledIngredients": new Set<number>()
+      })
+    });
+    this.pizzaService.getPizzaById(id2).subscribe((data) => {
+      if (id2) {
+        this.halves.push({
+          "pizza" : data,
+          "supplements": [],
+          "disabledIngredients": new Set<number>()
+        })
       }
-    );
+    });
+    
+    
+    console.log('Pizza choisie:', this.halves);
 
     this.pizzaService.getAllIngredients().subscribe(
       (data) => this.ingredients = data
     );
   }
 
-  toggleIngredient(index: number): void {
-    if (this.disabledIngredients.has(index)) {
-      this.disabledIngredients.delete(index);
+  toggleIngredient(half:any, index: number): void {
+    if (half.disabledIngredients.has(index)) {
+      half.disabledIngredients.delete(index);
     } else {
-      this.disabledIngredients.add(index);
+      half.disabledIngredients.add(index);
     }
   }
 
-  addSupplement(ingredient: Ingredient): void {
+  addSupplement(half: any, ingredient: Ingredient): void {
     // Logique pour ajouter un supplément
     console.log('Supplément ajouté:', ingredient);
-    this.supplements.push(ingredient);
-    console.log('Liste des suppléments:', this.supplements);
+    half.supplements.push(ingredient);
+    console.log('Liste des suppléments:', half.supplements);
   }
 
-  removeSupplement(index: number): void {
+  removeSupplement(half: any, index: number): void {
     // Logique pour retirer un supplément
     console.log('Supplément retiré : n°', index);
-    this.supplements.splice(index, 1);
-    console.log('Liste des suppléments:', this.supplements);
+    half.supplements.splice(index, 1);
+    console.log('Liste des suppléments:', half.supplements);
   }
 
   addToCart(): void {
-  if (this.pizza) {
-
-    const depplements: Ingredient[] = this.pizza.baseIngredients.filter((ingredient) => this.disabledIngredients.has(ingredient.id));
+    const pizza : any = this.halves[0];
+    const depplements: Ingredient[] = pizza.pizza.baseIngredients.filter((ingredient: Ingredient) => pizza.disabledIngredients.has(ingredient.id));
     console.log('Ingrédients suppr après retrait:', depplements);
     this.cartService.addItem(
-      this.pizza,
+      pizza.pizza,
       1,
-      this.supplements,
+      pizza.supplements,
       depplements
     );
     this.router.navigate(['recap-commande'], { relativeTo: this.route.parent });
+    
   }
-}
 }
