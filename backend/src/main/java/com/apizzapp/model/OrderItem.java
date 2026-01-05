@@ -1,14 +1,15 @@
 package com.apizzapp.model; 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.EqualsAndHashCode;
 
-import java.math.BigDecimal;
-import java.util.HashSet; 
-import java.util.Set;
 
 @Entity
 @Table(name = "order_items")
@@ -22,32 +23,22 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Long orderId;
+    @ManyToOne
+    @JoinColumn(name = "order_id", nullable = false)
+    @JsonBackReference
+    private Order order;
 
     @Column(nullable = false)
     private Integer quantity;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "pizza_id", nullable = false)
-    private Pizza pizza;
+    @OneToOne(cascade = CascadeType.ALL) // or @ManyToOne
+    @JoinColumn(name = "half1_id", nullable= true)
+    @JsonManagedReference
+    private ModifiedPizza half1;
 
-    @ManyToMany(fetch = FetchType.LAZY) 
-    @JoinTable(
-        name = "supplements",
-        joinColumns = @JoinColumn(name = "item_id"),
-        inverseJoinColumns = @JoinColumn(name = "ingredient_id")
-    )
-    private Set<Ingredient> supplements = new HashSet<>();
+    @OneToOne(cascade = CascadeType.ALL) // or @ManyToOne
+    @JoinColumn(name = "half2_id", nullable= true)
+    @JsonManagedReference
+    private ModifiedPizza half2;
 
-    @ManyToMany(fetch = FetchType.LAZY) 
-    @JoinTable(
-        name = "deplements",
-        joinColumns = @JoinColumn(name = "item_id"),
-        inverseJoinColumns = @JoinColumn(name = "ingredient_id")
-    )
-    private Set<Ingredient> deplements = new HashSet<>();
-
-
-    // equals/hashCode géré par Lombok
 }

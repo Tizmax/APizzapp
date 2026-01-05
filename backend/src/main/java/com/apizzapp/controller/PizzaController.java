@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 import java.util.Map; 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.jaxb.SpringDataJaxb.OrderDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,12 +23,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.apizzapp.model.Pizza;
 import com.apizzapp.repository.PizzaRepository;
 import com.apizzapp.model.Ingredient;
+import com.apizzapp.model.ModifiedPizza;
+import com.apizzapp.repository.ModifiedPizzaRepository;
 import com.apizzapp.repository.IngredientRepository;
 import com.apizzapp.model.Order;
 import com.apizzapp.repository.OrderRepository;
-import com.apizzapp.controller.dto.OrderDTO;
+import com.apizzapp.controller.dto.InputOrderDTO;
 import com.apizzapp.model.EOrderStatus;
 import com.apizzapp.model.OrderItem;
+import com.apizzapp.repository.OrderItemRepository;
 import com.apizzapp.repository.UserRepository;
 
 @RequestMapping("/api")
@@ -41,10 +43,16 @@ public class PizzaController {
     PizzaRepository pizzaRepository;
 
     @Autowired
+    ModifiedPizzaRepository modifiedPizzaRepository;
+
+    @Autowired
     IngredientRepository ingredientRepository;
 
     @Autowired
     OrderRepository orderRepository;
+
+    @Autowired
+    OrderItemRepository orderItemRepository;
 
     @Autowired
     UserRepository userRepository;
@@ -68,66 +76,76 @@ public class PizzaController {
     Collection<Order> ListerOrder() {return orderRepository.findAll();}
 
     @PostMapping("/placeOrder")
-    public ResponseEntity<?> createOrder(@RequestBody OrderDTO orderDTO) {
-
+    public ResponseEntity<?> createOrder(@RequestBody InputOrderDTO orderDTO) {
+        // 1. Création et sauvegarde initiale de l'Order
         Order order = new Order();
         order.setScheduledTime(orderDTO.scheduledTime);
-
-        if (orderDTO.userId == null) {
-            order.setUser(null);
-        } else {
-            order.setUser(userRepository.findById(orderDTO.userId)
-                .orElseThrow(() -> new RuntimeException("User not found")));
-        }
-
-        order.setTotalAmount(BigDecimal.ZERO);
         order.setFirstNameGuest(orderDTO.firstNameGuest);
         order.setLastNameGuest(orderDTO.lastNameGuest);
-
+        order.setStatus(EOrderStatus.PENDING);
+        order.setTotalAmount(BigDecimal.ZERO);
+        
+        if (orderDTO.userId != null) {
+            order.setUser(userRepository.findById(orderDTO.userId).orElse(null));
+        }
+        
+        // On sauve l'objet pour qu'il soit "attaché" à Hibernate
         Order savedOrder = orderRepository.save(order);
-        
-        // On récupère la liste actuelle (gérée par Hibernate) et on la modifie
-        List<OrderItem> targetList = savedOrder.getOrderItems();
-        targetList.clear(); // supprime les anciens éléments (et déclenche orphanRemoval)
-        targetList.addAll(
-            orderDTO.orderItems.stream()
-                .map(itemDTO -> {
-                    OrderItem orderItem = new OrderItem();
-                    orderItem.setPizza(pizzaRepository.findById(itemDTO.pizzaId)
-                        .orElseThrow(() -> new RuntimeException("Pizza not found")));
-                    orderItem.setOrderId(savedOrder.getId());
-                    
-                    orderItem.setQuantity(itemDTO.quantity);
 
-                    if (itemDTO.supplements != null && !itemDTO.supplements.isEmpty()) {
-                        orderItem.setSupplements(new HashSet<>(ingredientRepository.findAllById(itemDTO.supplements)));
-                    } else {
-                        orderItem.setSupplements(new HashSet<>());
-                    }
-                    if (itemDTO.deplements != null && !itemDTO.deplements.isEmpty()) {
-                        orderItem.setDeplements(new HashSet<>(ingredientRepository.findAllById(itemDTO.deplements)));
-                    } else {
-                        orderItem.setDeplements(new HashSet<>());
-                    }
-                    return orderItem;
-                })
-                .collect(Collectors.toCollection(ArrayList::new))
-        );
-        
-        // Calculate total amount after all items are created
-        BigDecimal totalAmount = savedOrder.getOrderItems().stream()
-            .map(item -> (item.getPizza().getPrice()
-            .add(item.getSupplements().stream().map(supplement -> supplement.getSupplementPrice())
-            .reduce(BigDecimal.ZERO, BigDecimal::add)))
-            .multiply(new BigDecimal(item.getQuantity())))
-            .reduce(BigDecimal.ZERO, BigDecimal::add);
+        // 2. Création des items en mémoire
+        List<OrderItem> items = orderDTO.orderItems.stream().map(itemDTO -> {
+            OrderItem orderItem = new OrderItem();
+            orderItem.setOrder(savedOrder);
+            orderItem.setQuantity(itemDTO.quantity != null ? itemDTO.quantity : 1);
 
-        // Update the order with the calculated total
-        savedOrder.setTotalAmount(totalAmount);
-        orderRepository.save(savedOrder);
+            // Pizza Half 1
+            ModifiedPizza h1 = createPizza(itemDTO.half1, orderItem);
+            orderItem.setHalf1(h1);
 
-        return ResponseEntity.ok().build();
+            // Pizza Half 2 (Optionnel)
+            if (itemDTO.half2 != null && itemDTO.half2.pizzaId != null) {
+                ModifiedPizza h2 = createPizza(itemDTO.half2, orderItem);
+                orderItem.setHalf2(h2);
+            }
+
+            return orderItem;
+        }).collect(Collectors.toList());
+
+        // 3. MISE À JOUR DE LA COLLECTION (La correction est ici !)
+        savedOrder.getOrderItems().clear();
+        savedOrder.getOrderItems().addAll(items);
+
+        // 4. Calcul du prix total
+        BigDecimal total = items.stream().map(item -> {
+            BigDecimal price = item.getHalf1().getPizza().getPrice();
+            if (item.getHalf1().getSupplements() != null) {
+                BigDecimal supps = item.getHalf1().getSupplements().stream()
+                    .map(ing -> ing.getSupplementPrice() != null ? ing.getSupplementPrice() : BigDecimal.ZERO)
+                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+                price = price.add(supps);
+            }
+            return price.multiply(new BigDecimal(item.getQuantity()));
+        }).reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        savedOrder.setTotalAmount(total);
+
+        // 5. Sauvegarde finale
+        return ResponseEntity.ok(orderRepository.save(savedOrder));
     }
+
+    private ModifiedPizza createPizza(InputOrderDTO.ModifiedPizzaDTO dto, OrderItem item) {
+        ModifiedPizza mp = new ModifiedPizza();
+        mp.setPizza(pizzaRepository.findById(dto.pizzaId).orElseThrow());
+        mp.setOrderItem(item);
+        if (dto.supplementsId != null) {
+            mp.setSupplements(new HashSet<>(ingredientRepository.findAllById(dto.supplementsId)));
+        }
+        if (dto.deplementsId != null) {
+            mp.setDeplements(new HashSet<>(ingredientRepository.findAllById(dto.deplementsId)));
+        }
+        return mp; // On ne sauve pas encore, le Cascade s'en chargera
+    }
+
 
     @GetMapping("/deleteOrder/{id}")
     public ResponseEntity<?> deleteOrder(@PathVariable Long id) {

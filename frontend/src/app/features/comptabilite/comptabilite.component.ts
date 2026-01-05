@@ -69,14 +69,14 @@ export class ComptabiliteComponent implements OnInit {
     console.log('Orders reçues :', this.orders);
     this.orders.forEach(order => {
       order.orderItems.forEach(item => {
-        const pizzaName = item.pizza.name;
+        const pizzaName = item.half1.pizza.name + '/' + item.half2.pizza.name;
 
         if (!pizzaCounter[pizzaName]) {
           pizzaCounter[pizzaName] = { name: pizzaName, count: 0, revenue: 0 };
         }
 
         pizzaCounter[pizzaName].count += item.quantity;
-        const pizzaRevenue = item.quantity * item.pizza.price;
+        const pizzaRevenue = item.quantity * Math.max(item.half1.pizza.price, item.half2.pizza.price);
         pizzaCounter[pizzaName].revenue += pizzaRevenue;
 
         this.totalPizzaCount += item.quantity;

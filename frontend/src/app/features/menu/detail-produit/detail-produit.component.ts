@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PizzaService } from '../../../services/pizza.service';
 import { CartService } from '../../../services/cart.service';
-import { Pizza } from '../../../shared/models/pizza.model';
+import { ModifiedPizza, Pizza } from '../../../shared/models/pizza.model';
 import { Ingredient } from '../../../shared/models/ingredient.model';
 
 @Component({
@@ -15,7 +15,7 @@ import { Ingredient } from '../../../shared/models/ingredient.model';
 
 export class DetailProduitComponent {
 
-  halves : any[] = [];
+  halves : ModifiedPizza[] = [];
   ingredients : Ingredient[] = [];
  
   constructor(private cartService: CartService, private route: ActivatedRoute, private router: Router, private pizzaService: PizzaService) {}
@@ -25,40 +25,40 @@ export class DetailProduitComponent {
     const id1 = this.route.snapshot.paramMap.get('id1');
     const id2 = this.route.snapshot.paramMap.get('id2');
 
-    this.pizzaService.getPizzaById(id1).subscribe((data) => {
+    this.pizzaService.getPizzaById(id1).subscribe((data: Pizza) => {
       this.halves.push({
         "pizza" : data,
         "supplements": [],
-        "disabledIngredients": new Set<number>()
+        "deplements": []
       })
     });
-    this.pizzaService.getPizzaById(id2).subscribe((data) => {
-      if (id2) {
+    if (id2) {
+      this.pizzaService.getPizzaById(id2).subscribe((data: Pizza) => {
         this.halves.push({
           "pizza" : data,
           "supplements": [],
-          "disabledIngredients": new Set<number>()
+          "deplements": []
         })
-      }
-    });
-    
+      })
+    };
     
     console.log('Pizza choisie:', this.halves);
 
     this.pizzaService.getAllIngredients().subscribe(
-      (data) => this.ingredients = data
+      (data: Ingredient[]) => this.ingredients = data
     );
   }
 
-  toggleIngredient(half:any, index: number): void {
-    if (half.disabledIngredients.has(index)) {
-      half.disabledIngredients.delete(index);
+  toggleIngredient(half:ModifiedPizza, ingredient: Ingredient): void {
+    
+    if (half.deplements.includes(ingredient)) {
+      half.deplements = half.deplements.filter(i => i !== ingredient);
     } else {
-      half.disabledIngredients.add(index);
+      half.deplements.push(ingredient);
     }
   }
 
-  addSupplement(half: any, ingredient: Ingredient): void {
+  addSupplement(half: ModifiedPizza, ingredient: Ingredient): void {
     // Logique pour ajouter un supplément
     console.log('Supplément ajouté:', ingredient);
     half.supplements.push(ingredient);
@@ -73,16 +73,7 @@ export class DetailProduitComponent {
   }
 
   addToCart(): void {
-    const pizza : any = this.halves[0];
-    const depplements: Ingredient[] = pizza.pizza.baseIngredients.filter((ingredient: Ingredient) => pizza.disabledIngredients.has(ingredient.id));
-    console.log('Ingrédients suppr après retrait:', depplements);
-    this.cartService.addItem(
-      pizza.pizza,
-      1,
-      pizza.supplements,
-      depplements
-    );
-    this.router.navigate(['recap-commande'], { relativeTo: this.route.parent });
-    
+    this.cartService.addItem(this.halves[0], this.halves[1]);
+    this.router.navigate(['recap-commande'], { relativeTo: this.route.parent }); 
   }
 }

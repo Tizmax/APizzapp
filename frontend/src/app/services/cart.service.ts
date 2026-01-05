@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Pizza } from '../shared/models/pizza.model'; // Votre modèle Pizza
-import { Ingredient } from '../shared/models/ingredient.model'; // Votre modèle Ingredient/Supplement
-import { CartItem } from '../shared/models/order.model';
+import { ModifiedPizza } from '../shared/models/pizza.model'; // Votre modèle Pizza
+import { OrderItem } from '../shared/models/order.model';
 
 // Interface pour un article dans le panier (inchangée)
 
@@ -11,7 +10,7 @@ import { CartItem } from '../shared/models/order.model';
 })
 export class CartService {
   // Utiliser un tableau privé pour stocker les items
-  private items: CartItem[] = [];
+  private items: OrderItem[] = [];
 
   constructor() {
     // Charger le panier depuis localStorage au démarrage du service
@@ -28,7 +27,7 @@ export class CartService {
     }
   }
 
-  private loadCartFromLocalStorage(): CartItem[] {
+  private loadCartFromLocalStorage(): OrderItem[] {
     if (typeof window !== 'undefined' && window.localStorage) {
       const cartData = localStorage.getItem('pizzeriaCart');
       return cartData ? JSON.parse(cartData) : [];
@@ -37,7 +36,7 @@ export class CartService {
   }
 
   // Méthodes pour que les composants récupèrent les données du panier
-  getCartItems(): CartItem[] {
+  getCartItems(): OrderItem[] {
     // Retourner une copie pour éviter la modification directe de l'array privé depuis l'extérieur
     // et pour aider potentiellement la détection de changement d'Angular si la référence change.
     return [...this.items];
@@ -63,16 +62,15 @@ export class CartService {
   }
 
   // Méthodes pour modifier le panier
-  addItem(pizza: Pizza, quantity: number, addedSupplements: Ingredient[], removedIngredients: Ingredient[]): void {
+  addItem(half1 : ModifiedPizza , half2: ModifiedPizza): void {
     // const calculatedItemPrice = this.calculatePriceForPizzaConfiguration(pizza, addedSupplements);
     
-    const newItem: CartItem = {
-      tempId: this.generateUUID(),
-      pizza: pizza,
-      quantity: quantity,
-      addedSupplements: [...addedSupplements],
-      removedIngredients: [...removedIngredients],
-      // calculatedItemPrice: calculatedItemPrice
+    const newItem: OrderItem = {
+      id: this.generateUUID(), // id temporaire unique (ne sera pas écrit en db)
+      orderId: 0, // la commande n'existe pas encore en db
+      half1: half1,
+      half2: half2,
+      quantity: 1
     };
 
     this.items.push(newItem);
@@ -91,7 +89,7 @@ export class CartService {
   // }
 
   updateItemQuantity(tempId: string, newQuantity: number): void {
-    const itemIndex = this.items.findIndex(item => item.tempId === tempId);
+    const itemIndex = this.items.findIndex(item => item.id === tempId);
     if (itemIndex > -1) {
       if (newQuantity > 0) {
         this.items[itemIndex].quantity = newQuantity;
@@ -112,14 +110,12 @@ export class CartService {
   }
  
   removeItem(tempId: string): void {
-    this.items = this.items.filter(item => item.tempId !== tempId);
+    this.items = this.items.filter(item => item.id !== tempId);
     this.saveCartToLocalStorage();
-    // IMPORTANT: Notification manuelle nécessaire pour les composants.
   }
 
   clearCart(): void {
     this.items = [];
     this.saveCartToLocalStorage();
-    // IMPORTANT: Notification manuelle nécessaire pour les composants.
   }
 }

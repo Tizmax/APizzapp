@@ -9,9 +9,9 @@
         <div class="col-3">
           
           <div class="card pizza-card">
-            <img [src]="half?.pizza.imageUrl" [alt]="half?.pizza.name" class="card-img-top">
+            <img [src]="half.pizza.imageUrl" [alt]="half.pizza.name" class="card-img-top">
             <div class="card-body">
-              <h5 class="card-title text-center">{{ half?.pizza.name }}</h5>
+              <h5 class="card-title text-center">{{ half.pizza.name }}</h5>
             </div>
           </div>
         </div>
@@ -62,8 +62,8 @@
       
       <!-- Ingredients de la pizza -->
       <div class="row" id="ingredients-container">
-        <div *ngFor="let ingredient of half?.pizza.baseIngredients" class="col-md-3 col-sm-6 mb-4">
-          <div class="card"  [ngClass]="{ 'card-deplement': half.disabledIngredients.has(ingredient.id) }" (click)="toggleIngredient(half, ingredient.id)">
+        <div *ngFor="let ingredient of half.pizza?.baseIngredients" class="col-md-3 col-sm-6 mb-4">
+          <div class="card"  [ngClass]="{ 'card-deplement': half.deplements.includes(ingredient) }" (click)="toggleIngredient(half, ingredient)">
             <img [src]="ingredient.imageUrl" [alt]="ingredient.name" class="card-img-top" >
             <div class="card-body">
               <h5 class="card-title text-center">{{ ingredient.name }}</h5>

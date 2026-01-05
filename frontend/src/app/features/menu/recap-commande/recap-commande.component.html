@@ -13,13 +13,13 @@
 
         <!-- Image de la pizza -->
         <div>
-          <img [src]="item.pizza.imageUrl" class="card-img-top" />
+          <img [src]="item.half1.pizza.imageUrl" class="card-img-top" />
         </div>
 
         <!-- Nom + Quantité + Prix unitaire et total -->
         <div class="card-body">
           <h4 class="card-title text-center">
-            {{ item.quantity }}× {{ item.pizza.name }}
+            {{ item.quantity }}× {{ item.half1.pizza.name }} <span *ngIf="item.half2">/{{ item.half2.pizza.name }}</span>
           </h4>
           
           <!-- Prix unitaire -->
@@ -35,14 +35,14 @@
           </p>
 
           <!-- Badges des suppléments / ingrédients retirés -->
-          <div class="badges">
-            <span *ngFor="let supplement of item.addedSupplements"
+          <div *ngFor="let half of item.half2 ? [item.half1, item.half2] : [item.half1]" class="badges">
+            <span *ngFor="let supplement of half.supplements"
                   class="badge badge-supplement">
               +{{ supplement.name }}
             </span>
-            <span *ngFor="let depplement of item.removedIngredients"
+            <span *ngFor="let deplement of half.deplements"
                   class="badge badge-deplement">
-              –{{ depplement.name }}
+              –{{ deplement.name }}
             </span>
           </div>
         </div>

@@ -2,9 +2,10 @@ import { Component, OnInit} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CartService } from '../../../services/cart.service';
 import { PizzaService } from '../../../services/pizza.service';
-import { CartItem } from '../../../shared/models/order.model';
+import { OrderItem } from '../../../shared/models/order.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
+import { ModifiedPizza } from '../../../shared/models/pizza.model';
 
 @Component({
   selector: 'app-recap-commande',
@@ -14,7 +15,7 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class RecapCommandeComponent implements OnInit{
   orderForm!: FormGroup;
-  cartItems: CartItem[] = [];
+  cartItems: OrderItem[] = [];
   // totalPrice: number = 0;
 
   timeSlots: string[] = []; // Pour les créneaux horaires
@@ -54,15 +55,13 @@ export class RecapCommandeComponent implements OnInit{
     // this.totalPrice = this.cartService.getCartTotalPrice();
   }
 
-  incQuantity(item: CartItem): void {
-    this.cartService.updateItemQuantity(item.tempId, item.quantity + 1);
-    console.log('Item quantity increased:', item.pizza.name, item.quantity);
+  incQuantity(item: OrderItem): void {
+    this.cartService.updateItemQuantity(item.id, item.quantity + 1);
     this.loadCartData(); // Charger les données initialement
     
   }
-  decQuantity(item: CartItem): void {
-    this.cartService.updateItemQuantity(item.tempId, item.quantity - 1);
-    console.log('Item quantity decreased:', item.pizza.name, item.quantity);
+  decQuantity(item: OrderItem): void {
+    this.cartService.updateItemQuantity(item.id, item.quantity - 1);
     this.loadCartData(); // Charger les données initialement
   }
 
@@ -73,38 +72,18 @@ export class RecapCommandeComponent implements OnInit{
   }
 
   validateOrder(): void {
-    const cartItems = this.cartItems.map(item => {
-      return {
-        pizzaId: item.pizza.id,
-        quantity: item.quantity,
-        supplements: item.addedSupplements.map(s => s.id),
-        depplements: item.removedIngredients.map(d => d.id)
-      };
-    });
 
     const user = this.authService.currentUserValue;
-    let userId;
-    let userRole = '';
-    if (user) {
-      userRole = userRole ;
-      if (this.authService.isLoggedIn && userRole === 'USER') {
-        // Si l'utilisateur est connecté et a le role USER, on peut récupérer son ID
-        userId = user.id;
-      }
-    } else {
-      // Sinon, on peut gérer le cas où l'utilisateur n'est pas connecté
-      userId = null;
-      console.warn('Utilisateur non connecté. ID utilisateur non ajouté aux articles du panier.');
-    }
 
     const order = {
+      id : -1,
       scheduledTime: this.orderForm.value.scheduledTime,
-      status: 'PENDING',
-      totalAmount: 0,
-      userId: userId,
       firstNameGuest: this.orderForm.value.surname,
       lastNameGuest: this.orderForm.value.name,
-      orderItems: cartItems
+      status: 'PENDING',
+      totalAmount: 0,
+      user: user,
+      orderItems: this.cartItems
     };
 
   this.pizzaService.placeOrder(order).subscribe({
@@ -131,19 +110,30 @@ export class RecapCommandeComponent implements OnInit{
     return this.userRole === 'ADMIN' || this.userRole === 'OPERATOR';
   }
 
-  // Calculer le prix unitaire (basePrice + suppléments éventuels)
-  getUnitPrice(item: CartItem): number {
-    let unit = item.pizza.price;
-    // Si vous avez des suppléments avec des prix :
-    item.addedSupplements.forEach(sup => {
+  getHalfPrice(half : ModifiedPizza): number {
+    let price = half.pizza.price;
+
+    half.supplements.forEach(sup => {
       if (sup.supplementPrice) {
-        unit += sup.supplementPrice;
+        price += sup.supplementPrice;
       }
     });
+    return price;
+
+  }
+
+  // Calculer le prix unitaire (basePrice + suppléments éventuels)
+  getUnitPrice(item: OrderItem): number {
+    let unit;
+    if (item.half2) {
+      unit = Math.max(this.getHalfPrice(item.half1), this.getHalfPrice(item.half2));
+    } else {
+      unit = this.getHalfPrice(item.half1);
+    }
     return unit;
   }
 
-  getLinePrice(item: CartItem): number {
+  getLinePrice(item: OrderItem): number {
     return this.getUnitPrice(item) * item.quantity;
   }
 
