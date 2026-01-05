@@ -116,16 +116,9 @@ public class PizzaController {
         savedOrder.getOrderItems().addAll(items);
 
         // 4. Calcul du prix total
-        BigDecimal total = items.stream().map(item -> {
-            BigDecimal price = item.getHalf1().getPizza().getPrice();
-            if (item.getHalf1().getSupplements() != null) {
-                BigDecimal supps = item.getHalf1().getSupplements().stream()
-                    .map(ing -> ing.getSupplementPrice() != null ? ing.getSupplementPrice() : BigDecimal.ZERO)
-                    .reduce(BigDecimal.ZERO, BigDecimal::add);
-                price = price.add(supps);
-            }
-            return price.multiply(new BigDecimal(item.getQuantity()));
-        }).reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal total = items.stream().map(
+            item -> calculateItemPrice(item)
+        ).reduce(BigDecimal.ZERO, BigDecimal::add);
 
         savedOrder.setTotalAmount(total);
 
@@ -146,6 +139,29 @@ public class PizzaController {
         return mp; // On ne sauve pas encore, le Cascade s'en chargera
     }
 
+    private BigDecimal calculateItemPrice(OrderItem item) {
+
+        BigDecimal price = BigDecimal.ZERO;
+        if (item.getHalf2() != null) {
+            price = item.getHalf1().getPizza().getPrice().max(item.getHalf2().getPizza().getPrice());
+        } else {
+            price = item.getHalf1().getPizza().getPrice();
+        }
+
+        if (item.getHalf1().getSupplements() != null) {
+            BigDecimal supps = item.getHalf1().getSupplements().stream()
+                .map(ing -> ing.getSupplementPrice() != null ? ing.getSupplementPrice() : BigDecimal.ZERO)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+            price = price.add(supps);
+        }
+        if (item.getHalf2() != null && item.getHalf2().getSupplements() != null) {
+            BigDecimal supps = item.getHalf2().getSupplements().stream()
+                .map(ing -> ing.getSupplementPrice() != null ? ing.getSupplementPrice() : BigDecimal.ZERO)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+            price = price.add(supps);
+        }
+        return price.multiply(new BigDecimal(item.getQuantity()));
+    }
 
     @GetMapping("/deleteOrder/{id}")
     public ResponseEntity<?> deleteOrder(@PathVariable Long id) {
