@@ -1,18 +1,36 @@
-# Étape 1 : Utiliser l'image Maven pour builder l'application
-FROM maven AS build
+# # Étape 1 : Utiliser l'image Maven pour builder l'application
+# FROM maven AS build
+
+# # Répertoire de travail
+# WORKDIR /app
+
+# # Copier le fichier pom.xml et le répertoire src pour éviter de recopier tout à chaque fois
+# COPY backend/pom.xml .
+# COPY backend/src ./src
+
+# # Lancer la commande de build Maven
+# RUN mvn clean package -DskipTests
+
+# Étape 1 : Utiliser une image Maven spécifique au JDK 17
+FROM maven:3.9.6-eclipse-temurin-17 AS build
 
 # Répertoire de travail
 WORKDIR /app
 
-# Copier le fichier pom.xml et le répertoire src pour éviter de recopier tout à chaque fois
+# On copie le pom.xml d'abord pour mettre les dépendances en cache (optimisation Docker)
 COPY backend/pom.xml .
+
+# On force le téléchargement des dépendances proprement
+RUN mvn dependency:go-offline -B
+
+# Maintenant on copie les sources
 COPY backend/src ./src
 
-# Lancer la commande de build Maven
+# On lance le build propre
 RUN mvn clean package -DskipTests
 
 # Étape 2 : Utiliser l'image JDK pour exécuter l'application
-FROM openjdk:17-jdk-slim
+FROM eclipse-temurin:17-jdk-jammy
 
 # Répertoire de travail
 WORKDIR /app

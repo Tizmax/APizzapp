@@ -22,7 +22,6 @@ CREATE TABLE pizza_base_ingredients (
   FOREIGN KEY (ingredient_id) REFERENCES ingredients(id) ON DELETE CASCADE
 );
 
--- Ajout de tous les champs (sinon impossible d'ajouter des données ensuite)
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   email VARCHAR(255),
@@ -44,29 +43,37 @@ CREATE TABLE orders (
         FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
-CREATE TABLE order_items (
+CREATE TABLE order_items ( 
     id SERIAL PRIMARY KEY,
     order_id BIGINT NOT NULL,
     quantity INTEGER NOT NULL DEFAULT 1,
-    pizza_id BIGINT NOT NULL,
-    CONSTRAINT fk_order_items_pizza FOREIGN KEY (pizza_id) REFERENCES pizzas(id),
+    half1_id BIGINT,
+    half2_id BIGINT,
     CONSTRAINT fk_order_items_order FOREIGN KEY (order_id) REFERENCES orders(id)
+);
+
+CREATE TABLE modified_pizzas ( 
+    id SERIAL PRIMARY KEY,
+    order_item_id BIGINT NOT NULL,
+    pizza_id BIGINT NOT NULL,
+    CONSTRAINT fk_modified_pizzas_pizza FOREIGN KEY (pizza_id) REFERENCES pizzas(id),
+    CONSTRAINT fk_modified_pizzas_order_item FOREIGN KEY (order_item_id) REFERENCES order_items(id)
 );
 
 -- Table de jointure pour les suppléments
 CREATE TABLE supplements (
-    item_id BIGINT NOT NULL,
+    modified_pizza_id BIGINT NOT NULL,
     ingredient_id BIGINT NOT NULL,
-    PRIMARY KEY (item_id, ingredient_id),
-    CONSTRAINT fk_supplements_item FOREIGN KEY (item_id) REFERENCES order_items(id),
+    PRIMARY KEY (modified_pizza_id, ingredient_id),
+    CONSTRAINT fk_supplements_modified_pizza FOREIGN KEY (modified_pizza_id) REFERENCES modified_pizzas(id),
     CONSTRAINT fk_supplements_ingredient FOREIGN KEY (ingredient_id) REFERENCES ingredients(id)
 );
 
 -- Table de jointure pour les dépléments
 CREATE TABLE deplements (
-    item_id BIGINT NOT NULL,
+    modified_pizza_id BIGINT NOT NULL,
     ingredient_id BIGINT NOT NULL,
-    PRIMARY KEY (item_id, ingredient_id),
-    CONSTRAINT fk_deplements_item FOREIGN KEY (item_id) REFERENCES order_items(id),
+    PRIMARY KEY (modified_pizza_id, ingredient_id),
+    CONSTRAINT fk_deplements_modified_pizza FOREIGN KEY (modified_pizza_id) REFERENCES modified_pizzas(id),
     CONSTRAINT fk_deplements_ingredient FOREIGN KEY (ingredient_id) REFERENCES ingredients(id)
 );

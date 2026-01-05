@@ -5,7 +5,8 @@ import { DetailProduitComponent } from './detail-produit/detail-produit.componen
 import { RecapCommandeComponent } from './recap-commande/recap-commande.component';
 
 const routes: Routes = [{ path: '', component: MenuComponent },
-  { path: 'detail-produit/:id', component: DetailProduitComponent },
+  { path: 'detail-produit/:id1', component: DetailProduitComponent },
+  { path: 'detail-produit/:id1/:id2', component: DetailProduitComponent },
   { path: 'recap-commande', component: RecapCommandeComponent }];
 
 @NgModule({

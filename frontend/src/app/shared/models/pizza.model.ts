@@ -7,3 +7,9 @@ export interface Pizza {
   imageUrl?: string;
   baseIngredients: Ingredient[];
 }
+
+export interface ModifiedPizza {
+  pizza: Pizza;
+  supplements: Ingredient[];
+  deplements: Ingredient[];
+}

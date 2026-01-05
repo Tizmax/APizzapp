@@ -1,23 +1,13 @@
 
-import { Pizza } from '../../shared/models/pizza.model';
-import { Ingredient } from '../../shared/models/ingredient.model';
+import { ModifiedPizza } from '../../shared/models/pizza.model';
 import { User } from '../../shared/models/user.model';
 
-export interface CartItem {
-  tempId: string; // ID unique pour cet item DANS le panier (utile pour le supprimer/modifier)
-  pizza: Pizza;
-  quantity: number;
-  addedSupplements: Ingredient[];
-  removedIngredients: Ingredient[];
-  // calculatedItemPrice: number; // Prix unitaire de la pizza avec ses suppléments
-}
 
 export interface OrderItem {
-  id: number;
+  id: string;
   orderId: number;
-  pizza: Pizza;
-  supplements: Ingredient[];
-  deplements: Ingredient[];
+  half1: ModifiedPizza;
+  half2: ModifiedPizza;
   quantity: number;
 }
 
@@ -28,6 +18,6 @@ export interface Order {
   lastNameGuest: string;
   status: string;
   totalAmount: number;
-  user: User;
+  user: User | null;
   orderItems: OrderItem[];
 }

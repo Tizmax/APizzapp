@@ -13,6 +13,8 @@ export class MenuComponent implements OnInit {
   pizzas: Pizza[] = [];
   isLoading: boolean = true;
   error: string | null = null;
+  isHalfHalfMode: boolean = false;
+  selectedPizzas: Pizza[] = [];
 
 
   constructor(private pizzaService: PizzaService, private router: Router, private route: ActivatedRoute) { }
@@ -25,9 +27,33 @@ export class MenuComponent implements OnInit {
     return pizza.baseIngredients.every(ingredient => ingredient.availableAsSupplement);
   }
 
+  toggleHalfHalfMode(): void {
+    this.isHalfHalfMode = !this.isHalfHalfMode;
+    this.selectedPizzas = [];
+  }
+
+  isSelected(pizza: Pizza): boolean {
+    return this.selectedPizzas.some(p => p.id === pizza.id);
+  }
+
   onPizzaSelected(pizza: Pizza): void {
     if (this.isPizzaAvailable(pizza)) {
-      this.router.navigate(['detail-produit', pizza.id], { relativeTo: this.route });
+      if (this.isHalfHalfMode) {
+        const index = this.selectedPizzas.findIndex(p => p.id === pizza.id);
+        if (index > -1) {
+          this.selectedPizzas.splice(index, 1);
+        } else {
+          if (this.selectedPizzas.length < 2) {
+            this.selectedPizzas.push(pizza);
+          }
+        }
+        
+        if (this.selectedPizzas.length === 2) {
+          this.router.navigate(['detail-produit', this.selectedPizzas[0].id, this.selectedPizzas[1].id], { relativeTo: this.route });
+        }
+      } else {
+        this.router.navigate(['detail-produit', pizza.id], { relativeTo: this.route });
+      }
     }
   }
 }
