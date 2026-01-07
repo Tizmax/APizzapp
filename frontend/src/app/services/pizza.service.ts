@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Pizza } from '../shared/models/pizza.model'; 
 import { Ingredient } from '../shared/models/ingredient.model';
 import { Order } from '../shared/models/order.model';
+import { PizzaSize } from '../shared/models/pizza-size.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,10 @@ export class PizzaService {
     return this.http.get<Ingredient[]>(`${this.apiUrl}/getAllIngredients`);
   }
 
+  getAllSizes(): Observable<PizzaSize[]> {
+    return this.http.get<PizzaSize[]>(`${this.apiUrl}/getAllSizes`);
+  }
+
   placeOrder(order: Order) {
     const dto = {
       scheduledTime: order.scheduledTime,
@@ -34,6 +39,7 @@ export class PizzaService {
       userId: order.user ? order.user.id : null,
       orderItems: order.orderItems.map(item => ({
         quantity: item.quantity,
+        sizeId: item.size.id,
         half1: {
           pizzaId: item.half1.pizza.id, // On extrait l'ID de la pizza de base
           supplementsId: item.half1.supplements.map(i => i.id),

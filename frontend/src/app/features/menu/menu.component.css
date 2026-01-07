@@ -8,3 +8,8 @@
   align-items: center;
 
 } */
+ 
+.selected-card {
+  border: 5px solid #d62828;
+  border-radius: 10%;
+}

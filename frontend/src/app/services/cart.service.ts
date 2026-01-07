@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
+import { Ingredient } from '../shared/models/ingredient.model';
 import { ModifiedPizza } from '../shared/models/pizza.model'; // Votre modèle Pizza
 import { OrderItem } from '../shared/models/order.model';
+import { PizzaSize } from '../shared/models/pizza-size.model';
 
 // Interface pour un article dans le panier (inchangée)
 
@@ -62,7 +64,7 @@ export class CartService {
   }
 
   // Méthodes pour modifier le panier
-  addItem(half1 : ModifiedPizza , half2: ModifiedPizza): void {
+  addItem(half1 : ModifiedPizza , half2: ModifiedPizza, size: PizzaSize): void {
     // const calculatedItemPrice = this.calculatePriceForPizzaConfiguration(pizza, addedSupplements);
     
     const newItem: OrderItem = {
@@ -70,6 +72,7 @@ export class CartService {
       orderId: 0, // la commande n'existe pas encore en db
       half1: half1,
       half2: half2,
+      size: size,
       quantity: 1
     };
 

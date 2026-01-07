@@ -1,8 +1,13 @@
+-- Les Gammes de Prix
+CREATE TABLE price_ranges (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL
+);
+
 CREATE TABLE pizzas (
   id SERIAL PRIMARY KEY,
   name VARCHAR(100) NOT NULL UNIQUE,
-  description VARCHAR(255),
-  price NUMERIC(10, 2) NOT NULL,
+  price_range_id INT REFERENCES price_ranges(id),
   image_url VARCHAR(255)
 );
 
@@ -49,6 +54,7 @@ CREATE TABLE order_items (
     quantity INTEGER NOT NULL DEFAULT 1,
     half1_id BIGINT,
     half2_id BIGINT,
+    size_id INT,
     CONSTRAINT fk_order_items_order FOREIGN KEY (order_id) REFERENCES orders(id)
 );
 
@@ -77,3 +83,26 @@ CREATE TABLE deplements (
     CONSTRAINT fk_deplements_modified_pizza FOREIGN KEY (modified_pizza_id) REFERENCES modified_pizzas(id),
     CONSTRAINT fk_deplements_ingredient FOREIGN KEY (ingredient_id) REFERENCES ingredients(id)
 );
+
+-- Les Tailles (P, M, G)
+CREATE TABLE pizza_sizes (
+    id SERIAL PRIMARY KEY,
+    label VARCHAR(10) NOT NULL -- 'P', 'M', 'G'
+);
+
+
+-- Correspondance Gamme de Prix <-> Taille <-> Prix
+CREATE TABLE pizza_range_prices (
+    price_range_id INT REFERENCES price_ranges(id),
+    size_id INT REFERENCES pizza_sizes(id),
+    price NUMERIC(10, 2) NOT NULL,
+    PRIMARY KEY (price_range_id, size_id)
+);
+
+-- Correspondance supplément <-> Taille <-> Prix
+-- CREATE TABLE ingredient_prices_by_size (
+--     ingredient_id BIGINT REFERENCES ingredients(id),
+--     size_id INT REFERENCES pizza_sizes(id),
+--     price NUMERIC(10, 2) NOT NULL,
+--     PRIMARY KEY (ingredient_id, size_id)
+-- );

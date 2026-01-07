@@ -25,7 +25,7 @@
         <td>
           <ul>
             <li *ngFor="let item of order.orderItems">
-              {{ item.quantity }}x 
+              {{ item.quantity }} {{item.size.label}}
               
               <span *ngFor="let half of item.half2 ? [item.half1, item.half2] : [item.half1]; let isLastHalf = last">
                 <span *ngIf="isLastHalf && item.half2">/</span>

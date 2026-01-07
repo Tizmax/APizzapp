@@ -23,16 +23,18 @@ import org.springframework.web.bind.annotation.RestController;
 import com.apizzapp.model.Pizza;
 import com.apizzapp.repository.PizzaRepository;
 import com.apizzapp.model.Ingredient;
-import com.apizzapp.model.ModifiedPizza;
-import com.apizzapp.repository.ModifiedPizzaRepository;
 import com.apizzapp.repository.IngredientRepository;
 import com.apizzapp.model.Order;
 import com.apizzapp.repository.OrderRepository;
-import com.apizzapp.controller.dto.InputOrderDTO;
+import com.apizzapp.model.PizzaSize;
+import com.apizzapp.repository.PizzaSizeRepository;
 import com.apizzapp.model.EOrderStatus;
 import com.apizzapp.model.OrderItem;
-import com.apizzapp.repository.OrderItemRepository;
+import com.apizzapp.model.ModifiedPizza;
 import com.apizzapp.repository.UserRepository;
+import com.apizzapp.controller.dto.InputOrderDTO;
+import com.apizzapp.repository.PizzaRangePriceRepository;
+
 
 @RequestMapping("/api")
 @CrossOrigin(origins = "*")
@@ -43,16 +45,16 @@ public class PizzaController {
     PizzaRepository pizzaRepository;
 
     @Autowired
-    ModifiedPizzaRepository modifiedPizzaRepository;
+    PizzaSizeRepository pizzaSizeRepository;
+
+    @Autowired
+    PizzaRangePriceRepository pizzaRangePriceRepository;
 
     @Autowired
     IngredientRepository ingredientRepository;
 
     @Autowired
     OrderRepository orderRepository;
-
-    @Autowired
-    OrderItemRepository orderItemRepository;
 
     @Autowired
     UserRepository userRepository;
@@ -70,6 +72,11 @@ public class PizzaController {
     @GetMapping("/getAllIngredients")
     Collection<Ingredient> getAllIngredients() {
         return ingredientRepository.findAll();
+    }
+
+    @GetMapping("/getAllSizes")
+    Collection<PizzaSize> getAllPizzaSizes() {
+        return pizzaSizeRepository.findAll();
     }
     
     @GetMapping("/listerOrder")
@@ -97,6 +104,7 @@ public class PizzaController {
             OrderItem orderItem = new OrderItem();
             orderItem.setOrder(savedOrder);
             orderItem.setQuantity(itemDTO.quantity != null ? itemDTO.quantity : 1);
+            orderItem.setSize(pizzaSizeRepository.findById(itemDTO.sizeId).orElseThrow());
 
             // Pizza Half 1
             ModifiedPizza h1 = createPizza(itemDTO.half1, orderItem);
@@ -140,27 +148,47 @@ public class PizzaController {
     }
 
     private BigDecimal calculateItemPrice(OrderItem item) {
+        
+        PizzaSize size = item.getSize();
+        
+        // 1. Calcul du prix de base de la pizza (ou des deux moitiés)
+        BigDecimal basePrice;
+        BigDecimal price1 = getPriceForPizza(item.getHalf1().getPizza(), size);
 
-        BigDecimal price = BigDecimal.ZERO;
         if (item.getHalf2() != null) {
-            price = item.getHalf1().getPizza().getPrice().max(item.getHalf2().getPizza().getPrice());
+            BigDecimal price2 = getPriceForPizza(item.getHalf2().getPizza(), size);
+            // On prend le max des deux
+            basePrice = price1.max(price2);
         } else {
-            price = item.getHalf1().getPizza().getPrice();
+            basePrice = price1;
         }
 
+        BigDecimal totalPrice = basePrice;
+
+        // 2. Ajout des suppléments pour la moitié 1
         if (item.getHalf1().getSupplements() != null) {
             BigDecimal supps = item.getHalf1().getSupplements().stream()
                 .map(ing -> ing.getSupplementPrice() != null ? ing.getSupplementPrice() : BigDecimal.ZERO)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
-            price = price.add(supps);
+            totalPrice = totalPrice.add(supps);
         }
+
+        // 3. Ajout des suppléments pour la moitié 2 (si elle existe)
         if (item.getHalf2() != null && item.getHalf2().getSupplements() != null) {
             BigDecimal supps = item.getHalf2().getSupplements().stream()
                 .map(ing -> ing.getSupplementPrice() != null ? ing.getSupplementPrice() : BigDecimal.ZERO)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
-            price = price.add(supps);
+            totalPrice = totalPrice.add(supps);
         }
-        return price.multiply(new BigDecimal(item.getQuantity()));
+
+        // 4. Multiplication par la quantité
+        return totalPrice.multiply(new BigDecimal(item.getQuantity()));
+    }
+
+    private BigDecimal getPriceForPizza(Pizza pizza, PizzaSize size) {
+        return pizzaRangePriceRepository.findByPriceRangeAndPizzaSize(pizza.getPriceRange(), size)
+            .map(prp -> prp.getPrice())
+            .orElse(BigDecimal.ZERO); // Ou lancer une exception si le prix n'est pas trouvé
     }
 
     @GetMapping("/deleteOrder/{id}")

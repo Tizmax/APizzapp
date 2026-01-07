@@ -19,6 +19,7 @@ public class InputOrderDTO {
         public Integer quantity;
         public ModifiedPizzaDTO half1;
         public ModifiedPizzaDTO half2;
+        public Long sizeId;
     }
 
     public static class ModifiedPizzaDTO {

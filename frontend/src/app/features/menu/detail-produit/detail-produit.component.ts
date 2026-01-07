@@ -4,6 +4,8 @@ import { PizzaService } from '../../../services/pizza.service';
 import { CartService } from '../../../services/cart.service';
 import { ModifiedPizza, Pizza } from '../../../shared/models/pizza.model';
 import { Ingredient } from '../../../shared/models/ingredient.model';
+import { OrderItem } from '../../../shared/models/order.model';
+import { PizzaSize } from '../../../shared/models/pizza-size.model';
 
 @Component({
   selector: 'app-detail-produit',
@@ -16,13 +18,25 @@ import { Ingredient } from '../../../shared/models/ingredient.model';
 export class DetailProduitComponent {
 
   halves : ModifiedPizza[] = [];
+  selectedSize! : PizzaSize;
+
   ingredients : Ingredient[] = [];
+  sizes : PizzaSize[] = [];
  
   constructor(private cartService: CartService, private route: ActivatedRoute, private router: Router, private pizzaService: PizzaService) {}
 
   ngOnInit(): void {
+    
+    // Charger les tailles disponibles
+    this.pizzaService.getAllSizes().subscribe(sizes => {
+      this.sizes = sizes;
+      // Sélectionner la taille 'M' par défaut si elle existe, sinon la première
+      const medium = this.sizes.find(s => s.label === 'M');
+      this.selectedSize = medium ? medium : this.sizes[0];
+    });
 
     const id1 = this.route.snapshot.paramMap.get('id1');
+
     const id2 = this.route.snapshot.paramMap.get('id2');
 
     this.pizzaService.getPizzaById(id1).subscribe((data: Pizza) => {
@@ -72,8 +86,13 @@ export class DetailProduitComponent {
     console.log('Liste des suppléments:', half.supplements);
   }
 
+  onSelectSize(size: PizzaSize): void {
+    this.selectedSize = size;
+  }
+
   addToCart(): void {
-    this.cartService.addItem(this.halves[0], this.halves[1]);
+    if (!this.selectedSize) return;
+    this.cartService.addItem(this.halves[0], this.halves[1], this.selectedSize);
     this.router.navigate(['recap-commande'], { relativeTo: this.route.parent }); 
   }
 }

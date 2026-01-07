@@ -19,7 +19,7 @@
         <!-- Nom + Quantité + Prix unitaire et total -->
         <div class="card-body">
           <h4 class="card-title text-center">
-            {{ item.quantity }}× {{ item.half1.pizza.name }} <span *ngIf="item.half2">/{{ item.half2.pizza.name }}</span>
+            {{ item.quantity }} {{ item.size.label }} {{ item.half1.pizza.name }} <span *ngIf="item.half2">/{{ item.half2.pizza.name }}</span>
           </h4>
           
           <!-- Prix unitaire -->

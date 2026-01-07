@@ -27,8 +27,9 @@ public class Pizza {
     private String name;
 
     // Prix de base de la pizza AVEC ses ingrédients standards
-    @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal price;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "price_range_id", nullable = false)
+    private PriceRange priceRange;
 
     @Column(length = 255)
     private String imageUrl;
@@ -43,9 +44,9 @@ public class Pizza {
     private Set<Ingredient> baseIngredients = new HashSet<>(); // Les ingrédients standards
 
     // Correction: Constructeur correct
-    public Pizza(String name, String description, BigDecimal price, String imageUrl) {
+    public Pizza(String name, PriceRange priceRange, String imageUrl) {
         this.name = name;
-        this.price = price;
+        this.priceRange = priceRange;
         this.imageUrl = imageUrl;
     }
 

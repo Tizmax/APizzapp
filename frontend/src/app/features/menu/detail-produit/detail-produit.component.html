@@ -39,14 +39,12 @@
         
         <div class="col-1">
           <!-- Choix des tailles -->
-          <!-- <h2>Taille</h2>
-          {% for taille in tailles %}
-          <div class="card taille-card {%if loop.index == 2%} selected-card {%endif%} my-3" data="{{taille}}">
+          <h2>Taille</h2>
+          <div *ngFor="let size of sizes;" class="card taille-card mb-1" [ngClass]="size === selectedSize ? 'selected-card' : ''" (click)="onSelectSize(size)">
             <div class="card-body">
-              <h5 class="card-title text-center">{{taille}}</h5>
+              <h5 class="card-title text-center">{{size.label}}</h5>
             </div>
           </div>
-          {% endfor %} -->
         
           <!-- Moitié/Moitié -->
           <!-- <div class="card mt-4">

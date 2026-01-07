@@ -1,7 +1,6 @@
 package com.apizzapp.model; 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
@@ -27,6 +26,10 @@ public class OrderItem {
     @JoinColumn(name = "order_id", nullable = false)
     @JsonBackReference
     private Order order;
+
+    @ManyToOne
+    @JoinColumn(name = "size_id", nullable = false)
+    private PizzaSize size;
 
     @Column(nullable = false)
     private Integer quantity;
