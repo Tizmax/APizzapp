@@ -31,6 +31,8 @@ import com.apizzapp.repository.PizzaSizeRepository;
 import com.apizzapp.model.EOrderStatus;
 import com.apizzapp.model.OrderItem;
 import com.apizzapp.model.ModifiedPizza;
+import com.apizzapp.model.Sauce;
+import com.apizzapp.repository.SauceRepository;
 import com.apizzapp.repository.UserRepository;
 import com.apizzapp.controller.dto.InputOrderDTO;
 import com.apizzapp.repository.PizzaRangePriceRepository;
@@ -54,6 +56,9 @@ public class PizzaController {
     IngredientRepository ingredientRepository;
 
     @Autowired
+    SauceRepository sauceRepository;
+
+    @Autowired
     OrderRepository orderRepository;
 
     @Autowired
@@ -72,6 +77,11 @@ public class PizzaController {
     @GetMapping("/getAllIngredients")
     Collection<Ingredient> getAllIngredients() {
         return ingredientRepository.findAll();
+    }
+
+    @GetMapping("/getAllSauces")
+    Collection<Sauce> getAllSauces() {
+        return sauceRepository.findAll();
     }
 
     @GetMapping("/getAllSizes")
@@ -138,6 +148,9 @@ public class PizzaController {
         ModifiedPizza mp = new ModifiedPizza();
         mp.setPizza(pizzaRepository.findById(dto.pizzaId).orElseThrow());
         mp.setOrderItem(item);
+        if (dto.sauceId != null) {
+            mp.setSauce(sauceRepository.findById(dto.sauceId).orElse(null));
+        }
         if (dto.supplementsId != null) {
             mp.setSupplements(new HashSet<>(ingredientRepository.findAllById(dto.supplementsId)));
         }

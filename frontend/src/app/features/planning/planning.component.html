@@ -29,7 +29,7 @@
               
               <span *ngFor="let half of item.half2 ? [item.half1, item.half2] : [item.half1]; let isLastHalf = last">
                 <span *ngIf="isLastHalf && item.half2">/</span>
-                {{ half.pizza.name }}
+                {{ half.pizza.name }} {{half.sauce?.name}}
                 <span *ngIf="half.supplements && half.supplements.length > 0">
                   + 
                   <span *ngFor="let supplement of half.supplements; let isLast = last">

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Pizza, PizzaSize } from '../shared/models/pizza.model'; 
+import { Pizza, PizzaSize, Sauce } from '../shared/models/pizza.model'; 
 import { Ingredient } from '../shared/models/ingredient.model';
 import { Order } from '../shared/models/order.model';
 
@@ -30,6 +30,10 @@ export class PizzaService {
     return this.http.get<PizzaSize[]>(`${this.apiUrl}/getAllSizes`);
   }
 
+  getAllSauces(): Observable<Sauce[]> {
+    return this.http.get<Sauce[]>(`${this.apiUrl}/getAllSauces`);
+  }
+
   placeOrder(order: Order) {
     const dto = {
       scheduledTime: order.scheduledTime,
@@ -40,12 +44,14 @@ export class PizzaService {
         quantity: item.quantity,
         sizeId: item.size.id,
         half1: {
-          pizzaId: item.half1.pizza.id, // On extrait l'ID de la pizza de base
+          pizzaId: item.half1.pizza.id,
+          sauceId: item.half1.sauce ? item.half1.sauce.id : null,
           supplementsId: item.half1.supplements.map(i => i.id),
           deplementsId: item.half1.deplements.map(i => i.id)
         },
         half2: item.half2 ? {
           pizzaId: item.half2.pizza.id,
+          sauceId: item.half2.sauce ? item.half2.sauce.id : null,
           supplementsId: item.half2.supplements.map(i => i.id),
           deplementsId: item.half2.deplements.map(i => i.id)
         } : null

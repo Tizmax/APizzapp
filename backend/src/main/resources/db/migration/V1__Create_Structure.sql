@@ -1,3 +1,9 @@
+CREATE TABLE sauces (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(100) NOT NULL UNIQUE,
+  image_url VARCHAR(255)
+);
+
 -- Les Gammes de Prix
 CREATE TABLE price_ranges (
     id SERIAL PRIMARY KEY,
@@ -62,6 +68,7 @@ CREATE TABLE modified_pizzas (
     id SERIAL PRIMARY KEY,
     order_item_id BIGINT NOT NULL,
     pizza_id BIGINT NOT NULL,
+    sauce_id BIGINT REFERENCES sauces(id),
     CONSTRAINT fk_modified_pizzas_pizza FOREIGN KEY (pizza_id) REFERENCES pizzas(id),
     CONSTRAINT fk_modified_pizzas_order_item FOREIGN KEY (order_item_id) REFERENCES order_items(id)
 );
@@ -89,7 +96,6 @@ CREATE TABLE pizza_sizes (
     id SERIAL PRIMARY KEY,
     label VARCHAR(10) NOT NULL -- 'P', 'M', 'G'
 );
-
 
 -- Correspondance Gamme de Prix <-> Taille <-> Prix
 CREATE TABLE pizza_range_prices (

@@ -20,16 +20,16 @@ export class DetailProduitComponent {
 
   ingredients : Ingredient[] = [];
   sizes : PizzaSize[] = [];
-  sauces : Sauce[] = [
-    { id: 1, name: 'Rouge', imageUrl: '' },
-    { id: 2, name: 'Blanche', imageUrl: '' },
-    { id: 3, name: 'Rose', imageUrl: '' }
-  ];
+  sauces : Sauce[] = [];
  
   constructor(private cartService: CartService, private route: ActivatedRoute, private router: Router, private pizzaService: PizzaService) {}
 
   ngOnInit(): void {
     
+    this.pizzaService.getAllSauces().subscribe(sauces => {
+      this.sauces = sauces;
+    });
+
     // Charger les tailles disponibles
     this.pizzaService.getAllSizes().subscribe(sizes => {
       this.sizes = sizes;

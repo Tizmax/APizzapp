@@ -24,6 +24,7 @@ public class InputOrderDTO {
 
     public static class ModifiedPizzaDTO {
         public Long pizzaId;
+        public Long sauceId;
         public List<Long> supplementsId = new ArrayList<>();
         public List<Long> deplementsId = new ArrayList<>();
     }

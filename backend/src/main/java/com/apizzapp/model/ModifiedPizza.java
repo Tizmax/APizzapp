@@ -33,6 +33,10 @@ public class ModifiedPizza {
     @JoinColumn(name = "pizza_id", nullable = false)
     private Pizza pizza;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "sauce_id")
+    private Sauce sauce;
+
     @ManyToMany(fetch = FetchType.LAZY) 
     @JoinTable(
         name = "supplements",
