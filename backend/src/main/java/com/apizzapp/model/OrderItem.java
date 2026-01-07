@@ -34,12 +34,12 @@ public class OrderItem {
     @Column(nullable = false)
     private Integer quantity;
 
-    @OneToOne(cascade = CascadeType.ALL) // or @ManyToOne
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}) // or @ManyToOne
     @JoinColumn(name = "half1_id", nullable= true)
     @JsonManagedReference
     private ModifiedPizza half1;
 
-    @OneToOne(cascade = CascadeType.ALL) // or @ManyToOne
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}) // or @ManyToOne
     @JoinColumn(name = "half2_id", nullable= true)
     @JsonManagedReference
     private ModifiedPizza half2;

@@ -61,7 +61,7 @@ CREATE TABLE order_items (
     half1_id BIGINT,
     half2_id BIGINT,
     size_id INT,
-    CONSTRAINT fk_order_items_order FOREIGN KEY (order_id) REFERENCES orders(id)
+    CONSTRAINT fk_order_items_order FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
 );
 
 CREATE TABLE modified_pizzas ( 
@@ -70,7 +70,7 @@ CREATE TABLE modified_pizzas (
     pizza_id BIGINT NOT NULL,
     sauce_id BIGINT REFERENCES sauces(id),
     CONSTRAINT fk_modified_pizzas_pizza FOREIGN KEY (pizza_id) REFERENCES pizzas(id),
-    CONSTRAINT fk_modified_pizzas_order_item FOREIGN KEY (order_item_id) REFERENCES order_items(id)
+    CONSTRAINT fk_modified_pizzas_order_item FOREIGN KEY (order_item_id) REFERENCES order_items(id) ON DELETE CASCADE
 );
 
 -- Table de jointure pour les suppléments
@@ -78,7 +78,7 @@ CREATE TABLE supplements (
     modified_pizza_id BIGINT NOT NULL,
     ingredient_id BIGINT NOT NULL,
     PRIMARY KEY (modified_pizza_id, ingredient_id),
-    CONSTRAINT fk_supplements_modified_pizza FOREIGN KEY (modified_pizza_id) REFERENCES modified_pizzas(id),
+    CONSTRAINT fk_supplements_modified_pizza FOREIGN KEY (modified_pizza_id) REFERENCES modified_pizzas(id) ON DELETE CASCADE, 
     CONSTRAINT fk_supplements_ingredient FOREIGN KEY (ingredient_id) REFERENCES ingredients(id)
 );
 
@@ -87,7 +87,7 @@ CREATE TABLE deplements (
     modified_pizza_id BIGINT NOT NULL,
     ingredient_id BIGINT NOT NULL,
     PRIMARY KEY (modified_pizza_id, ingredient_id),
-    CONSTRAINT fk_deplements_modified_pizza FOREIGN KEY (modified_pizza_id) REFERENCES modified_pizzas(id),
+    CONSTRAINT fk_deplements_modified_pizza FOREIGN KEY (modified_pizza_id) REFERENCES modified_pizzas(id) ON DELETE CASCADE,
     CONSTRAINT fk_deplements_ingredient FOREIGN KEY (ingredient_id) REFERENCES ingredients(id)
 );
 
