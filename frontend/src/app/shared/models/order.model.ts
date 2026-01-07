@@ -1,7 +1,6 @@
 
-import { ModifiedPizza } from '../../shared/models/pizza.model';
+import { ModifiedPizza, PizzaSize } from '../../shared/models/pizza.model';
 import { User } from '../../shared/models/user.model';
-import { PizzaSize } from './pizza-size.model';
 
 
 export interface OrderItem {

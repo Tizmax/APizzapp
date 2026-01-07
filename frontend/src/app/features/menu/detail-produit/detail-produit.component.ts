@@ -2,10 +2,8 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PizzaService } from '../../../services/pizza.service';
 import { CartService } from '../../../services/cart.service';
-import { ModifiedPizza, Pizza } from '../../../shared/models/pizza.model';
+import { ModifiedPizza, Pizza, Sauce, PizzaSize } from '../../../shared/models/pizza.model';
 import { Ingredient } from '../../../shared/models/ingredient.model';
-import { OrderItem } from '../../../shared/models/order.model';
-import { PizzaSize } from '../../../shared/models/pizza-size.model';
 
 @Component({
   selector: 'app-detail-produit',
@@ -22,6 +20,11 @@ export class DetailProduitComponent {
 
   ingredients : Ingredient[] = [];
   sizes : PizzaSize[] = [];
+  sauces : Sauce[] = [
+    { id: 1, name: 'Rouge', imageUrl: '' },
+    { id: 2, name: 'Blanche', imageUrl: '' },
+    { id: 3, name: 'Rose', imageUrl: '' }
+  ];
  
   constructor(private cartService: CartService, private route: ActivatedRoute, private router: Router, private pizzaService: PizzaService) {}
 
@@ -42,6 +45,7 @@ export class DetailProduitComponent {
     this.pizzaService.getPizzaById(id1).subscribe((data: Pizza) => {
       this.halves.push({
         "pizza" : data,
+        "sauce" : undefined,
         "supplements": [],
         "deplements": []
       })
@@ -50,6 +54,7 @@ export class DetailProduitComponent {
       this.pizzaService.getPizzaById(id2).subscribe((data: Pizza) => {
         this.halves.push({
           "pizza" : data,
+          "sauce" : undefined,
           "supplements": [],
           "deplements": []
         })
@@ -88,6 +93,10 @@ export class DetailProduitComponent {
 
   onSelectSize(size: PizzaSize): void {
     this.selectedSize = size;
+  }
+
+  onSelectSauce(half: ModifiedPizza, sauce: Sauce): void {
+    half.sauce = sauce;
   }
 
   addToCart(): void {

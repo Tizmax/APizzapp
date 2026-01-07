@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Ingredient } from '../shared/models/ingredient.model';
-import { ModifiedPizza } from '../shared/models/pizza.model'; // Votre modèle Pizza
+import { ModifiedPizza, PizzaSize } from '../shared/models/pizza.model'; // Votre modèle Pizza
 import { OrderItem } from '../shared/models/order.model';
-import { PizzaSize } from '../shared/models/pizza-size.model';
 
 // Interface pour un article dans le panier (inchangée)
 

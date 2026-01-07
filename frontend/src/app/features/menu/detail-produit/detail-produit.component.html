@@ -21,21 +21,19 @@
         </div> -->
         
         <!-- Choix des sauces -->
-        <!-- <div class = "col-8">
+        <div class = "col-8">
           <h2>Sauce</h2>
           <div class="row">
-            {% for sauce, img in sauces.items() %}
-            <div class="col-4">
-              <div class="card sauce-card {%if sauce== pizzas[pizza].sauce %} selected-card {%endif%}" data-ingredient="{{ sauce }}">
-                <img src="{{ url_for('static', filename='images/' ~ img) }}" class="card-img-top" alt="{{ sauce }}">
+            <div class="col-4" *ngFor="let sauce of sauces" (click)="onSelectSauce(half, sauce)">
+              <div class="card sauce-card" [ngClass]="sauce === half.sauce ? 'selected-card' : ''">
+                <!-- <img [src]="sauce.imageUrl" class="card-img-top" [alt]="sauce.name"> -->
                 <div class="card-body">
-                  <h5 class="card-title text-center">{{ sauce }}</h5>
+                  <h5 class="card-title text-center">{{ sauce.name }}</h5>
                 </div>
               </div>
             </div>
-            {% endfor %}
           </div>
-        </div> -->
+        </div>
         
         <div class="col-1">
           <!-- Choix des tailles -->

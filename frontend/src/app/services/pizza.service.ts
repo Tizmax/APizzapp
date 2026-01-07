@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Pizza } from '../shared/models/pizza.model'; 
+import { Pizza, PizzaSize } from '../shared/models/pizza.model'; 
 import { Ingredient } from '../shared/models/ingredient.model';
 import { Order } from '../shared/models/order.model';
-import { PizzaSize } from '../shared/models/pizza-size.model';
 
 @Injectable({
   providedIn: 'root'
