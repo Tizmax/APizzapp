@@ -10,6 +10,11 @@ CREATE TABLE price_ranges (
     name VARCHAR(50) NOT NULL
 );
 
+CREATE TABLE supplement_price_ranges (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL
+);
+
 CREATE TABLE pizzas (
   id SERIAL PRIMARY KEY,
   name VARCHAR(100) NOT NULL UNIQUE,
@@ -21,7 +26,7 @@ CREATE TABLE ingredients (
   id BIGSERIAL PRIMARY KEY,
   name VARCHAR(100) NOT NULL UNIQUE,
   available_as_supplement BOOLEAN NOT NULL DEFAULT TRUE,
-  supplement_price NUMERIC(10, 2),
+  supplement_price_range_id INT REFERENCES supplement_price_ranges(id),
   image_url VARCHAR(255)
 );
 
@@ -103,6 +108,14 @@ CREATE TABLE pizza_range_prices (
     size_id INT REFERENCES pizza_sizes(id),
     price NUMERIC(10, 2) NOT NULL,
     PRIMARY KEY (price_range_id, size_id)
+);
+
+-- Correspondance Gamme de Prix Supplément <-> Taille <-> Prix
+CREATE TABLE supplement_range_prices (
+    supplement_price_range_id INT REFERENCES supplement_price_ranges(id),
+    size_id INT REFERENCES pizza_sizes(id),
+    price NUMERIC(10, 2) NOT NULL,
+    PRIMARY KEY (supplement_price_range_id, size_id)
 );
 
 -- Correspondance supplément <-> Taille <-> Prix

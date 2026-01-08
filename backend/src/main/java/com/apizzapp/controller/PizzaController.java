@@ -36,6 +36,7 @@ import com.apizzapp.repository.SauceRepository;
 import com.apizzapp.repository.UserRepository;
 import com.apizzapp.controller.dto.InputOrderDTO;
 import com.apizzapp.repository.PizzaRangePriceRepository;
+import com.apizzapp.repository.SupplementRangePriceRepository;
 
 
 @RequestMapping("/api")
@@ -51,6 +52,9 @@ public class PizzaController {
 
     @Autowired
     PizzaRangePriceRepository pizzaRangePriceRepository;
+
+    @Autowired
+    SupplementRangePriceRepository supplementRangePriceRepository;
 
     @Autowired
     IngredientRepository ingredientRepository;
@@ -171,7 +175,18 @@ public class PizzaController {
         if (item.getHalf2() != null) {
             BigDecimal price2 = getPriceForPizza(item.getHalf2().getPizza(), size);
             // On prend le max des deux
-            basePrice = price1.max(price2);
+            BigDecimal supp;
+            if (item.getHalf1().getPizza().getId().equals(item.getHalf2().getPizza().getId())) {
+                supp = BigDecimal.ZERO; // Pas de supplément si même pizza
+            } else if (size.getLabel().equalsIgnoreCase("G")) {
+                supp = new BigDecimal("2.5");
+            } else if (size.getLabel().equalsIgnoreCase("M")) {
+                supp = new BigDecimal("1.5");
+            } else {
+                supp = BigDecimal.ZERO;
+            }
+
+            basePrice = price1.max(price2).add(supp);
         } else {
             basePrice = price1;
         }
@@ -181,7 +196,7 @@ public class PizzaController {
         // 2. Ajout des suppléments pour la moitié 1
         if (item.getHalf1().getSupplements() != null) {
             BigDecimal supps = item.getHalf1().getSupplements().stream()
-                .map(ing -> ing.getSupplementPrice() != null ? ing.getSupplementPrice() : BigDecimal.ZERO)
+                .map(ing -> getPriceForSupplement(ing, size))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
             totalPrice = totalPrice.add(supps);
         }
@@ -189,13 +204,22 @@ public class PizzaController {
         // 3. Ajout des suppléments pour la moitié 2 (si elle existe)
         if (item.getHalf2() != null && item.getHalf2().getSupplements() != null) {
             BigDecimal supps = item.getHalf2().getSupplements().stream()
-                .map(ing -> ing.getSupplementPrice() != null ? ing.getSupplementPrice() : BigDecimal.ZERO)
+                .map(ing -> getPriceForSupplement(ing, size))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
             totalPrice = totalPrice.add(supps);
         }
 
         // 4. Multiplication par la quantité
         return totalPrice.multiply(new BigDecimal(item.getQuantity()));
+    }
+
+    private BigDecimal getPriceForSupplement(Ingredient ingredient, PizzaSize size) {
+        if (ingredient.getSupplementPriceRange() == null) {
+            return BigDecimal.ZERO;
+        }
+        return supplementRangePriceRepository.findBySupplementPriceRangeAndPizzaSize(ingredient.getSupplementPriceRange(), size)
+            .map(srp -> srp.getPrice())
+            .orElse(BigDecimal.ZERO);
     }
 
     private BigDecimal getPriceForPizza(Pizza pizza, PizzaSize size) {

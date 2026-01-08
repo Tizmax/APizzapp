@@ -24,12 +24,12 @@ export class RecapCommandeComponent implements OnInit{
 
   ngOnInit(): void {
     this.loadCartData(); // Charger les données initialement
-    this.generateTimeSlots(17, 0, 21, 0, 15); // Génère créneaux de 17h00 à 21h00 par tranche de 15 min
+    this.generateTimeSlots(18, 0, 21, 30, 15); // Génère créneaux de 17h00 à 21h00 par tranche de 15 min
 
 
     this.orderForm = this.fb.group({
-      surname: [this.authService.currentUserValue?.firstName || '', Validators.required], // Pré-remplissage si utilisateur connecté, sinon vide
-      name: [this.authService.currentUserValue?.lastName || '', Validators.required], // Pré-remplissage si utilisateur connecté, sinon vide
+      surname: '', // Pré-remplissage si utilisateur connecté, sinon vide
+      name: '', // Pré-remplissage si utilisateur connecté, sinon vide
       scheduledTime: ['', Validators.required], // Champ pour le créneau horaire
     });
   }

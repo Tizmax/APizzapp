@@ -6,8 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.EqualsAndHashCode; // Importer pour Lombok
 
-import java.math.BigDecimal;
-
 @Entity
 @Table(name = "ingredients")
 @Getter
@@ -29,17 +27,18 @@ public class Ingredient {
 
     // Prix de cet ingrédient S'IL EST AJOUTÉ comme supplément
     // Peut être 0.00 si le supplément est gratuit, ou null/0 si non dispo en supplément
-    @Column(precision = 10, scale = 2) // Ajustez precision/scale
-    private BigDecimal supplementPrice;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "supplement_price_range_id")
+    private SupplementPriceRange supplementPriceRange;
 
     @Column(length = 255)
     private String imageUrl;
 
 
-    public Ingredient(String name, String description, boolean availableAsSupplement, BigDecimal supplementPrice) {
+    public Ingredient(String name, String description, boolean availableAsSupplement, SupplementPriceRange supplementPriceRange) {
         this.name = name;
         this.availableAsSupplement = availableAsSupplement;
-        this.supplementPrice = supplementPrice;
+        this.supplementPriceRange = supplementPriceRange;
     }
 
     // equals/hashCode géré par Lombok @EqualsAndHashCode(of = "id")
