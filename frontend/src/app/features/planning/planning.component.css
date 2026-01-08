@@ -19,3 +19,23 @@ h1 {
 }
 
 
+.merged-time-column {
+  vertical-align: middle; /* Centre le texte verticalement dans la fusion */
+  text-align: center;
+  background-color: #f1f1f1 !important;
+  border-right: 2px solid #d62828;
+  font-size: 1.2rem;
+  color: black;
+  font-weight: bold;
+  padding: 15px !important;
+}
+
+/* On ajoute une bordure plus marquée entre les différents créneaux horaires */
+.order-row {
+  border-bottom: 1px solid #dee2e6;
+}
+
+/* Optionnel : Une bordure plus épaisse en haut de chaque nouveau créneau */
+tr:has(td[rowspan]) {
+  border-top: 2px solid #d62828;
+} 

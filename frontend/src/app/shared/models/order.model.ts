@@ -21,4 +21,5 @@ export interface Order {
   totalAmount: number;
   user: User | null;
   orderItems: OrderItem[];
+  rowspan?: number; // Propriété optionnelle pour l'affichage dans le planning
 }

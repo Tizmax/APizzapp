@@ -27,8 +27,13 @@ export class PlanningComponent implements OnInit {
     this.planningService.getAllOrders().subscribe({
       next: (orders: Order[]) => {
         this.planning = orders.sort((a, b) => {
-          return a.scheduledTime.localeCompare(b.scheduledTime);
+          const timeCompare = a.scheduledTime.localeCompare(b.scheduledTime);
+          if (timeCompare !== 0) {
+            return timeCompare;
+          }
+          return a.id - b.id; // Assure la stabilité du tri au sein du quart d'heure
         });
+        this.calculateRowspans();
         console.log('Commandes récupérées depuis le backend :', this.planning);
       },
       error: (err) => {
@@ -37,6 +42,33 @@ export class PlanningComponent implements OnInit {
     });
   }
 
+  calculateRowspans() {
+    if (!this.planning || this.planning.length === 0) return;
+
+    for (let i = 0; i < this.planning.length; i++) {
+      const currentOrder = this.planning[i];
+      
+      // Si c'est la première ligne ou si l'heure change par rapport à la ligne précédente
+      if (i === 0 || currentOrder.scheduledTime !== this.planning[i - 1].scheduledTime) {
+        let count = 0;
+        
+        // On compte combien de commandes suivent avec le même horaire
+        for (let j = i; j < this.planning.length; j++) {
+          if (this.planning[j].scheduledTime === currentOrder.scheduledTime) {
+            count++;
+          } else {
+            break; // On sort de la boucle dès que l'heure change
+          }
+        }
+        
+        // On assigne le compte à la première commande du bloc
+        currentOrder.rowspan = count;
+      } else {
+        // Pour les autres lignes du même créneau, on met 0 (elles seront masquées)
+        currentOrder.rowspan = 0;
+      }
+    }
+  }
 
   removeOrder(id: number): void {
     // Show confirmation dialog
@@ -57,25 +89,23 @@ export class PlanningComponent implements OnInit {
     const current = order.status ;
     
     const etats = [
-      'PENDING',
-      'PAID',
-      'PREPARING',
-      'READY_FOR_PICKUP',
-      'CANCELLED'
+      'EN ATTENTE',
+      'RANGÉE',
+      'PARTIE',
     ];
 
     const idx = etats.indexOf(current);
     const nextIdx = idx === etats.length - 1 ? 0 : idx + 1;
     const newStatus = etats[nextIdx];
 
-    this.planningService.updateOrderStatus(order.id, newStatus).subscribe({
-      next: (updatedOrder: Order) => {
-        order.status = updatedOrder.status;
-      },
-      error: (err: any) => {
-        console.error('Erreur lors de la mise à jour de l’état :', err);
-      }
-    });
+    // this.planningService.updateOrderStatus(order.id, newStatus).subscribe({
+    //   next: (updatedOrder: Order) => {
+    //     order.status = updatedOrder.status;
+    //   },
+    //   error: (err: any) => {
+    //     console.error('Erreur lors de la mise à jour de l’état :', err);
+    //   }
+    // });
   }
 
 

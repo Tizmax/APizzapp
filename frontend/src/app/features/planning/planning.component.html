@@ -15,36 +15,30 @@
     </thead>
 
     <tbody *ngIf="planning && planning.length > 0">
-      <tr *ngFor="let order of planning">
-        <td>{{ order.scheduledTime }}</td>
+      <tr *ngFor="let order of planning; let i = index" >
         
-
+        <td *ngIf="order.rowspan && order.rowspan > 0" [attr.rowspan]="order.rowspan!" class="merged-time-column">
+          {{ order.scheduledTime }}
+        </td>
         <td>{{ order.firstNameGuest }} {{ order.lastNameGuest }} <span *ngIf="order.user === null">(Invité)</span></td>
         
         <!-- Liste des pizzas dans la commande -->
         <td>
-          <ul>
-            <li *ngFor="let item of order.orderItems">
-              {{ item.quantity }} {{item.size.label}}
-              
-              <span *ngFor="let half of item.half2 ? [item.half1, item.half2] : [item.half1]; let isLastHalf = last">
-                <span *ngIf="isLastHalf && item.half2">/</span>
-                {{ half.pizza.name }} {{half.sauce?.name}}
-                <span *ngIf="half.supplements && half.supplements.length > 0">
-                  + 
-                  <span *ngFor="let supplement of half.supplements; let isLast = last">
-                    {{ supplement.name }}{{ !isLast ? ', ' : '' }}
-                  </span>
-                </span>
-                <span *ngIf="half.deplements && half.deplements.length > 0">
-                  - 
-                  <span *ngFor="let deplement of half.deplements; let isLast = last">
-                    {{ deplement.name }}{{ !isLast ? ', ' : '' }}
-                  </span>
-                </span>
+          <span *ngFor="let item of order.orderItems">
+            {{ item.quantity }} {{item.size.label}}
+            
+            <span *ngFor="let half of item.half2 ? [item.half1, item.half2] : [item.half1]; let isLastHalf = last">
+              <span *ngIf="isLastHalf && item.half2">/</span>
+              {{ half.pizza.name }} {{half.sauce?.name}}
+              <span *ngFor="let supplement of half.supplements">
+                + {{ supplement.name }}
               </span>
-            </li>
-          </ul>
+              <span *ngFor="let deplement of half.deplements">
+                - {{ deplement.name }}
+              </span>
+            </span>
+            <br />
+          </span>
         </td>
 
         <!-- Ajouter la liste des ingrédients / dépléments -->
