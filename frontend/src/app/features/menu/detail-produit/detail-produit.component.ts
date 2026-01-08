@@ -96,7 +96,11 @@ export class DetailProduitComponent {
   }
 
   onSelectSauce(half: ModifiedPizza, sauce: Sauce): void {
-    half.sauce = sauce;
+    if (half.sauce && half.sauce.id === sauce.id) {
+      half.sauce = undefined;
+    } else {
+      half.sauce = sauce;
+    }
   }
 
   addToCart(): void {
