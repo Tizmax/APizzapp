@@ -21,7 +21,7 @@ services:
   backend:
     build:
       context: .
-      dockerfile: DockerFile  # spécifier le chemin du Dockerfile
+      dockerfile: Dockerfile  # spécifier le chemin du Dockerfile
     ports:
       - "8080:8080"  # expose le port 8080 de votre backend
     environment:
@@ -34,7 +34,7 @@ services:
   frontend:
     build:
       context: ./frontend
-      dockerfile: DockerFile  # spécifier le chemin du Dockerfile
+      dockerfile: Dockerfile  # spécifier le chemin du Dockerfile
     ports:
       - "4200:4200"
     volumes:
