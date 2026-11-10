@@ -20,7 +20,6 @@
         <td *ngIf="order.rowspan && order.rowspan > 0" [attr.rowspan]="order.rowspan!" class="merged-time-column">
           {{ order.scheduledTime }}
         </td>
-        <td>{{ order.firstNameGuest }} {{ order.lastNameGuest }} <span *ngIf="order.user === null">(Invité)</span></td>
         
         <!-- Liste des pizzas dans la commande -->
         <td>
@@ -40,8 +39,9 @@
             <br />
           </span>
         </td>
-
-        <!-- Ajouter la liste des ingrédients / dépléments -->
+        
+        <td>{{ order.firstNameGuest }} {{ order.lastNameGuest }} <span *ngIf="order.user === null">(Invité)</span></td>
+        
 
         <td>{{ order.totalAmount }} €</td>
         <td>
@@ -71,6 +71,6 @@
   </table>
 
   <div class="new-order-button">
-    <a routerLink="/choose_pizza" class="btn btn-primary mt-4">Nouvelle commande</a>
+    <a routerLink="/menu" class="btn btn-primary mt-4">Nouvelle commande</a>
   </div>
 </div>

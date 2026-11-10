@@ -103,9 +103,13 @@ export class DetailProduitComponent {
     }
   }
 
-  addToCart(): void {
+  addToCart(follow: boolean = false): void {
     if (!this.selectedSize) return;
     this.cartService.addItem(this.halves[0], this.halves[1], this.selectedSize);
-    this.router.navigate(['recap-commande'], { relativeTo: this.route.parent }); 
+    if (!follow) {
+      this.router.navigate(['recap-commande'], { relativeTo: this.route.parent }); 
+    } else {
+      this.router.navigate(['/menu']);
+    }
   }
 }

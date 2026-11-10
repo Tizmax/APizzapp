@@ -80,7 +80,8 @@
 
     <!-- Bouton valider -->
     <div class="text-center mt-4">
-      <a class='btn btn-primary' (click)="addToCart()">Ajouter cette pizza</a>
+      <a class='btn btn-primary' (click)="addToCart()">Enregistrer</a>
+      <a class='btn btn-primary' (click)="addToCart(true)">Enregistrer et continuer</a>
     </div>
     
     <div *ngFor="let half of halves" [ngClass]="halves.length > 1 ? 'col-6' : 'col-12'">
